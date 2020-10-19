@@ -7,7 +7,7 @@ import {FooterComponent} from './footer/footer.component';
 
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent },
+  {path: '', component: HomeComponent, pathMatch: 'full' },
   {path: 'header', component: HeaderComponent },
   {path: 'footer', component: FooterComponent },
   {path: 'error', component: ErrorComponent },

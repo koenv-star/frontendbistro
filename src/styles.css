@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  padding: 0;
+  margin: 0;
+
+}
+body{
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(circle, rgba(250, 124, 56, 1) 18%,
+                              rgba(251, 170, 45, 1) 54%,
+                              rgba(255, 156, 64, 1) 100%);
+
+}

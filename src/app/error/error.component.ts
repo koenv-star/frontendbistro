@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {BroadcastServiceService} from '../services/BroadcastService/broadcast-service.service';
 
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css']
+  styleUrls: ['./error.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class ErrorComponent implements OnInit {
