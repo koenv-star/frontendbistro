@@ -12,3 +12,12 @@ body{
                               rgba(255, 156, 64, 1) 100%);
 
 }
+
+.btn-custom{
+  font-weight: bold !important;
+  background:#FACB0D !important;
+}
+.btn:hover{
+  background: #04F500 !important;
+  transition: 1s;
+}
