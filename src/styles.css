@@ -4,20 +4,44 @@ html {
   margin: 0;
 
 }
-body{
-  height: 100%;
-  width: 100%;
-  background: radial-gradient(circle, rgba(250, 124, 56, 1) 18%,
-                              rgba(251, 170, 45, 1) 54%,
-                              rgba(255, 156, 64, 1) 100%);
 
+body {
+  box-sizing: border-box;
+  background-image: url("assets/images/background.png");
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  color: #B72DE4 !important;
 }
 
-.btn-custom{
+.btn-custom {
   font-weight: bold !important;
-  background:#FACB0D !important;
+  background: none !important;
+  border: 2px solid #B72DE4 !important;
+  border-radius: 21px !important;
+  color: #B72DE4 !important;
 }
-.btn:hover{
+
+.btn:hover {
   background: #04F500 !important;
   transition: 1s;
+}
+
+
+@media (min-width: 800px) {
+  html {
+    font-size: 1.2rem;
+  }
+
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 1rem;  /*1rem = 16px*/
+  }
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 0.5rem;
+  }
 }
