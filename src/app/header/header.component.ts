@@ -8,7 +8,14 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
+  navbarOpen = false;
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
 
   ngOnInit(): void {
   }

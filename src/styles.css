@@ -15,6 +15,7 @@ body {
 
 .btn-custom {
   font-weight: bold !important;
+  font-family: "Apple Chancery", serif;
   background: none !important;
   border: 2px solid #B72DE4 !important;
   border-radius: 21px !important;
@@ -22,7 +23,8 @@ body {
 }
 
 .btn:hover {
-  background: #04F500 !important;
+  background: #FECB0F !important;
+
   transition: 1s;
 }
 
@@ -31,7 +33,6 @@ body {
   html {
     font-size: 1.2rem;
   }
-
 }
 
 @media (max-width: 600px) {
