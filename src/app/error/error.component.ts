@@ -11,6 +11,7 @@ import {BroadcastServiceService} from '../services/BroadcastService/broadcast-se
 
 export class ErrorComponent implements OnInit {
   message;
+  customMessage;
   erNumber;
   constructor(public boradcastService: BroadcastServiceService) {
   }
@@ -24,6 +25,16 @@ export class ErrorComponent implements OnInit {
         console.log(value);
         this.message = value;
       });
+      if (this.erNumber == 500){
+        this.customMessage = 'Oops, There is a error with ... ';
+      } else if (this.erNumber == 400){
+        this.customMessage = 'Please don\'t make more bad requests';
+      }
+      else if ( this.erNumber == 404){
+        this.customMessage = 'Oops, We couldn\'t find the page you were looking for... ';
+      }else{
+        this.customMessage = 'Oops,Something went wrong...';
+      }
   }
 
 

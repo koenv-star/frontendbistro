@@ -2,12 +2,13 @@
 <div class="d-flex text-center justify-content-sm-center align-items-center mt-5">
 <div class=" container text-center">
   <div class="mb-4 mt-4 container-fluid ">
-    <img  class="img-fluid " src="./assets/images/errorImg/404.png" alt="404 page not found">
+    <img  class="img-fluid " src="./assets/images/errorImg/generalErrorIcon.png" alt="404 page not found">
   </div>
   <div class="container  ">
-    <h3>Oops. Something went wrong!</h3>
-
-    {{message}}
+    <h4>Bug Busters...</h4>
+    <p *ngIf="erNumber!=0">{{erNumber}}</p>
+    <p>{{customMessage}}</p>
+    <p>{{message}}</p>
 
     <a routerLink='../'><button type="button" class="btn btn-custom my-1">Home Page</button></a>
 
