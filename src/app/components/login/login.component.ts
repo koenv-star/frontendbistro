@@ -11,6 +11,8 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
+  headers; any;
+
   constructor(
     private service: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -29,12 +31,8 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.value.password;
     console.log(username, password);
     this.service.authenticate(username, password).subscribe((data) => {
-      // console.log(data.headers.get('Authorization'));
-      console.log(data.headers.getAll('authorization'));
-
-      
-      
-
-    });
+      const keys =data.headers.keys();
+      this.headers = keys.map(key=>`${key}: ${data.headers.get(key)}`)
+    console.log(this.headers)});
   }
 }
