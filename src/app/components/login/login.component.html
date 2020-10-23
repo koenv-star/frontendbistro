@@ -1,6 +1,6 @@
 <div class="row m-5">
     <div class="col-7">
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+<form [formGroup]="loginForm" *ngIf=!loginstatus (ngSubmit)="login()">
   <label for="username">Username :</label>
   <input
     type="text"
@@ -19,5 +19,7 @@
 
   <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
+
+<h1 *ngIf=loginstatus>Already logged in !</h1>
     </div>
     </div>

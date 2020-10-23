@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
+import { Costumer } from '../models/costumer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -10,6 +10,7 @@ const httpOptions = {
 
 const LOGIN_URL = 'http://localhost:8080/login';
 const REG_URL = 'http://localhost:8080/klanten/register';
+const LIST_URL = 'http://localhost:8080/klanten';
 
 @Injectable({
   providedIn: 'root',
@@ -68,5 +69,9 @@ export class AuthenticationService {
       },
       httpOptions
     );
+  }
+
+  list(): Observable<Costumer[]> {
+    return this.http.get<Costumer[]>(LIST_URL);
   }
 }
