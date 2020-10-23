@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  padding: 0;
+  margin: 0;
+
+}
+
+body {
+  box-sizing: border-box;
+  background-image: url("assets/images/background.png");
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  color: #B72DE4 !important;
+}
+
+.btn-custom {
+  font-weight: bold !important;
+  font-family: "Apple Chancery", serif;
+  background: none !important;
+  border: 2px solid #B72DE4 !important;
+  border-radius: 21px !important;
+  color: #B72DE4 !important;
+}
+
+.btn:hover {
+  background: #FECB0F !important;
+
+  transition: 1s;
+}
+
+
+@media (min-width: 800px) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 1rem;  /*1rem = 16px*/
+  }
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 0.5rem;
+  }
+}

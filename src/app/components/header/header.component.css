@@ -1,0 +1,25 @@
+
+nav  ul li a{
+  color: #B72DE4 !important;
+  border-radius: 21px;
+  font-family: "Apple Chancery", serif;
+}
+
+nav  ul li a:hover{
+  background: #FECB0F !important;
+  transition: 1s;
+}
+.navbar-toggler{
+  width: 47px;
+  height: 34px;
+  background-color: transparent;
+  border: 1px solid #B72DE4 !important;
+}
+.navbar-toggler .line{
+  width: 100%;
+  float: left;
+  height: 2px;
+  background-color: #B72DE4;
+  margin-bottom: 5px;
+}
+
