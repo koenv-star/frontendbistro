@@ -10,10 +10,10 @@ import {RegisterComponent} from './components/register/register.component';
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'costumerlist', component: CostumersListComponent },
-  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'header', component: HeaderComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'error', component: ErrorComponent },

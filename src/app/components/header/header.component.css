@@ -9,4 +9,15 @@ nav  ul li a:hover{
   background: #FECB0F !important;
   transition: 1s;
 }
-
+.navbar-toggler{
+  width: 47px;
+  height: 30px;
+  border: 2px solid #B72DE4 !important;
+}
+.navbar-toggler .line{
+  width: 100%;
+  float: left;
+  height: 2px;
+  background-color: #B72DE4;
+  margin-bottom: 5px;
+}
