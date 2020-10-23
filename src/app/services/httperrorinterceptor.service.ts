@@ -2,7 +2,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {BroadcastServiceService} from './BroadcastService/broadcast-service.service';
+import {BroadcastServiceService} from './broadcast-service.service';
 import {Injectable} from '@angular/core';
 
 @Injectable({
