@@ -3,7 +3,7 @@
     <img src="../../../assets/images/LogoJammik/Jammik.png" width="100" height="25" class="d-inline-block align-top"
          alt="Jammik Logo" loading="lazy">
   </a>
-  <button class="navbar-toggler "  type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+  <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
           (click)="toggleNavbar()">
     <span class="line"></span>
@@ -14,16 +14,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav ml-auto text-center">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
       </li>
 
       <li class="nav-item">
-        <a href="" class="nav-link">
-          <img src="assets/images/BannerIcons/LoginIcon.png"  class="mr-1 ml-0" width="auto" height="16" alt="">Log In
+        <a  routerLink="/login" class="nav-link">
+          <img src="assets/images/BannerIcons/loginIcon.png"  class="mr-1 ml-0" width="auto" height="16" alt="">Log In
       </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link">
+        <a routerLink="/register" class="nav-link">
           <img src="../../../assets/images/BannerIcons/SignupIcon.png" class="mr-1" width="auto" height="16" alt="">Sign Up
         </a>
       </li>
