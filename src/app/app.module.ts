@@ -5,10 +5,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttperrorinterceptorService} from './services/httperrorinterceptor.service';
-import {ErrorComponent} from './error/error.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import {ErrorComponent} from './components/error/error.component';
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
