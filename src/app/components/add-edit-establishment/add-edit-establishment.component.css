@@ -1,3 +1,7 @@
+form {
+  background: rgba(191, 191, 191, .2);
+}
+
 label {
   display: inline-block;
   width: 140px;
@@ -6,4 +10,18 @@ label {
 
 #parkingCheckbox {
   width: 25px;
+}
+
+input[type=file]:hover {
+  cursor: pointer;
+}
+
+.custom-file-label {
+  width: 100%;
+}
+
+/* change content of file selector button */
+.custom-file-input ~ .custom-file-label::after {
+  content: url('../../../assets/bootstrap-icons/search.svg');
+  background-color:  green;
 }

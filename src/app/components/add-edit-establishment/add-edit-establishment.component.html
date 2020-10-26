@@ -206,35 +206,36 @@
 
     <hr />
 
-    <div id="formTables" formGroupName="tables" class="form-area">
+    <div formGroupName="tables" class="form-area">
       <div class="row mt-2">
         <div class="col-md-12">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label"></label>
 
             <div class="col-sm-10">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <input
+                      class="form-control col-sm-6"
+                      formControlName="aantalTafels"
+                      type="number"
+                    />
+                    <span class="col-sm-6">tafels van</span>
+                  </div>
+                </div>
 
-            <div class="row">
-
-              <div class="col-sm-5">
-                <input
-                  class="form-control"
-                  formControlName="aantalTafels"
-                  type="number"
-                />
-                tafels van
+                <div class="col-sm-6">
+                  <div class="row">
+                    <input
+                      class="form-control col-sm-6"
+                      formControlName="aantalStoelen"
+                      type="number"
+                    />
+                    <span class="col-sm-6">stoelen</span>
+                  </div>
+                </div>
               </div>
-
-              <div class="col-sm-5">
-                <input
-                  class="form-control"
-                  formControlName="aantalStoelen"
-                  type="number"
-                />
-                stoelen
-              </div>
-
-            </div>
             </div>
           </div>
         </div>
@@ -243,6 +244,23 @@
 
     <hr />
 
-    <input type="submit" class="btn btn-primary" />
+    <div formGroupName="image">
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <div class="custom-file">
+            <input
+              class="custom-file-input"
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              id="customFile"
+              formControlName="image"
+            />
+            <label class="custom-file-label" for="customFile"
+              >Upload Image:</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
 </div>

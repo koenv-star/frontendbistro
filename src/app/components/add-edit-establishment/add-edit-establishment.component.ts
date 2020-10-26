@@ -51,6 +51,9 @@ export class AddEditEstablishmentComponent implements OnInit {
         aantalTafels: new FormControl('', [Validators.required, Validators.min(1)]),
         aantalStoelen: new FormControl('', [Validators.required, Validators.min(1)])
       }),
+      image: this.formBuilder.group({
+        image: new FormGroup(null, [Validators.required, JammikValidators.mustBePngJpgOrJpeg])
+      }),
     });
   }
 

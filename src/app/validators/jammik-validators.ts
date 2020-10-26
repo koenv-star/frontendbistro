@@ -30,4 +30,23 @@ export class JammikValidators {
   else
     return null;
   }
+
+  // file extension validation
+  static mustBePngJpgOrJpeg(control: FormControl): ValidationErrors {
+
+    const regexp = new RegExp(/^(png|jpg|jpeg)$/);
+
+    if(control.value != null) {
+
+      const nameLength: number = control.value.length;
+      const beginPosition: number = control.value.includes('.jpeg') ? nameLength -4 : nameLength -3;
+      const extension: string = control.value.substring(beginPosition);
+
+      console.log(extension);
+
+      return (regexp.test(extension) ? null : { 'mustBePngJpgOrJpeg': true });
+    } else {
+      return { 'mustBePngJpgOrJpeg': true };
+    }
+  }
 }
