@@ -12,7 +12,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginstatus:boolean= false;
+  loginstatus: boolean = false;
   constructor(
     private service: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],

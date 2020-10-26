@@ -10,16 +10,16 @@ body {
   background-image: url("assets/images/background.png");
   background-size: cover !important;
   background-repeat: no-repeat !important;
-  color: #B72DE4 !important;
+  color: black !important;
 }
 
 .btn-custom {
   font-weight: bold !important;
   font-family: "Apple Chancery", serif;
   background: none !important;
-  border: 2px solid #B72DE4 !important;
-  border-radius: 21px !important;
-  color: #B72DE4 !important;
+  border: 2px solid black !important;
+  border-radius: 15px !important;
+  color: black !important;
 }
 
 .btn:hover {

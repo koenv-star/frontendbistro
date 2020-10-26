@@ -24,7 +24,7 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getToken(): String {
+  public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 

@@ -11,14 +11,21 @@ import { User } from 'src/app/models/user';
   encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
-register: FormGroup;
+registerForm: FormGroup;
 newCostumer: Costumer;
 newOwner: Owner;
+registerStatus = false;
 
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+
+  register(): void{
+
   }
 
 }

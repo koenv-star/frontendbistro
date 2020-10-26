@@ -1,0 +1,12 @@
+label{
+  color: black;
+}
+input {
+  border-radius: 21px !important;
+  background-color: transparent!important;
+  color: black!important;
+}
+select{
+  background-color: transparent !important;
+  border-radius: 21px !important;
+}

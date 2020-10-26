@@ -1,21 +1,111 @@
-<app-header></app-header>
 <div class="d-flex justify-content-center">
   <div class="container">
     <!--Title-->
     <div class="row">
       <div class="col-lg d-flex justify-content-center">
         <div class="d-flex flex-column align-items-center">
-          <img alt="welkom bij Jammik" class="d-none d-lg-block img-fluid" src="assets/images/BannerIcons/welkombijJammik.png">
-          <img alt="welkom bij Jammik" class="d-lg-none img-fluid" src="assets/images/BannerIcons/LoginBanner.png">
+          <img src="assets/images/BannerIcons/welkombijJammik.png" class="img-fluid d-lg-block mb-3"
+               style="width: auto; height: 100px;" alt="Welkom bij Jammik">
+          <img alt="Registreren Banner" class=" d-lg-block img-fluid"
+               src="assets/images/BannerIcons/RegistrerenBannerIcon.png">
+          <div class="container">
+            <form [formGroup]="registerForm" *ngIf=!registerStatus (ngSubmit)="register()">
+
+              <!--naam en achternaam-->
+              <div class="row">
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                  <label class="mt-3" for="naam"><i class="fa fa-user mr-2" aria-hidden="true"></i>Naam :</label>
+                  <input type="text" class="form-control" placeholder="Uw Naam" formControlName="naam" required=""/>
+                </div>
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                  <label class="mt-3" for="achternaam"><i class="fa fa-user mr-2" aria-hidden="true"></i>Achternaam
+                    :</label>
+                  <input type="text" class="form-control" placeholder="Uw Achternaam" formControlName="achternaam"
+                         required=""/>
+                </div>
+              </div>
+
+
+              <!--e-mail-->
+              <div class="row">
+                <div class="row col-lg d-flex justify-content-start mx-3">
+
+                  <label class="mt-3" for="email"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>Email :</label>
+                  <input type="text" class="form-control" placeholder="example@example.be" formControlName="email"
+                         required=""/>
+                </div>
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                  <label class="mt-3" for="her-email"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>Her-Email
+                    :</label>
+                  <input type="text" class="form-control" placeholder="example@example.be" formControlName="her-email"
+                         required=""/>
+                </div>
+              </div>
+
+
+              <!--Wachtwoord-->
+              <div class="row">
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                  <label class="mt-3" for="wachtwoord"><i class="fa fa-key mr-2" aria-hidden="true"></i>Wachtwoord
+                    :</label>
+                  <input type="text" class="form-control" placeholder="Uw Wachtwoord" formControlName="wachtwoord"
+                         required=""/>
+                </div>
+                <div class="row col-lg d-flex justify-content-start mx-3">
+
+                  <label class="mt-3" for="her-wachtwoord"><i class="fa fa-key mr-2" aria-hidden="true"></i>Her-Wachtwoord
+                    :</label>
+                  <input type="text" class="form-control" placeholder="Herhaal uw wachtwoord"
+                         formControlName="her-wachtwoord" required=""/>
+                </div>
+              </div>
+
+              <!--Rol-->
+              <div class="row">
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                  <label class="mt-3" for="rol"><i class="fa fa-cogs mr-2" aria-hidden="true"></i>Rol :</label>
+                  <select class="form-control" formControlName="rol" name="rol" required="">
+                    <option value="default" disabled>Select Uw rol</option>
+                    <option value="gebruiker">Gebruiker</option>
+                    <option value="uitbater">Uitbater</option>
+                  </select>
+                </div>
+
+                <div class="row col-lg d-flex justify-content-start mx-3">
+                </div>
+              </div>
+
+              <div class="row ">
+
+                <!--Log in button-->
+                <div class="row col-lg d-flex justify-content-end">
+                  <button type="submit" class="btn btn-custom m-5"
+                          style="color:black !important;border-color: black!important; width: 200px!important;">schreef
+                    in
+                  </button>
+                </div>
+                <!--Cancel Button-->
+                <div class="row col-lg d-flex justify-content-start ">
+                  <a href="/index.html">
+                    <button type="button" class="btn btn-custom m-5"
+                            style="color:black !important; width: 200px!important; border-color: black!important;">
+                      Annuleer!
+                    </button>
+                  </a>
+
+                </div>
+              </div>
+
+
+            </form>
+
+
+            <h1 *ngIf=registerStatus>Already logged in !</h1>
+          </div>
         </div>
       </div>
-    </div>
-    <!--Main section-->
-    <div class="container">
-      <form action="" method="post">
-        <input type="submit" name="submit" />
-      </form>
     </div>
   </div>
 </div>
 <app-footer></app-footer>
+
