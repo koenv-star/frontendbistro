@@ -3,3 +3,7 @@ label {
   width: 140px;
   text-align: left;
 }
+
+#parkingCheckbox {
+  width: 25px;
+}
