@@ -12,7 +12,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginstatus: boolean = false;
+  loginstatus: boolean = this.tokenservice.getUser();
   constructor(
     private service: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       this.tokenservice.saveToken(token);
       this.tokenservice.saveUser(new User(username, null, null));
       // this.router.navigateByUrl('/');
-      this.loginstatus = true;
     });
   }
 }
