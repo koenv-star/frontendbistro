@@ -1,2 +1,75 @@
-<h1 class="text-center">Voeg hier uw zaak toe!</h1>
+<div class="container">
+  <h1>Voeg hier uw zaak toe!</h1>
 
+  <form [formGroup]="addEstablishmentFormGroup" (ngSubmit)="onSubmit()">
+
+    <div formGroupName="establishment" class="form-area">
+      <div class="row mt-2">
+        <div class="col-md-12">
+
+            <div class="form-group row">
+              <label for="naam" class="col-sm-2 col-form-label">Naam:</label>
+              <div class="col-sm-10">
+                <input
+                id="naam"
+                class="form-control"
+                formControlName="establishmentName"
+                type="text"
+              />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="parking" class="col-sm-2 col-form-label">Parking:</label>
+              <div class="col-sm-10">
+                <input
+                class="form-control"
+                formControlName="parking"
+                type="checkbox"
+                placeholder="Parking:"
+              />
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div formGroupName="address" class="form-area">
+      <div class="row mt-2">
+        <div class="col-md-12">
+
+          <div class="form-group row">
+            <label for="straat" class="col-sm-2 col-form-label">Straat:</label>
+            <div class="col-sm-10">
+              <input id="straat" class="form-control" formControlName="street" type="text" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="huisnummer" class="col-sm-2 col-form-label">Huisnummer:</label>
+            <div class="col-sm-10">
+              <input id="huisnummer" class="form-control" formControlName="bus" type="text" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="postcode" class="col-sm-2 col-form-label">Postcode:</label>
+            <div class="col-sm-10">
+              <input id="postcode" class="form-control" formControlName="zipcode" type="number" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="gemeente" class="col-sm-2 col-form-label">Gemeente:</label>
+            <div class="col-sm-10">
+              <input id="gemeente" class="form-control" formControlName="gemeente" type="text" />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

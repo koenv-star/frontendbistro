@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { JammikValidators } from 'src/app/validators/jammik-validators';
 
 @Component({
   selector: 'app-add-edit-establishment',
@@ -7,9 +9,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditEstablishmentComponent implements OnInit {
 
-  constructor() { }
+  addEstablishmentFormGroup: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  // build the form for adding an establishment
+  buildForm(): void {
+    this.addEstablishmentFormGroup = this.formBuilder.group({
+
+      establishment: this.formBuilder.group({
+        establishmentName: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        parking: new FormControl()
+      }),
+
+      address: this.formBuilder.group({
+        street: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        zipcode: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
+        community: new FormControl('', [Validators.required, Validators.minLength(2)])
+      }),
+      openingHours: this.formBuilder.group({}),
+      menu: this.formBuilder.group({}),
+      tables: this.formBuilder.group({}),
+    });
+  }
+
+  onSubmit(): void {
+
   }
 
 }
