@@ -1,7 +1,7 @@
 export class Costumer {
 
 
-  constructor(private naam: String, private voornaam:String, private email:String, private wachtwoord:String){
+  constructor(public naam: String, public voornaam:String, public email:String, public wachtwoord:String){
 
     this.naam=naam;
     this.voornaam=voornaam;
