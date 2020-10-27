@@ -14,7 +14,7 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
-  gemeenten: Map<string, number>;
+  gemeenten: any[];
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
@@ -22,7 +22,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.loadPlaces(11001, 13053);
-    this.gemeenten = new Map();
+    this.gemeenten = new Array();
   }
 
   // build the form for adding an establishment
@@ -99,14 +99,18 @@ export class AddEditEstablishmentComponent implements OnInit {
           let id = g.detail.substring(54,);
           id = Number.parseInt(id);
           return (id >= begin && id <= end);
+        }).sort((a, b) => {
+          let aName = a.gemeentenaam.geografischeNaam.spelling;
+          let bName = b.gemeentenaam.geografischeNaam.spelling;
+
+          if(aName < bName) return -1;
+          else if(aName > bName) return 1;
+          return 0;
         }).forEach(g => {
           let id = g.detail.substring(54,);
           id = Number.parseInt(id);
-          this.gemeenten.set(g.gemeentenaam.geografischeNaam.spelling, id);
+          this.gemeenten.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
         });
-
-        // sort gemeenten
-        this.gemeenten = new Map([...this.gemeenten.entries()].sort());
       });
   }
 

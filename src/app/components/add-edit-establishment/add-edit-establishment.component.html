@@ -58,7 +58,7 @@
         <label for="community">Gemeente:</label>
 
         <select class="form-control" formControlName="community">
-          <option *ngFor="let gemeente of gemeenten | keyvalue">{{ gemeente.key }}</option>
+          <option *ngFor="let gemeente of gemeenten">{{ gemeente.name }}</option>
         </select>
       </div>
 
