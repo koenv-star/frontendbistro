@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class PlacesService {
 
-  private placesBaseUrl: string = 'https://api.basisregisters.vlaanderen.be/v1/gemeenten?limit=500';
+  private placesBaseUrl: string = 'https://api.basisregisters.vlaanderen.be/v1/gemeenten';
 
   constructor(private http: HttpClient) {  }
 
@@ -22,6 +22,6 @@ export class PlacesService {
       'x-api-key': '950f3581-139e-45e4-bca3-18b006335d71'
     });
 
-    return this.http.get<any>(this.placesBaseUrl, {headers: httpHeaders});
+    return this.http.get<any>(this.placesBaseUrl + "?limit=500", {headers: httpHeaders});
   }
 }

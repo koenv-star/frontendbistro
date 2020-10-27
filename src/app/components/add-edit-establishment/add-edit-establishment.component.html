@@ -45,7 +45,7 @@
       <div class="row mt-2">
         <label for="province">Provincie:</label>
 
-        <select class="form-control" formControlName="province">
+        <select class="form-control" formControlName="province" (change)="changeProvince($event)">
           <option value="Antwerpen" selected>Antwerpen</option>
           <option value="Limburg">Limburg</option>
           <option value="Oost-Vlaanderen">Oost-Vlaanderen</option>
@@ -58,7 +58,7 @@
         <label for="community">Gemeente:</label>
 
         <select class="form-control" formControlName="community">
-          <option *ngFor="let gemeente of gemeenten">{{ gemeente.name }}</option>
+          <option *ngFor="let community of selectedCommunities">{{ community.name }}</option>
         </select>
       </div>
 

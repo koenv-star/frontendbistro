@@ -14,15 +14,17 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
-  gemeenten: any[];
+  allCommunities: any[];
+  selectedCommunities: any[];
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadPlaces(11001, 13053);
-    this.gemeenten = new Array();
+    this.loadAllPlaces();
+    this.allCommunities = new Array();
+    this.selectedCommunities = new Array();
   }
 
   // build the form for adding an establishment
@@ -92,26 +94,75 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
 
-  loadPlaces(begin: number, end: number): void {
+  loadAllPlaces(): void {
     this.placesService.getPlaces()
       .subscribe(data => {
         data.gemeenten.filter(g => {
           let id = g.detail.substring(54,);
           id = Number.parseInt(id);
-          return (id >= begin && id <= end);
-        }).sort((a, b) => {
-          let aName = a.gemeentenaam.geografischeNaam.spelling;
-          let bName = b.gemeentenaam.geografischeNaam.spelling;
-
-          if(aName < bName) return -1;
-          else if(aName > bName) return 1;
-          return 0;
+          return (id >= 11001 && id <= 13053) || (id >= 23002 && id <= 24137) || (id >= 31003 && id <= 38025)
+            || (id >= 41002 && id <= 46025) || (id >= 71002 && id <= 72042);
         }).forEach(g => {
           let id = g.detail.substring(54,);
           id = Number.parseInt(id);
-          this.gemeenten.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
+          this.allCommunities.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
         });
+
+        this.fillSelectedCommunities(11001, 13053);
       });
+  }
+
+  fillSelectedCommunities(begin: number, end: number): void {
+
+    this.selectedCommunities = [];
+
+    this.allCommunities.forEach(c => {
+      if(c.id >= begin && c.id <= end)
+        this.selectedCommunities.push(c);
+    });
+
+    this.selectedCommunities.sort((a, b) => {
+
+      if(a.name < b.name) return -1;
+      else if (a.name > b.name) return 1;
+      else return 0;
+    })
+  }
+
+  changeProvince(event): void {
+    let province: string = event.target.value;
+    let begin: number;
+    let end: number;
+
+    switch (province) {
+      case 'Antwerpen': {
+        begin = 11001;
+        end = 13053;
+        break;
+      }
+      case 'Limburg': {
+        begin = 71002;
+        end = 72042;
+        break;
+      }
+      case 'Oost-Vlaanderen': {
+        begin = 41002;
+        end = 46025;
+        break;
+      }
+      case 'Vlaams-Brabant': {
+        begin = 23002;
+        end = 24137;
+        break;
+      }
+      case 'West-Vlaanderen': {
+        begin = 31003;
+        end = 38025;
+        break;
+      }
+    }
+
+    this.fillSelectedCommunities(begin, end);
   }
 
   onSubmit(): void {
