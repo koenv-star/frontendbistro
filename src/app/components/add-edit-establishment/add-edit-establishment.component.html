@@ -41,6 +41,25 @@
     <hr />
 
     <div formGroupName="address" class="form-area">
+
+      <div class="row mt-2">
+        <label for="gemeente">Gemeente:</label>
+
+        <select class="form-control" formControlName="community">
+          <option *ngFor="let gemeente of gemeenten">{{ gemeente.gemeentenaam.geografischeNaam.spelling }}</option>
+        </select>
+      </div>
+
+      <div class="row mt-2">
+        <label for="postcode">Postcode:</label>
+        <input
+          id="postcode"
+          class="form-control"
+          formControlName="zipcode"
+          type="number"
+        />
+      </div>
+
       <div class="row mt-2">
         <label for="straat">Straat:</label>
         <input
@@ -61,23 +80,6 @@
         />
       </div>
 
-      <div class="row mt-2">
-        <label for="postcode">Postcode:</label>
-        <input
-          id="postcode"
-          class="form-control"
-          formControlName="zipcode"
-          type="number"
-        />
-      </div>
-
-      <div class="row mt-2">
-        <label for="gemeente">Gemeente:</label>
-
-        <select class="form-control" formControlName="community">
-          <option *ngFor="let gemeente of gemeenten">{{ gemeente.gemeentenaam.geografischeNaam.spelling }}</option>
-        </select>
-      </div>
     </div>
 
     <hr />

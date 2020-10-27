@@ -34,10 +34,10 @@ export class AddEditEstablishmentComponent implements OnInit {
       }),
 
       address: this.formBuilder.group({
-        street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
-        bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        community: new FormControl('', [Validators.required, Validators.minLength(2)]),
         zipcode: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
-        community: new FormControl('', [Validators.required, Validators.minLength(2)])
+        street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
       }),
 
       openingHours: this.formBuilder.group({
@@ -96,9 +96,11 @@ export class AddEditEstablishmentComponent implements OnInit {
   loadPlaces(): void {
     this.placesService.getPlaces()
       .subscribe(data => {
-        this.gemeenten = data.gemeenten;
-        this.gemeenten.forEach(g => {
-          console.log(g.gemeentenaam.geografischeNaam.spelling);
+        this.gemeenten = data.gemeenten.filter(g => {
+          let id = g.detail.substring(54, );
+          id = Number.parseInt(id);
+          return (id >= 11001 && id <= 13053) || (id >= 23002 && id <= 24137) || (id >= 31003 && id <= 38025) ||
+          (id >= 41002 && id <= 46025) || (id >= 71002 && id <= 72042);
         })
       });
   }
