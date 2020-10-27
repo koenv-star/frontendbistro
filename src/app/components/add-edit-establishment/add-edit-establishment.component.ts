@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
+import { allCommunities } from 'src/app/app.component';
 
 /**
  * Gemaakt door Jan
@@ -14,18 +15,15 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
-  allCommunities: any[];
-  selectedCommunities: any[];
-  communityStartId: number;
-  communityEndId: number;
+  allCommunities = allCommunities;
+  communityStartId: number = 11001;
+  communityEndId: number = 13053;
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadAllPlaces();
-    this.allCommunities = new Array();
   }
 
   // build the form for adding an establishment
@@ -39,8 +37,8 @@ export class AddEditEstablishmentComponent implements OnInit {
 
       address: this.formBuilder.group({
         province: new FormControl('Antwerpen', [Validators.required]),
-        community: new FormControl('', [Validators.required]),
-        zipcode: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
+        community: new FormControl('Aartselaar', [Validators.required]),
+        zipcode: new FormControl(2630, [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
         street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
       }),
@@ -95,62 +93,45 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
 
-  loadAllPlaces(): void {
-    this.placesService.getPlaces()
-      .subscribe(data => {
-        data.gemeenten.filter(g => {
-          let id = g.detail.substring(54,);
-          id = Number.parseInt(id);
-          return (id >= 11001 && id <= 13053) || (id >= 23002 && id <= 24137) || (id >= 31003 && id <= 38025)
-            || (id >= 41002 && id <= 46025) || (id >= 71002 && id <= 72042);
-        }).sort((a, b) => {
-          let aNaam: string = a.gemeentenaam.geografischeNaam.spelling;
-          let bNaam: string = b.gemeentenaam.geografischeNaam.spelling;
-
-          if(aNaam < bNaam) return -1;
-          else if(aNaam > bNaam) return 1;
-          return 0;
-        }).forEach(g => {
-          let id = g.detail.substring(54,);
-          id = Number.parseInt(id);
-          this.allCommunities.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
-        });
-
-        this.communityStartId = 11001;
-        this.communityEndId = 13053;
-      });
-  }
-
-  changeProvince(event): void {
+  onChangeProvince(event): void {
     let province: string = event.target.value;
 
     switch (province) {
       case 'Antwerpen': {
-        this.communityStartId = 11001;
-        this.communityEndId = 13053;
+        this.changeProvinceStartValues(11001, 13053, 'Aartselaar', 2630);
         break;
       }
       case 'Limburg': {
-        this.communityStartId = 71002;
-        this.communityEndId = 72042;
+        this.changeProvinceStartValues(71002, 72042, 'As', 3665);
         break;
       }
       case 'Oost-Vlaanderen': {
-        this.communityStartId = 41002;
-        this.communityEndId = 46025;
+        this.changeProvinceStartValues(41002, 46025, 'Aalst', 9300);
         break;
       }
       case 'Vlaams-Brabant': {
-        this.communityStartId = 23002;
-        this.communityEndId = 24137;
+        this.changeProvinceStartValues(23002, 24137, 'Aarschot', 3200);
         break;
       }
       case 'West-Vlaanderen': {
-        this.communityStartId = 31003;
-        this.communityEndId = 38025;
+        this.changeProvinceStartValues(31003, 38025, 'Alveringem', 8690);
         break;
       }
     }
+  }
+
+  changeProvinceStartValues(start: number, end: number, value: string, zipcode: number): void {
+    this.communityStartId = start;
+    this.communityEndId = end;
+    this.community.setValue(value);
+    this.zipcode.setValue(zipcode);
+  }
+
+  onChangeCommunity(event): void {
+    const index = event.target.selectedIndex;
+    const el = event.target.childNodes[index];
+    const id = el.getAttribute('id');
+    console.log(id);
   }
 
   onSubmit(): void {

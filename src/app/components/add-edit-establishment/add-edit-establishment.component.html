@@ -56,7 +56,7 @@
         <select
           class="form-control"
           formControlName="province"
-          (change)="changeProvince($event)"
+          (change)="onChangeProvince($event)"
         >
           <option value="Antwerpen" selected>Antwerpen</option>
           <option value="Limburg">Limburg</option>
@@ -69,9 +69,9 @@
       <div class="row mt-2">
         <label for="community">Gemeente:</label>
 
-        <select class="form-control" formControlName="community">
+        <select class="form-control" formControlName="community" (change)="onChangeCommunity($event)">
           <ng-container *ngFor="let community of allCommunities">
-            <option *ngIf="community.id >= communityStartId && community.id <= communityEndId" [ngValue]="community.id">
+            <option id="{{ community.id }}" *ngIf="community.id >= communityStartId && community.id <= communityEndId" value="{{ community.name }}">
               {{ community.name }}
             </option>
           </ng-container>
@@ -85,6 +85,7 @@
           class="form-control"
           formControlName="zipcode"
           type="number"
+          readonly
         />
       </div>
 
