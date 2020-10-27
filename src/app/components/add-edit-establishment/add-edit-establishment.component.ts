@@ -16,6 +16,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   addEstablishmentFormGroup: FormGroup;
   allCommunities: any[];
   selectedCommunities: any[];
+  communityStartId: number;
+  communityEndId: number;
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
@@ -24,7 +26,6 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.buildForm();
     this.loadAllPlaces();
     this.allCommunities = new Array();
-    this.selectedCommunities = new Array();
   }
 
   // build the form for adding an establishment
@@ -102,67 +103,54 @@ export class AddEditEstablishmentComponent implements OnInit {
           id = Number.parseInt(id);
           return (id >= 11001 && id <= 13053) || (id >= 23002 && id <= 24137) || (id >= 31003 && id <= 38025)
             || (id >= 41002 && id <= 46025) || (id >= 71002 && id <= 72042);
+        }).sort((a, b) => {
+          let aNaam: string = a.gemeentenaam.geografischeNaam.spelling;
+          let bNaam: string = b.gemeentenaam.geografischeNaam.spelling;
+
+          if(aNaam < bNaam) return -1;
+          else if(aNaam > bNaam) return 1;
+          return 0;
         }).forEach(g => {
           let id = g.detail.substring(54,);
           id = Number.parseInt(id);
           this.allCommunities.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
         });
 
-        this.fillSelectedCommunities(11001, 13053);
+        this.communityStartId = 11001;
+        this.communityEndId = 13053;
       });
-  }
-
-  fillSelectedCommunities(begin: number, end: number): void {
-
-    this.selectedCommunities = [];
-
-    this.allCommunities.forEach(c => {
-      if(c.id >= begin && c.id <= end)
-        this.selectedCommunities.push(c);
-    });
-
-    this.selectedCommunities.sort((a, b) => {
-
-      if(a.name < b.name) return -1;
-      else if (a.name > b.name) return 1;
-      else return 0;
-    })
   }
 
   changeProvince(event): void {
     let province: string = event.target.value;
-    let begin: number;
-    let end: number;
 
     switch (province) {
       case 'Antwerpen': {
-        begin = 11001;
-        end = 13053;
+        this.communityStartId = 11001;
+        this.communityEndId = 13053;
         break;
       }
       case 'Limburg': {
-        begin = 71002;
-        end = 72042;
+        this.communityStartId = 71002;
+        this.communityEndId = 72042;
         break;
       }
       case 'Oost-Vlaanderen': {
-        begin = 41002;
-        end = 46025;
+        this.communityStartId = 41002;
+        this.communityEndId = 46025;
         break;
       }
       case 'Vlaams-Brabant': {
-        begin = 23002;
-        end = 24137;
+        this.communityStartId = 23002;
+        this.communityEndId = 24137;
         break;
       }
       case 'West-Vlaanderen': {
-        begin = 31003;
-        end = 38025;
+        this.communityStartId = 31003;
+        this.communityEndId = 38025;
         break;
       }
     }
-
-    this.fillSelectedCommunities(begin, end);
   }
 
   onSubmit(): void {

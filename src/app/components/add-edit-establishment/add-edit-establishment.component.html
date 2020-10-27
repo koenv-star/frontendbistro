@@ -20,10 +20,19 @@
           "
           class="col-sm-12 alert alert-danger mt-2 mb-0"
         >
-
-          <span *ngIf="establishmentName.errors.required || establishmentName.errors.notOnlyWhitespace">De naam van de zaak moet ingevuld zijn</span>
-          <span *ngIf="establishmentName.errors.pattern">De naam mag geen _ bevatten</span>
-          <span *ngIf="establishmentName.errors.minlength">De naam moet minstens 2 karakters zijn</span>
+          <span
+            *ngIf="
+              establishmentName.errors.required ||
+              establishmentName.errors.notOnlyWhitespace
+            "
+            >De naam van de zaak moet ingevuld zijn</span
+          >
+          <span *ngIf="establishmentName.errors.pattern"
+            >De naam mag geen _ bevatten</span
+          >
+          <span *ngIf="establishmentName.errors.minlength"
+            >De naam moet minstens 2 karakters zijn</span
+          >
         </div>
       </div>
 
@@ -41,11 +50,14 @@
     <hr />
 
     <div formGroupName="address" class="form-area">
-
       <div class="row mt-2">
         <label for="province">Provincie:</label>
 
-        <select class="form-control" formControlName="province" (change)="changeProvince($event)">
+        <select
+          class="form-control"
+          formControlName="province"
+          (change)="changeProvince($event)"
+        >
           <option value="Antwerpen" selected>Antwerpen</option>
           <option value="Limburg">Limburg</option>
           <option value="Oost-Vlaanderen">Oost-Vlaanderen</option>
@@ -58,7 +70,11 @@
         <label for="community">Gemeente:</label>
 
         <select class="form-control" formControlName="community">
-          <option *ngFor="let community of selectedCommunities">{{ community.name }}</option>
+          <ng-container *ngFor="let community of allCommunities">
+            <option *ngIf="community.id >= communityStartId && community.id <= communityEndId" [ngValue]="community.id">
+              {{ community.name }}
+            </option>
+          </ng-container>
         </select>
       </div>
 
@@ -91,7 +107,6 @@
           type="text"
         />
       </div>
-
     </div>
 
     <hr />
