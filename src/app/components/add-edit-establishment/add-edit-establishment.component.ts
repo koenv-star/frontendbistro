@@ -14,14 +14,14 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
-  gemeenten: Map<number, string>;
+  gemeenten: Map<string, number>;
 
   constructor(private formBuilder: FormBuilder,
-              private placesService: PlacesService) { }
+    private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadPlaces();
+    this.loadPlaces(11001, 13053);
     this.gemeenten = new Map();
   }
 
@@ -35,7 +35,8 @@ export class AddEditEstablishmentComponent implements OnInit {
       }),
 
       address: this.formBuilder.group({
-        community: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        province: new FormControl('Antwerpen', [Validators.required]),
+        community: new FormControl('', [Validators.required]),
         zipcode: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
         street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
@@ -68,10 +69,11 @@ export class AddEditEstablishmentComponent implements OnInit {
   get establishmentName() { return this.addEstablishmentFormGroup.get('establishment.establishmentName'); }
   get parking() { return this.addEstablishmentFormGroup.get('establishment.parking'); }
 
+  get province() { return this.addEstablishmentFormGroup.get('address.province'); }
+  get community() { return this.addEstablishmentFormGroup.get('address.community'); }
+  get zipcode() { return this.addEstablishmentFormGroup.get('address.zipcode'); }
   get street() { return this.addEstablishmentFormGroup.get('address.street'); }
   get bus() { return this.addEstablishmentFormGroup.get('address.bus'); }
-  get zipcode() { return this.addEstablishmentFormGroup.get('address.zipcode'); }
-  get community() { return this.addEstablishmentFormGroup.get('address.community'); }
 
   get openingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurMa'); }
   get suitingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurMa'); }
@@ -90,23 +92,25 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
 
-  onSubmit(): void {
-
-  }
-
-  loadPlaces(): void {
+  loadPlaces(begin: number, end: number): void {
     this.placesService.getPlaces()
       .subscribe(data => {
         data.gemeenten.filter(g => {
-          let id = g.detail.substring(54, );
+          let id = g.detail.substring(54,);
           id = Number.parseInt(id);
-          return (id >= 11001 && id <= 13053) || (id >= 23002 && id <= 24137) || (id >= 31003 && id <= 38025) ||
-          (id >= 41002 && id <= 46025) || (id >= 71002 && id <= 72042);
+          return (id >= begin && id <= end);
         }).forEach(g => {
-          let id = g.detail.substring(54, );
+          let id = g.detail.substring(54,);
           id = Number.parseInt(id);
-          this.gemeenten.set(id, g.gemeentenaam.geografischeNaam.spelling);
+          this.gemeenten.set(g.gemeentenaam.geografischeNaam.spelling, id);
         });
+
+        // sort gemeenten
+        this.gemeenten = new Map([...this.gemeenten.entries()].sort());
       });
+  }
+
+  onSubmit(): void {
+
   }
 }

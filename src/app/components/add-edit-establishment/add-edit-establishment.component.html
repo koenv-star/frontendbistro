@@ -43,10 +43,22 @@
     <div formGroupName="address" class="form-area">
 
       <div class="row mt-2">
-        <label for="gemeente">Gemeente:</label>
+        <label for="province">Provincie:</label>
+
+        <select class="form-control" formControlName="province">
+          <option value="Antwerpen" selected>Antwerpen</option>
+          <option value="Limburg">Limburg</option>
+          <option value="Oost-Vlaanderen">Oost-Vlaanderen</option>
+          <option value="Vlaams-Brabant">Vlaams-Brabant</option>
+          <option value="West-Vlaanderen">West-Vlaanderen</option>
+        </select>
+      </div>
+
+      <div class="row mt-2">
+        <label for="community">Gemeente:</label>
 
         <select class="form-control" formControlName="community">
-          <option *ngFor="let gemeente of gemeenten | keyvalue">{{ gemeente.value }}</option>
+          <option *ngFor="let gemeente of gemeenten | keyvalue">{{ gemeente.key }}</option>
         </select>
       </div>
 
