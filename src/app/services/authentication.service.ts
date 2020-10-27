@@ -45,31 +45,8 @@ export class AuthenticationService {
     );
   }
 
-  // authenticate(username, password) {
-  //   return this.http
-  //     .post<any>(LOGIN_URL, { username, password })
-  //     .pipe(
-  //       map(userData => {
-  //         sessionStorage.setItem("username", username);
-  //         let tokenStr = "Bearer " + userData.token;
-  //         sessionStorage.setItem("token", tokenStr);
-  //         return userData;
-  //       })
-  //     );
-  // }
 
-  register(user): Observable<any> {
-    return this.http.post(
-      REG_URL,
-      {
-        voornaam: user.surname,
-        naam: user.name,
-        email: user.email,
-        paswoord: user.password,
-      },
-      httpOptions
-    );
-  }
+ 
 
   list(): Observable<Costumer[]> {
     return this.http.get<Costumer[]>(LIST_URL);

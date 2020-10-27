@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
+// Author Koen
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +14,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginstatus: boolean = this.tokenservice.getUser();
+  bcrypt = require('bcrypt');
   constructor(
     private service: AuthenticationService,
     private formBuilder: FormBuilder,
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     let username = this.loginForm.value.username;
-    let password = this.loginForm.value.password;
+    let password = this.bcrypt.hashSync(this.loginForm.value.password, 10); 
     console.log(username, password);
     this.service.authenticate(username, password).subscribe((data) => {
       let token = data.headers.get('Authorization');
