@@ -27,7 +27,21 @@ export class TokenStorageService {
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY);
   }
+  public getRoleToken(token: string){
+    let jwt = token;
 
+    let jwtData = jwt.split('.')[1];
+    let decodedJwtJsonData = window.atob(jwtData);
+    let decodedJwtData = JSON.parse(decodedJwtJsonData);
+
+    let role = decodedJwtData;
+
+    console.log('jwtData: ' + jwtData);
+    console.log('decodedJwtJsonData: ' + decodedJwtJsonData);
+    console.log('decodedJwtData: ' + decodedJwtData);
+    console.log('Is admin: ' + role);
+    return role;
+  }
   public saveUser( user: User) {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));

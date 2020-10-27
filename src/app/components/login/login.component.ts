@@ -30,15 +30,19 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let salt = '$2a$10$bNKWUpUbmE8FT92ojD2Ybe'
+
+    let salt = '$2a$10$bNKWUpUbmE8FT92ojD2Ybe';
+    console.log(salt);
     let username = this.loginForm.value.username;
-    let password = bcrypt.hashSync(this.loginForm.value.password, salt); 
+    let password = bcrypt.hashSync(this.loginForm.value.password, salt);
     console.log(username, password);
     this.service.authenticate(username, password).subscribe((data) => {
       let token = data.headers.get('Authorization');
+      console.log(data);
       this.tokenservice.saveToken(token);
-      this.tokenservice.saveUser(new User(username, null, null));
-      // this.router.navigateByUrl('/');
+      let role = this.tokenservice.getRoleToken(token);
+      this.tokenservice.saveUser(new User(null,username,role));
+      this.router.navigateByUrl('');
     });
   }
 }
