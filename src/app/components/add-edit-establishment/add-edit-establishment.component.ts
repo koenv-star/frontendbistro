@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 
+/**
+ * Gemaakt door Jan
+ */
 @Component({
   selector: 'app-add-edit-establishment',
   templateUrl: './add-edit-establishment.component.html',
@@ -11,12 +14,14 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
+  gemeenten: any[];
 
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
+    this.loadPlaces();
   }
 
   // build the form for adding an establishment
@@ -29,7 +34,7 @@ export class AddEditEstablishmentComponent implements OnInit {
       }),
 
       address: this.formBuilder.group({
-        street: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
         zipcode: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
         community: new FormControl('', [Validators.required, Validators.minLength(2)])
@@ -88,11 +93,13 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   }
 
-  getPlaces(): void {
+  loadPlaces(): void {
     this.placesService.getPlaces()
       .subscribe(data => {
-        console.log(data);
-      })
+        this.gemeenten = data.gemeenten;
+        this.gemeenten.forEach(g => {
+          console.log(g.gemeentenaam.geografischeNaam.spelling);
+        })
+      });
   }
-
 }

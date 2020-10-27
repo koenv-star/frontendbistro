@@ -13,6 +13,18 @@
           formControlName="establishmentName"
           type="text"
         />
+        <div
+          *ngIf="
+            establishmentName.invalid &&
+            (establishmentName.touched || establishmentName.dirty)
+          "
+          class="col-sm-12 alert alert-danger mt-2 mb-0"
+        >
+
+          <span *ngIf="establishmentName.errors.required || establishmentName.errors.notOnlyWhitespace">De naam van de zaak moet ingevuld zijn</span>
+          <span *ngIf="establishmentName.errors.pattern">De naam mag geen _ bevatten</span>
+          <span *ngIf="establishmentName.errors.minlength">De naam moet minstens 2 karakters zijn</span>
+        </div>
       </div>
 
       <div class="row mt-2">
@@ -62,12 +74,9 @@
       <div class="row mt-2">
         <label for="gemeente">Gemeente:</label>
 
-        <input
-          id="gemeente"
-          class="form-control"
-          formControlName="community"
-          type="text"
-        />
+        <select class="form-control" formControlName="community">
+          <option *ngFor="let gemeente of gemeenten">{{ gemeente.gemeentenaam.geografischeNaam.spelling }}</option>
+        </select>
       </div>
     </div>
 
@@ -77,7 +86,6 @@
       <label>Maandag:</label>
 
       <div class="row">
-
         <select class="form-control col-md-5" formControlName="openingsuurMa">
           <option disabled selected>Openingsuur:</option>
         </select>
@@ -157,7 +165,10 @@
           <option disabled selected>Openingsuur:</option>
         </select>
 
-        <select class="form-control col-md-5 offset-md-2" formControlName="sluitingsuurZa">
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurZa"
+        >
           <option disabled selected>Sluitingsuur:</option>
         </select>
       </div>
@@ -165,15 +176,16 @@
       <label>Zondag:</label>
 
       <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurZo">
+          <option disabled selected>Openingsuur:</option>
+        </select>
 
-          <select class="form-control col-md-5" formControlName="openingsuurZo">
-            <option disabled selected>Openingsuur:</option>
-          </select>
-
-          <select class="form-control col-md-5 offset-md-2" formControlName="sluitingsuurZo">
-            <option disabled selected>Sluitingsuur:</option>
-          </select>
-
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurZo"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
       </div>
     </div>
 
