@@ -12,6 +12,7 @@ import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
   newCostumer: Costumer;
   newOwner: Owner;
   registerStatus = false;
-  bcrypt = require('bcrypt');
+  // bcrypt = require('bcrypt');
   // private service: RegisterService,
   constructor(
     private formBuilder: FormBuilder,
@@ -44,10 +45,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    let salt = '$2a$10$bNKWUpUbmE8FT92ojD2Ybe';
     let naam = this.registerForm.value.naam;
     let achternaam = this.registerForm.value.achternaam;
     let email = this.registerForm.value.email;
-    let wachtwoord = bcrypt.hashSync(this.registerForm.value.wachtwoord, 10);
+    let wachtwoord = bcrypt.hashSync(this.registerForm.value.wachtwoord, salt);
     let rol = this.registerForm.value.rol;
 
     console.log(naam, achternaam, wachtwoord, email, rol);

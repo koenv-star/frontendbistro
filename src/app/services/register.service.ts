@@ -4,9 +4,6 @@ import { Observable } from 'rxjs';
 import { Costumer } from '../models/costumer';
 import { Owner } from '../models/owner';
 
-
-
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -15,32 +12,19 @@ const REGKLANT_URL = 'http://localhost:8080/klanten';
 const REG_UITBATER_URL = 'http://localhost:8080/uitbaters';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegisterService {
-  
-  constructor(private http: HttpClient) { }
-  
+  constructor(private http: HttpClient) {}
+
   registerUitbater(newOwner: Owner) {
 
-    return this.http.post(
-      REG_UITBATER_URL,
-      {
-         newOwner
-      },
-      httpOptions
-    );
-   
+    return this.http.post<Owner>(
+      REG_UITBATER_URL,newOwner)
   }
 
-
-  registerklant(costumer: Costumer ): Observable<any> {
-    return this.http.post(
-      REGKLANT_URL,
-      {
-       costumer
-      },
-      httpOptions
-    );
+  registerklant(newcostumer: Costumer): Observable<any> {
+  
+    return this.http.post<Costumer>(REGKLANT_URL, newcostumer);
   }
 }
