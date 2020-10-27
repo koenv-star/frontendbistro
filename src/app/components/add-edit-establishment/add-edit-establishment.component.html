@@ -6,33 +6,23 @@
 
     <div formGroupName="establishment" class="form-area">
       <div class="row mt-2">
-        <div class="col-md-12">
-          <div class="form-group row">
-            <label for="naam" class="col-sm-2 col-form-label">Naam:</label>
-            <div class="col-sm-10">
-              <input
-                id="naam"
-                class="form-control"
-                formControlName="establishmentName"
-                type="text"
-              />
-            </div>
-          </div>
+        <label for="naam">Naam:</label>
+        <input
+          id="naam"
+          class="form-control"
+          formControlName="establishmentName"
+          type="text"
+        />
+      </div>
 
-          <div class="form-group row">
-            <label for="parking" class="col-sm-2 col-form-label"
-              >Parking:</label
-            >
-            <div class="col-sm-10">
-              <input
-                id="parkingCheckbox"
-                class="form-control"
-                formControlName="parking"
-                type="checkbox"
-              />
-            </div>
-          </div>
-        </div>
+      <div class="row mt-2">
+        <label for="parking">Parking:</label>
+        <input
+          id="parkingCheckbox"
+          class="form-control"
+          formControlName="parking"
+          type="checkbox"
+        />
       </div>
     </div>
 
@@ -40,173 +30,155 @@
 
     <div formGroupName="address" class="form-area">
       <div class="row mt-2">
-        <div class="col-md-12">
-          <div class="form-group row">
-            <label for="straat" class="col-sm-2 col-form-label">Straat:</label>
-            <div class="col-sm-10">
-              <input
-                id="straat"
-                class="form-control"
-                formControlName="street"
-                type="text"
-              />
-            </div>
-          </div>
+        <label for="straat">Straat:</label>
+        <input
+          id="straat"
+          class="form-control"
+          formControlName="street"
+          type="text"
+        />
+      </div>
 
-          <div class="form-group row">
-            <label for="huisnummer" class="col-sm-2 col-form-label"
-              >Huisnummer:</label
-            >
-            <div class="col-sm-10">
-              <input
-                id="huisnummer"
-                class="form-control"
-                formControlName="bus"
-                type="text"
-              />
-            </div>
-          </div>
+      <div class="row mt-2">
+        <label for="huisnummer">Huisnummer:</label>
+        <input
+          id="huisnummer"
+          class="form-control"
+          formControlName="bus"
+          type="text"
+        />
+      </div>
 
-          <div class="form-group row">
-            <label for="postcode" class="col-sm-2 col-form-label"
-              >Postcode:</label
-            >
-            <div class="col-sm-10">
-              <input
-                id="postcode"
-                class="form-control"
-                formControlName="zipcode"
-                type="number"
-              />
-            </div>
-          </div>
+      <div class="row mt-2">
+        <label for="postcode">Postcode:</label>
+        <input
+          id="postcode"
+          class="form-control"
+          formControlName="zipcode"
+          type="number"
+        />
+      </div>
 
-          <div class="form-group row">
-            <label for="gemeente" class="col-sm-2 col-form-label"
-              >Gemeente:</label
-            >
-            <div class="col-sm-10">
-              <input
-                id="gemeente"
-                class="form-control"
-                formControlName="gemeente"
-                type="text"
-              />
-            </div>
-          </div>
-        </div>
+      <div class="row mt-2">
+        <label for="gemeente">Gemeente:</label>
+
+        <input
+          id="gemeente"
+          class="form-control"
+          formControlName="gemeente"
+          type="text"
+        />
       </div>
     </div>
 
     <hr />
 
     <div formGroupName="openingHours" class="form-area">
-      <div class="row mt-2">
-        <div class="col-md-12">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Maandag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurMa">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurMa">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+      <label>Maandag:</label>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Dinsdag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurDi">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurDi">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurMa">
+          <option disabled selected>Openingsuur:</option>
+        </select>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Woensdag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurWo">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurWo">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurMa"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Donderdag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurDo">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurDo">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+      <label>Dinsdag:</label>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Vrijdag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurVr">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurVr">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurDi">
+          <option disabled selected>Openingsuur:</option>
+        </select>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Zaterdag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurZa">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurZa">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurDi"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Zondag:</label>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="openingsuurZo">
-                <option disabled selected>Openingsuur:</option>
-              </select>
-            </div>
-            <div class="col-sm-5">
-              <select class="form-control" formControlName="sluitingsuurZo">
-                <option disabled selected>Sluitingsuur:</option>
-              </select>
-            </div>
-          </div>
-        </div>
+      <label>Woensdag:</label>
+
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurWo">
+          <option disabled selected>Openingsuur:</option>
+        </select>
+
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurWo"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
+
+      <label>Donderdag:</label>
+
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurDo">
+          <option disabled selected>Openingsuur:</option>
+        </select>
+
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurDo"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
+
+      <label>Vrijdag:</label>
+
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurVr">
+          <option disabled selected>Openingsuur:</option>
+        </select>
+
+        <select
+          class="form-control col-md-5 offset-md-2"
+          formControlName="sluitingsuurVr"
+        >
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
+
+      <label>Zaterdag:</label>
+
+      <div class="row">
+        <select class="form-control col-md-5" formControlName="openingsuurZa">
+          <option disabled selected>Openingsuur:</option>
+        </select>
+
+        <select class="form-control col-md-5 offset-md-2" formControlName="sluitingsuurZa">
+          <option disabled selected>Sluitingsuur:</option>
+        </select>
+      </div>
+
+      <label>Zondag:</label>
+
+      <div class="row">
+
+          <select class="form-control col-md-5" formControlName="openingsuurZo">
+            <option disabled selected>Openingsuur:</option>
+          </select>
+
+          <select class="form-control col-md-5 offset-md-2" formControlName="sluitingsuurZo">
+            <option disabled selected>Sluitingsuur:</option>
+          </select>
+
       </div>
     </div>
 
-    <hr />
+    <!-- <hr /> -->
 
-    <div formGroupName="tables" class="form-area">
+    <!-- <div formGroupName="tables" class="form-area">
       <div class="row mt-2">
         <div class="col-md-12">
           <div class="form-group row">
@@ -235,12 +207,14 @@
                     <span class="col-sm-6">stoelen</span>
                   </div>
                 </div>
+
+
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <hr />
 
@@ -262,5 +236,7 @@
         </div>
       </div>
     </div>
+
+    <input type="submit" class="btn btn-primary my-2" />
   </form>
 </div>
