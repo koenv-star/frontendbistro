@@ -4,6 +4,7 @@ import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
 import { allZipcodes } from 'src/app/app.component';
+import { Stringtool } from 'src/app/tools/stringtool';
 
 /**
  * Gemaakt door Jan
@@ -137,6 +138,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   setZipcode(location: string): void {
+    if(location.includes('-'))
+      location = Stringtool.capitalizeFirstLetterAfterDash(location);
     allZipcodes.filter(zc => {
       if(zc.city === location) {
         this.zipcode.setValue(zc.zip);
