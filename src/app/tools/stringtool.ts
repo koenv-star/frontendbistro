@@ -14,4 +14,8 @@ export class Stringtool {
 
     return chars.join('');
   }
+
+  public static sortStringsWithNumbers(a, b): number {
+    return (Number(a.match(/(\d+)/g)[0]) - Number((b.match(/(\d+)/g)[0])));
+  }
 }

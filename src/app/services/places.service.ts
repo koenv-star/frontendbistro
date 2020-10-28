@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class PlacesService {
 
   private placesBaseUrl: string = 'https://api.basisregisters.vlaanderen.be/v1';
-  private zipcodesBaseUrl = "../../assets/json/zipcode-belgium.json";
   private httpHeaders = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST',
@@ -21,15 +20,18 @@ export class PlacesService {
   constructor(private http: HttpClient) {  }
 
   getPlaces(): Observable<any> {
-
     return this.http.get<any>(this.placesBaseUrl + "/gemeenten?limit=500", {headers: this.httpHeaders});
   }
 
-  getZipcodes(): Observable<any> {
-    return this.http.get<any>(this.zipcodesBaseUrl);
+  getZipcodeByCommunity(community: string): Observable<any> {
+    return this.http.get<any>(this.placesBaseUrl + `/postinfo?gemeentenaam=${community}`, {headers: this.httpHeaders});
   }
 
   getStreetsByCommunity(community: string): Observable<any> {
-    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/?gemeentenaam=${community}`, {headers: this.httpHeaders});
+    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/?gemeentenaam=${community}&limit=10000`, {headers: this.httpHeaders});
+  }
+
+  getBusNumbers(zipcode: number, street: string): Observable<any> {
+    return this.http.get<any>(this.placesBaseUrl + `/adressen?postcode=${zipcode}&straatnaam=${street}`, {headers: this.httpHeaders});
   }
 }

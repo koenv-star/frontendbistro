@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
-import { allZipcodes } from 'src/app/app.component';
 import { Stringtool } from 'src/app/tools/stringtool';
 
 /**
@@ -21,6 +20,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   communityStartId: number = 11001;
   communityEndId: number = 13053;
   streets: string[];
+  busNumbers: string[];
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
@@ -28,6 +28,9 @@ export class AddEditEstablishmentComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.streets = new Array();
+    this.setStreets();
+    this.busNumbers = new Array();
+    this.setBusNumbers();
   }
 
   // build the form for adding an establishment
@@ -129,24 +132,21 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.communityEndId = end;
     this.community.setValue(value);
     this.zipcode.setValue(zipcode);
+    this.setStreets();
+    this.setBusNumbers();
   }
 
   onChangeCommunity(event): void {
     const location = event.target.value;
     this.setZipcode(location);
-    // this.setStreets(id);
+    this.setStreets();
   }
 
   setZipcode(location: string): void {
-    if(location.includes('-'))
-      location = Stringtool.capitalizeFirstLetterAfterDash(location);
-    allZipcodes.filter(zc => {
-      if(zc.city === location) {
-        this.zipcode.setValue(zc.zip);
-        this.setStreets();
-        return;
-      }
-    })
+    this.placesService.getZipcodeByCommunity(this.community.value)
+      .subscribe(data => {
+        this.zipcode.setValue(data.postInfoObjecten[0].identificator.objectId);
+      })
   }
 
   setStreets(): void {
@@ -163,6 +163,23 @@ export class AddEditEstablishmentComponent implements OnInit {
         }).forEach(sn => {
           this.streets.push(sn.straatnaam.geografischeNaam.spelling);
         })
+      })
+  }
+
+  setBusNumbers(): void {
+    let numbers = new Set<string>();
+    this.busNumbers = new Array();
+    this.placesService.getBusNumbers(this.zipcode.value, this.street.value)
+      .subscribe(data => {
+        data.adressen.forEach(hn => {
+          if(hn.busnummer !== undefined)
+            numbers.add(hn.huisnummer + ' bus ' + hn.busnummer);
+          else
+            numbers.add(hn.huisnummer);
+        })
+
+        let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+        this.busNumbers = Array.from(numbers).sort(collator.compare);
       })
   }
 

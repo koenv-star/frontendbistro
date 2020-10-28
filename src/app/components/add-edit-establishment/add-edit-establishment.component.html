@@ -94,19 +94,21 @@
         <select
           id="straat"
           class="form-control"
-          formControlName="street">
+          formControlName="street"
+          (change)="setBusNumbers()">
           <option *ngFor="let street of streets">{{ street }}</option>
         </select>
       </div>
 
       <div class="row mt-2">
         <label for="huisnummer">Huisnummer:</label>
-        <input
+        <select
           id="huisnummer"
           class="form-control"
           formControlName="bus"
-          type="text"
-        />
+          type="text">
+          <option *ngFor="let bn of busNumbers">{{ bn }}</option>
+        </select>
       </div>
     </div>
 

@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllPlaces();
-    this.loadAllZipcodes();
   }
 
   loadAllPlaces(): void {
@@ -41,13 +40,5 @@ export class AppComponent implements OnInit {
         });
       });
   }
-
-  loadAllZipcodes(): void {
-    this.placesService.getZipcodes()
-      .subscribe(data => {
-        allZipcodes = data;
-      })
-  }
 }
 export var allCommunities: any[] = new Array();
-export var allZipcodes: any[] = new Array();
