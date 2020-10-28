@@ -71,7 +71,7 @@
 
         <select class="form-control" formControlName="community" (change)="onChangeCommunity($event)">
           <ng-container *ngFor="let community of allCommunities">
-            <option id="{{ community.id }}" *ngIf="community.id >= communityStartId && community.id <= communityEndId" value="{{ community.name }}">
+            <option *ngIf="community.id >= communityStartId && community.id <= communityEndId" [id]="community.id" value="{{ community.name }}">
               {{ community.name }}
             </option>
           </ng-container>

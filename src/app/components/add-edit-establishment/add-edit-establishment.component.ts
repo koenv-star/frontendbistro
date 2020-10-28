@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
+import { allZipcodes } from 'src/app/app.component';
 
 /**
  * Gemaakt door Jan
@@ -18,12 +19,14 @@ export class AddEditEstablishmentComponent implements OnInit {
   allCommunities = allCommunities;
   communityStartId: number = 11001;
   communityEndId: number = 13053;
+  streets: string[];
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
+    this.streets = new Array();
   }
 
   // build the form for adding an establishment
@@ -128,10 +131,25 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   onChangeCommunity(event): void {
-    const index = event.target.selectedIndex;
-    const el = event.target.childNodes[index];
-    const id = el.getAttribute('id');
-    console.log(id);
+    const location = event.target.value;
+    this.setZipcode(location);
+    // this.setStreets(id);
+  }
+
+  setZipcode(location: string): void {
+    allZipcodes.filter(zc => {
+      if(zc.city === location) {
+        this.zipcode.setValue(zc.zip);
+        return;
+      }
+    })
+  }
+
+  setStreets(id: number): void {
+    this.placesService.getStreetsByCommunityId(id)
+      .subscribe(data => {
+        console.log(data);
+      })
   }
 
   onSubmit(): void {
