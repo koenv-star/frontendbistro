@@ -108,6 +108,7 @@
           formControlName="bus"
           type="text">
           <option *ngFor="let bn of busNumbers">{{ bn }}</option>
+          <option *ngIf="busNumbers.length === 0">Geen huisnummers gevonden</option>
         </select>
       </div>
     </div>

@@ -163,6 +163,8 @@ export class AddEditEstablishmentComponent implements OnInit {
           this.streets.push(sn.straatnaam.geografischeNaam.spelling);
         })
       })
+
+    this.setBusNumbers();
   }
 
   setBusNumbers(): void {
