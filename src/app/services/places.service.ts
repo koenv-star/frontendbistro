@@ -29,7 +29,7 @@ export class PlacesService {
     return this.http.get<any>(this.zipcodesBaseUrl);
   }
 
-  getStreetsByCommunityId(id: number): Observable<any> {
-    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/${id}`, {headers: this.httpHeaders});
+  getStreetsByCommunity(community: string): Observable<any> {
+    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/?gemeentenaam=${community}`, {headers: this.httpHeaders});
   }
 }

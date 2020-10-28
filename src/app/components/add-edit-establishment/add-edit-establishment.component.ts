@@ -143,15 +143,26 @@ export class AddEditEstablishmentComponent implements OnInit {
     allZipcodes.filter(zc => {
       if(zc.city === location) {
         this.zipcode.setValue(zc.zip);
+        this.setStreets();
         return;
       }
     })
   }
 
-  setStreets(id: number): void {
-    this.placesService.getStreetsByCommunityId(id)
+  setStreets(): void {
+    this.streets = [];
+    this.placesService.getStreetsByCommunity(this.community.value)
       .subscribe(data => {
-        console.log(data);
+        data.straatnamen.sort((a, b) => {
+          let aStraat: string = a.straatnaam.geografischeNaam.spelling;
+          let bStraat: string = b.straatnaam.geografischeNaam.spelling;
+
+          if(aStraat < bStraat) return -1;
+          else if(aStraat > bStraat) return 1;
+          return 0;
+        }).forEach(sn => {
+          this.streets.push(sn.straatnaam.geografischeNaam.spelling);
+        })
       })
   }
 

@@ -91,12 +91,12 @@
 
       <div class="row mt-2">
         <label for="straat">Straat:</label>
-        <input
+        <select
           id="straat"
           class="form-control"
-          formControlName="street"
-          type="text"
-        />
+          formControlName="street">
+          <option *ngFor="let street of streets">{{ street }}</option>
+        </select>
       </div>
 
       <div class="row mt-2">

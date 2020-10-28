@@ -39,9 +39,6 @@ export class AppComponent implements OnInit {
           id = Number.parseInt(id);
           allCommunities.push({ id: id, name: g.gemeentenaam.geografischeNaam.spelling });
         });
-
-        // this.communityStartId = 11001;
-        // this.communityEndId = 13053;
       });
   }
 
