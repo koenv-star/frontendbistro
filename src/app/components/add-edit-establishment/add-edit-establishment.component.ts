@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
@@ -25,6 +25,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   // opening hours
   clocks: any[];
+  openingHours: AbstractControl[];
 
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
@@ -40,6 +41,9 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     // opening hours
     this.clocks = Array.from(document.querySelectorAll('input[type=time]'));
+    this.openingHours = [this.openingsuurMa, this.sluitingsuurMa, this.openingsuurDi, this.sluitingsuurDi, this.openingsuurWo,
+                        this.sluitingsuurWo, this.openingsuurDo, this.sluitingsuurDo, this.openingsuurVr, this.sluitingsuurVr,
+                        this.openingsuurZa, this.sluitingsuurZa, this.openingsuurZo, this.sluitingsuurZo];
   }
 
   // build the form for adding an establishment
@@ -93,7 +97,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   get street() { return this.addEstablishmentFormGroup.get('address.street'); }
   get bus() { return this.addEstablishmentFormGroup.get('address.bus'); }
 
-  get openingsuren() { return (this.addEstablishmentFormGroup.get('openingHours') as FormArray).controls; }
+  // get openingsuren() { return (this.addEstablishmentFormGroup.get('openingHours') as FormArray); }
   get openingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurMa'); }
   get sluitingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurMa'); }
   get openingsuurDi() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurDi'); }
@@ -207,13 +211,13 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   onClocksChange(event): void {
 
-    for(let i = 0; i < 7; i++) {
+    for(let i = 0; i < this.openingHours.length; i+=2) {
 
-      if(this.openingsuren[i].value > this.openingsuren[i+6].value)
-        this.openingsuren[i].setErrors({ 'invalidHour': true });
+      if(this.openingHours[i].value > this.openingHours[i+1].value)
+        this.openingHours[i].setErrors({ 'invalidHour': true });
 
-      if(this.openingsuren[i].value < this.openingsuren[i+6].value)
-        this.openingsuren[i].setErrors(null);
+      else if(this.openingHours[i+1] > this.openingHours[i].value)
+        this.openingHours[i].setErrors(null);
     }
 
     // if(this.openingsuurMa.value > this.sluitingsuurMa.value)
