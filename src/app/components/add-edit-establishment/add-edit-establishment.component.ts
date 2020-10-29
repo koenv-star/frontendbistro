@@ -27,6 +27,11 @@ export class AddEditEstablishmentComponent implements OnInit {
   clocks: any[];
   openingHours: AbstractControl[];
 
+  // image
+  imageUrl: string;
+  picture: File;
+  inputFileLabel: HTMLElement;
+
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
 
@@ -44,6 +49,10 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.openingHours = [this.openingsuurMa, this.sluitingsuurMa, this.openingsuurDi, this.sluitingsuurDi, this.openingsuurWo,
                         this.sluitingsuurWo, this.openingsuurDo, this.sluitingsuurDo, this.openingsuurVr, this.sluitingsuurVr,
                         this.openingsuurZa, this.sluitingsuurZa, this.openingsuurZo, this.sluitingsuurZo];
+
+    // image
+    this.imageUrl = '';
+    this.inputFileLabel = document.querySelector('.custom-file-label') as HTMLElement;
   }
 
   // build the form for adding an establishment
@@ -218,6 +227,19 @@ export class AddEditEstablishmentComponent implements OnInit {
 
       else if(this.openingHours[i+1] > this.openingHours[i].value)
         this.openingHours[i].setErrors(null);
+    }
+  }
+
+  // image
+  onFileSelected(event): void {
+    this.picture = event.target.files[0];
+    this.inputFileLabel.innerText = this.picture.name;
+
+    // show image preview
+    let reader = new FileReader();
+    reader.readAsDataURL(this.picture);
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
     }
   }
 

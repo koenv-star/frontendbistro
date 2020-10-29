@@ -18,6 +18,10 @@ div[formGroupname=openingHours] label {
   margin-top: 20px;
 }
 
+img {
+  border-radius: 20px;
+}
+
 .custom-file-label {
   width: 100%;
 }

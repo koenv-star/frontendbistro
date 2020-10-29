@@ -142,82 +142,228 @@
     <hr />
 
     <div formGroupName="openingHours" class="form-area">
-
       <div class="row">
-
         <div class="col-sm-3">
-
           <div class="row">
             <label class="float-left">Maandag:</label>
-            <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurMa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <input (change)="onClocksChange($event)" formControlName="sluitingsuurMa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <div *ngIf="openingsuurMa.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurMa"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurMa"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurMa.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
               <span *ngIf="openingsuurMa.errors.invalidHour">Niet geldig</span>
             </div>
           </div>
 
           <div class="row">
             <label class="float-left">Dinsdag:</label>
-            <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurDi" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <input (change)="onClocksChange($event)" formControlName="sluitingsuurDi" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <div *ngIf="openingsuurDi.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurDi"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurDi"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurDi.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
               <span *ngIf="openingsuurDi.errors.invalidHour">Niet geldig</span>
             </div>
           </div>
 
           <div class="row">
             <label class="float-left">Woensdag:</label>
-            <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurWo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <input (change)="onClocksChange($event)" formControlName="sluitingsuurWo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <div *ngIf="openingsuurWo.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurWo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurWo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurWo.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
               <span *ngIf="openingsuurWo.errors.invalidHour">Niet geldig</span>
             </div>
           </div>
 
           <div class="row">
             <label class="float-left">Donderdag:</label>
-            <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurDo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <input (change)="onClocksChange($event)" formControlName="sluitingsuurDo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-            <div *ngIf="openingsuurDo.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurDo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurDo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurDo.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
               <span *ngIf="openingsuurDo.errors.invalidHour">Niet geldig</span>
             </div>
           </div>
+        </div>
 
+        <div class="col-sm-3">
+          <div class="row offset-sm-1">
+            <label class="float-left">Vrijdag:</label>
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurVr"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurVr"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurVr.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
+              <span *ngIf="openingsuurVr.errors.invalidHour">Niet geldig</span>
+            </div>
+          </div>
+
+          <div class="row offset-sm-1">
+            <label class="float-left">Zaterdag:</label>
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurZa"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurZa"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurZa.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
+              <span *ngIf="openingsuurZa.errors.invalidHour">Niet geldig</span>
+            </div>
+          </div>
+
+          <div class="row offset-sm-1">
+            <label class="float-left">Zondag:</label>
+            <input
+              (change)="onClocksChange($event)"
+              class="float-left mr-2"
+              formControlName="openingsuurZo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <input
+              (change)="onClocksChange($event)"
+              formControlName="sluitingsuurZo"
+              type="time"
+              min="00:00"
+              max="24:00"
+              step="1800"
+              value="00:00"
+              required
+            />
+            <div
+              *ngIf="openingsuurZo.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
+              <span *ngIf="openingsuurZo.errors.invalidHour">Niet geldig</span>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="col-sm-3">
-
-        <div class="row offset-sm-1">
-          <label class="float-left">Vrijdag:</label>
-          <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurVr" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <input (change)="onClocksChange($event)" formControlName="sluitingsuurVr" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <div *ngIf="openingsuurVr.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
-            <span *ngIf="openingsuurVr.errors.invalidHour">Niet geldig</span>
-          </div>
-        </div>
-
-        <div class="row offset-sm-1">
-          <label class="float-left">Zaterdag:</label>
-          <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurZa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <input (change)="onClocksChange($event)" formControlName="sluitingsuurZa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <div *ngIf="openingsuurZa.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
-            <span *ngIf="openingsuurZa.errors.invalidHour">Niet geldig</span>
-          </div>
-        </div>
-
-        <div class="row offset-sm-1">
-          <label class="float-left">Zondag:</label>
-          <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurZo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <input (change)="onClocksChange($event)" formControlName="sluitingsuurZo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
-          <div *ngIf="openingsuurZo.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
-            <span *ngIf="openingsuurZo.errors.invalidHour">Niet geldig</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
     </div>
 
     <hr />
@@ -225,8 +371,11 @@
     <div formGroupName="image">
       <div class="row mt-2">
         <div class="col-md-12">
+          <img width="500px" class="mb-2" [src]="imageUrl" />
+
           <div class="custom-file">
             <input
+              (change)="onFileSelected($event)"
               class="custom-file-input"
               type="file"
               accept=".png, .jpg, .jpeg"
@@ -234,7 +383,16 @@
               formControlName="image"
             />
             <label class="custom-file-label" for="customFile"
-              >Upload Image:</label
+              >Foto inladen:</label
+            >
+          </div>
+
+          <div
+            *ngIf="image.invalid && (image.touched || image.dirty)"
+            class="alert alert-danger mt-2 mb-0"
+          >
+            <span *ngIf="image.errors.mustBePngJpgOrJpeg"
+              >Image must have extension .png, .jpg or .jpeg</span
             >
           </div>
         </div>
