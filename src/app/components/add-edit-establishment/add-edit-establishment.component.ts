@@ -45,8 +45,8 @@ export class AddEditEstablishmentComponent implements OnInit {
         province: new FormControl('Antwerpen', [Validators.required]),
         community: new FormControl('Aartselaar', [Validators.required]),
         zipcode: new FormControl(2630, [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
-        street: new FormControl('', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
-        bus: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
+        street: new FormControl('Acacialaan', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        bus: new FormControl('1', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
       }),
 
       openingHours: this.formBuilder.group({
@@ -104,39 +104,41 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     switch (province) {
       case 'Antwerpen': {
-        this.changeProvinceStartValues(11001, 13053, 'Aartselaar', 2630);
+        this.changeProvinceStartValues(11001, 13053, 'Aartselaar', 2630, 'Acacialaan', '1');
         break;
       }
       case 'Limburg': {
-        this.changeProvinceStartValues(71002, 72042, 'As', 3665);
+        this.changeProvinceStartValues(71002, 72042, 'As', 3665, 'Acaciastraat', '1');
         break;
       }
       case 'Oost-Vlaanderen': {
-        this.changeProvinceStartValues(41002, 46025, 'Aalst', 9300);
+        this.changeProvinceStartValues(41002, 46025, 'Aalst', 9300, '1 Meistraat', '1');
         break;
       }
       case 'Vlaams-Brabant': {
-        this.changeProvinceStartValues(23002, 24137, 'Aarschot', 3200);
+        this.changeProvinceStartValues(23002, 24137, 'Aarschot', 3200, "'s-Hertogenheide", '1');
         break;
       }
       case 'West-Vlaanderen': {
-        this.changeProvinceStartValues(31003, 38025, 'Alveringem', 8690);
+        this.changeProvinceStartValues(31003, 38025, 'Alveringem', 8690, 'Abeelestraat', 'Geen');
         break;
       }
     }
   }
 
-  changeProvinceStartValues(start: number, end: number, value: string, zipcode: number): void {
+  changeProvinceStartValues(start: number, end: number, value: string, zipcode: number, street: string, bus: string): void {
     this.communityStartId = start;
     this.communityEndId = end;
     this.community.setValue(value);
     this.zipcode.setValue(zipcode);
+    this.street.setValue(street);
+    this.bus.setValue(bus);
     this.setStreets();
-    this.setBusNumbers();
   }
 
   onChangeCommunity(event): void {
     const location = event.target.value;
+    this.community.setValue(location);
     this.setZipcode(location);
     this.setStreets();
   }
@@ -163,13 +165,16 @@ export class AddEditEstablishmentComponent implements OnInit {
           this.streets.push(sn.straatnaam.geografischeNaam.spelling);
         })
 
+        this.street.setValue(this.streets[0]);
         this.setBusNumbers();
       })
   }
 
   setBusNumbers(): void {
+    console.log(this.community.value);
+    console.log(this.street.value);
     let numbers = new Set<string>();
-    this.busNumbers = new Array();
+    this.busNumbers = [];
     this.placesService.getBusNumbers(this.zipcode.value, this.street.value)
       .subscribe(data => {
         data.adressen.forEach(hn => {
@@ -179,21 +184,13 @@ export class AddEditEstablishmentComponent implements OnInit {
             numbers.add(hn.huisnummer);
         })
 
-        let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
-        this.busNumbers = Array.from(numbers).sort(collator.compare);
-
-        const busNumbersOptionField: HTMLElement = document.querySelector('select[formControlName=bus]') as HTMLElement;
-        if(this.busNumbers.length === 0) {
-          const option = document.createElement('option');
-          option.innerText = 'Geen';
-          busNumbersOptionField.append(option);
-        } else {
-          const options = busNumbersOptionField.querySelectorAll('option');
-          Array.from(options).forEach(o => {
-            if(o.innerText === 'Geen')
-              o.remove();
-          })
+        if(numbers.size === 0) this.busNumbers.push('Geen');
+        else {
+          let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+          this.busNumbers = Array.from(numbers).sort(collator.compare);
         }
+
+        this.bus.setValue(this.busNumbers[0]);
       })
   }
 
