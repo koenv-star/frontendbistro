@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
@@ -15,21 +15,31 @@ import { allCommunities } from 'src/app/app.component';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
+
+  // address
   allCommunities = allCommunities;
   communityStartId: number = 11001;
   communityEndId: number = 13053;
   streets: string[];
   busNumbers: string[];
 
+  // opening hours
+  clocks: any[];
+
   constructor(private formBuilder: FormBuilder,
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
+
+    // address
     this.streets = new Array();
     this.setStreets();
     this.busNumbers = new Array();
     this.setBusNumbers();
+
+    // opening hours
+    this.clocks = Array.from(document.querySelectorAll('input[type=time]'));
   }
 
   // build the form for adding an establishment
@@ -51,20 +61,20 @@ export class AddEditEstablishmentComponent implements OnInit {
       }),
 
       openingHours: this.formBuilder.group({
-        openingsuurMa: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurMa: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurDi: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurDi: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurWo: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurWo: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurDo: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurDo: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurVr: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurVr: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurZa: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurZa: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur]),
-        openingsuurZo: new FormControl('Openingsuur:', [JammikValidators.valueCannotBeOpeningsuur]),
-        sluitingsuurZo: new FormControl('Sluitingsuur:', [JammikValidators.valueCannotBeSluitingsuur])
+        openingsuurMa: new FormControl('00:00'),
+        sluitingsuurMa: new FormControl('00:00'),
+        openingsuurDi: new FormControl('00:00'),
+        sluitingsuurDi: new FormControl('00:00'),
+        openingsuurWo: new FormControl('00:00'),
+        sluitingsuurWo: new FormControl('00:00'),
+        openingsuurDo: new FormControl('00:00'),
+        sluitingsuurDo: new FormControl('00:00'),
+        openingsuurVr: new FormControl('00:00'),
+        sluitingsuurVr: new FormControl('00:00'),
+        openingsuurZa: new FormControl('00:00'),
+        sluitingsuurZa: new FormControl('00:00'),
+        openingsuurZo: new FormControl('00:00'),
+        sluitingsuurZo: new FormControl('00:00')
       }),
 
       image: this.formBuilder.group({
@@ -83,23 +93,25 @@ export class AddEditEstablishmentComponent implements OnInit {
   get street() { return this.addEstablishmentFormGroup.get('address.street'); }
   get bus() { return this.addEstablishmentFormGroup.get('address.bus'); }
 
+  get openingsuren() { return (this.addEstablishmentFormGroup.get('openingHours') as FormArray).controls; }
   get openingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurMa'); }
-  get suitingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurMa'); }
+  get sluitingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurMa'); }
   get openingsuurDi() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurDi'); }
-  get suitingsuurDi() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurDi'); }
+  get sluitingsuurDi() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurDi'); }
   get openingsuurWo() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurWo'); }
-  get suitingsuurWo() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurWo'); }
+  get sluitingsuurWo() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurWo'); }
   get openingsuurDo() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurDo'); }
-  get suitingsuurDo() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurDo'); }
+  get sluitingsuurDo() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurDo'); }
   get openingsuurVr() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurVr'); }
-  get suitingsuurVr() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurVr'); }
+  get sluitingsuurVr() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurVr'); }
   get openingsuurZa() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurZa'); }
-  get suitingsuurZa() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurZa'); }
+  get sluitingsuurZa() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurZa'); }
   get openingsuurZo() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurZo'); }
-  get suitingsuurZo() { return this.addEstablishmentFormGroup.get('openingHours.suitingsuurZo'); }
+  get sluitingsuurZo() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurZo'); }
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
 
+  // address
   onChangeProvince(event): void {
     let province: string = event.target.value;
 
@@ -172,8 +184,6 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   setBusNumbers(): void {
-    console.log(this.community.value);
-    console.log(this.street.value);
     let numbers = new Set<string>();
     this.busNumbers = [];
     this.placesService.getBusNumbers(this.zipcode.value, this.street.value)
@@ -193,6 +203,25 @@ export class AddEditEstablishmentComponent implements OnInit {
 
         this.bus.setValue(this.busNumbers[0]);
       })
+  }
+
+  onClocksChange(event): void {
+
+    for(let i = 0; i < 7; i++) {
+
+      if(this.openingsuren[i].value > this.openingsuren[i+6].value)
+        this.openingsuren[i].setErrors({ 'invalidHour': true });
+
+      if(this.openingsuren[i].value < this.openingsuren[i+6].value)
+        this.openingsuren[i].setErrors(null);
+    }
+
+    // if(this.openingsuurMa.value > this.sluitingsuurMa.value)
+    //   this.openingsuurMa.setErrors({ 'invalidHour': true });
+
+    // if(this.openingsuurMa.value < this.sluitingsuurMa.value)
+    //   this.openingsuurMa.setErrors(null);
+
   }
 
   onSubmit(): void {

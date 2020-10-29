@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="col-sm-2">
-          <label for="postcode">Postcode:</label>
+          <label class="float-left" for="postcode">Postcode:</label>
           <input
             id="postcode"
             class="form-control"
@@ -120,7 +120,7 @@
           </div>
         </div>
         <div class="col-sm-2">
-          <label for="huisnummer">Huisnummer:</label>
+          <label class="float-left" for="huisnummer">Huisnummer:</label>
           <select
             id="huisnummer"
             class="form-control"
@@ -142,110 +142,52 @@
     <hr />
 
     <div formGroupName="openingHours" class="form-area">
-      <label>Maandag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurMa">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurMa"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
-      </div>
-
-      <label>Dinsdag:</label>
+        <label class="float-left">Maandag:</label>
+          <input (change)="onClocksChange($event)" class="float-left mr-2" formControlName="openingsuurMa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+          <input (change)="onClocksChange($event)" formControlName="sluitingsuurMa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+          <div *ngIf="openingsuurMa.invalid" class="col-sm-12 alert alert-danger mt-2 mb-0">
+            <span *ngIf="openingsuurMa.errors.invalidHour">Openingsuur is later dan sluitingsuur</span>
+          </div>
+        </div>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurDi">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurDi"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Dinsdag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurDi" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurDi" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
-
-      <label>Woensdag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurWo">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurWo"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Woensdag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurWo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurWo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
-
-      <label>Donderdag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurDo">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurDo"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Donderdag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurDo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurDo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
-
-      <label>Vrijdag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurVr">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurVr"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Vrijdag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurVr" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurVr" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
-
-      <label>Zaterdag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurZa">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurZa"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Zaterdag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurZa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurZa" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
-
-      <label>Zondag:</label>
 
       <div class="row">
-        <select class="form-control col-md-5" formControlName="openingsuurZo">
-          <option disabled selected>Openingsuur:</option>
-        </select>
-
-        <select
-          class="form-control col-md-5 offset-md-2"
-          formControlName="sluitingsuurZo"
-        >
-          <option disabled selected>Sluitingsuur:</option>
-        </select>
+        <label class="float-left">Zondag:</label>
+        <input (change)="onClocksChange($event)" class="mr-2" formControlName="openingsuurZo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
+        <input (change)="onClocksChange($event)" formControlName="sluitingsuurZo" type="time" min="00:00" max="24:00" step="1800" value="00:00" required />
       </div>
+
     </div>
 
     <hr />
