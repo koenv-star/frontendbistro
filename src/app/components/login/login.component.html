@@ -7,11 +7,12 @@
         <div class="d-flex flex-column align-items-center">
           <img alt="welkom bij Jammik" class=" d-lg-block img-fluid" src="assets/images/BannerIcons/LoginBanner.png">
           <div class="container-fluid">
-            <form [formGroup]="loginForm" *ngIf=!loginstatus (ngSubmit)="login()">
+            <form [formGroup]="loginForm" *ngIf=!logInStatus (ngSubmit)="login()">
               <label class="mt-3" for="username"><i class="fa fa-user mr-2" aria-hidden="true"></i>Username :</label>
               <input
                 type="text"
                 class="form-control"
+                id="username"
                 placeholder="example@example.be"
                 formControlName="username"
               />
@@ -20,11 +21,12 @@
               <input
                 type="text"
                 class="form-control"
+                id="password"
                 placeholder="password"
                 formControlName="password"
               />
 
-              <input type="checkbox" class="mr-2 mt-3" style="" formControlName="remember"/>
+              <input type="checkbox" class="mr-2 mt-3" style="" id="remember" formControlName="remember"/>
               <label for="remember">Remember me?</label>
 
               <div class="container-fluid">
@@ -33,9 +35,9 @@
                 </button>
               </div>
             </form>
-            <h1 *ngIf=loginstatus>Already logged in !</h1>
+            <h1 *ngIf=logInStatus>Already logged in !</h1>
           </div>
-          <div class="container-fluid">
+          <div class="container-fluid" *ngIf=!logInStatus>
             <a routerLink="/register">
               New user?<span style="color: blue">Sign up!</span>
             </a>

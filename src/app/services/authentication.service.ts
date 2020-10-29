@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { Costumer } from '../models/costumer';
 
 const httpOptions = {
@@ -16,6 +16,7 @@ const LIST_URL = 'http://localhost:8080/klanten';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  userChange$ = new BehaviorSubject({email: null, role: null});
   constructor(private http: HttpClient) {}
 
   // 'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ export class AuthenticationService {
   }
 
 
- 
+
 
   list(): Observable<Costumer[]> {
     return this.http.get<Costumer[]>(LIST_URL);

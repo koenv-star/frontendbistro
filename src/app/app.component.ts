@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Owner} from './models/owner';
+import {Costumer} from './models/costumer';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jammik';
+
 }

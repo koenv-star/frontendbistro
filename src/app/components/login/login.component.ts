@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {User} from 'src/app/models/user';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {TokenStorageService} from 'src/app/services/token-storage.service';
 import * as bcrypt from 'bcryptjs';
+import {BehaviorSubject} from 'rxjs';
+import {isNull} from 'util';
+import {AccountService} from '../../services/account.service';
 
 // Author Koen
 @Component({
@@ -14,13 +17,16 @@ import * as bcrypt from 'bcryptjs';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginstatus: boolean = this.tokenservice.getUser();
+  logInStatus: boolean = !isNull(this.tokenservice.getUser());
+
   constructor(
     private service: AuthenticationService,
     private formBuilder: FormBuilder,
     private tokenservice: TokenStorageService,
+    private serviceAccount: AccountService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -39,9 +45,15 @@ export class LoginComponent implements OnInit {
       let token = data.headers.get('Authorization');
       console.log(data);
       this.tokenservice.saveToken(token);
-      let role = this.tokenservice.getRoleToken(token);
-      this.tokenservice.saveUser(new User(null,username,role));
-      this.router.navigateByUrl('');
+      let role: string = this.tokenservice.getRoleToken(token);
+      let user = new User(null, username, role);
+      this.tokenservice.saveUser(user);
+
+      // Updating behaviorSubject to
+      // For getting the User role and Name from other component
+      this.service.userChange$.next({email: username, role});
+      this.serviceAccount.updateUser();
+      this.router.navigateByUrl('/MyAccount');
     });
   }
 }

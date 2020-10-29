@@ -1,11 +1,12 @@
 export class Costumer {
 
 
-  constructor(public naam: String, public voornaam:String, public email:String, public wachtwoord:String){
-
-    this.naam=naam;
-    this.voornaam=voornaam;
-    this.email=email;
-    this.wachtwoord=wachtwoord;
+  constructor(public naam: String,
+              public voornaam:String,
+              public email:String,
+              public wachtwoord:String,
+              public kredieten: number,
+              public reservaties: String[],
+              public bestellingVerzamelingen: String[]){
   }
 }

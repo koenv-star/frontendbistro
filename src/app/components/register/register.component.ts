@@ -54,11 +54,21 @@ export class RegisterComponent implements OnInit {
 
     console.log(naam, achternaam, wachtwoord, email, rol);
     if (rol == 'uitbater') {
-      let owner = new Owner(naam, achternaam, email, wachtwoord);
+      let owner = new Owner(naam,
+        achternaam,
+        email,
+        wachtwoord,
+        2000.0,
+        null, null, null);
 
       this.registerService.registerUitbater(owner).subscribe();
     } else {
-      let costumer = new Costumer(naam, achternaam, email, wachtwoord);
+      let costumer = new Costumer(naam,
+        achternaam,
+        email,
+        wachtwoord,
+        1000.0,
+        null, null);
 
       this.registerService.registerklant(costumer).subscribe();
     }

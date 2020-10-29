@@ -1,0 +1,20 @@
+<app-header></app-header>
+<div>
+<h3>My Account</h3>
+  <ul class="container " *ngIf="owner$">
+    <li>Naam : {{owner$.naam}}</li>
+    <li>Voornaam : {{owner$.voornaam}}</li>
+    <li>Email : {{owner$.email}}</li>
+    <li>Kredieten : {{owner$.kredieten}}</li>
+    <li>Reservaties : {{owner$.reservaties}}</li>
+    <li>Mijn Zaken : {{owner$.zaken}}</li>
+  </ul>
+  <ul *ngIf="costumer$">
+    <li>Naam : {{costumer$.naam}}</li>
+    <li>Voornaam : {{costumer$.voornaam}}</li>
+    <li>Email : {{costumer$.email}}</li>
+    <li>Kredieten : {{costumer$.kredieten}}</li>
+    <li>Reservaties : {{costumer$.reservaties}}</li>
+  </ul>
+</div>
+<app-footer></app-footer>
