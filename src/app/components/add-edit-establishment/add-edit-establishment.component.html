@@ -129,6 +129,12 @@
           >
             <option *ngFor="let bn of busNumbers">{{ bn }}</option>
           </select>
+          <div
+            *ngIf="bus.invalid"
+            class="col-sm-12 alert alert-danger mt-2 mb-0"
+          >
+            <span *ngIf="bus.errors.cannotBeGeen">Verboden</span>
+          </div>
         </div>
       </div>
     </div>

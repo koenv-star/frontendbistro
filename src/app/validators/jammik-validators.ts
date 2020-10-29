@@ -1,5 +1,8 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
 
+/**
+ * Gemaakt door Jan
+ */
 export class JammikValidators {
 
   static notOnlyWhitespace(control: FormControl): ValidationErrors {
@@ -9,6 +12,15 @@ export class JammikValidators {
       return { 'notOnlyWhitespace': true };
     } else {
 
+      return null;
+    }
+  }
+
+  static cannotBeGeen(control: FormControl): ValidationErrors {
+
+    if(control.value !== null && control.value === 'Geen') {
+      return { 'cannotBeGeen': true };
+    } else {
       return null;
     }
   }

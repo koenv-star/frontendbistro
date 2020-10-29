@@ -46,7 +46,8 @@ export class AddEditEstablishmentComponent implements OnInit {
         community: new FormControl('Aartselaar', [Validators.required]),
         zipcode: new FormControl(2630, [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
         street: new FormControl('Acacialaan', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
-        bus: new FormControl('1', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
+        bus: new FormControl('1', [Validators.required, JammikValidators.notOnlyWhitespace,
+          JammikValidators.cannotBeGeen])
       }),
 
       openingHours: this.formBuilder.group({
