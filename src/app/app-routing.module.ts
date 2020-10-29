@@ -7,6 +7,7 @@ import {FooterComponent} from './components/footer/footer.component';
 import { CostumersListComponent } from './components/costumers-list/costumers-list.component';
 import { LoginComponent } from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'menu', component: MenuComponent },
+
 ];
 
 @NgModule({

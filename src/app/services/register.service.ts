@@ -27,3 +27,4 @@ export class RegisterService {
     return this.http.post<Costumer>(REGKLANT_URL, newcostumer);
 
 }
+}

@@ -1,0 +1,26 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-10 mx-auto col-12 text-center mb-3">
+      <h1 class="mt-0 text-primary">MenuKaart</h1>
+      <p class="lead">
+        Welkom op onze menuKaart. Maak een keuze uit ons geweldig assortement
+        aan maaltijden! Onze keuken maakt enkel gebruik van verse producten en ingredienten van topkwaliteit! 
+      </p>
+    </div>
+    <div class="col-12 mt-4">
+        <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
+      <h3 class="text-center">Hoofd gerechten</h3>
+      <hr class="accent my-5" />
+    </div>
+    <div class="card-columns"  >
+      <div class="card card-body" *ngFor="let item of items">
+        <span class="float-right font-weight-bold">{{item.prijs}}</span>
+        <h6 class="text-truncate">{{item.naam}}</h6>
+        <p class="small">
+          Tito's Vodka and White Créme de Cacao dusted with hand shav
+          chocolate.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

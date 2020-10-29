@@ -14,6 +14,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HeaderComponent } from './components/header/header.component';
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

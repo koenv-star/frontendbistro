@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
-
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
 @Injectable({
   providedIn: 'root',
 })
-
-
-
-
 export class TokenStorageService {
   constructor() {}
 
@@ -27,22 +22,21 @@ export class TokenStorageService {
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY);
   }
-  public getRoleToken(token: string){
+  public getRoleToken(token: string) {
     let jwt = token;
 
-    let jwtData = jwt.split('.')[1];
-    let decodedJwtJsonData = window.atob(jwtData);
-    let decodedJwtData = JSON.parse(decodedJwtJsonData);
-
+    var jwtData = jwt.split('.')[1];
+    var decodedJwtJsonData = window.atob(jwtData);
+    var decodedJwtData = JSON.parse(decodedJwtJsonData);
     let role = decodedJwtData;
 
     console.log('jwtData: ' + jwtData);
     console.log('decodedJwtJsonData: ' + decodedJwtJsonData);
-    console.log('decodedJwtData: ' + decodedJwtData);
+    console.log('decodedJwtData: ' + decodedJwtData.authorities.value);
     console.log('Is admin: ' + role);
     return role;
   }
-  public saveUser( user: User) {
+  public saveUser(user: User) {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
