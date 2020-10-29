@@ -219,13 +219,6 @@ export class AddEditEstablishmentComponent implements OnInit {
       else if(this.openingHours[i+1] > this.openingHours[i].value)
         this.openingHours[i].setErrors(null);
     }
-
-    // if(this.openingsuurMa.value > this.sluitingsuurMa.value)
-    //   this.openingsuurMa.setErrors({ 'invalidHour': true });
-
-    // if(this.openingsuurMa.value < this.sluitingsuurMa.value)
-    //   this.openingsuurMa.setErrors(null);
-
   }
 
   onSubmit(): void {
