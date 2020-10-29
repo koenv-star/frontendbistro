@@ -162,9 +162,9 @@ export class AddEditEstablishmentComponent implements OnInit {
         }).forEach(sn => {
           this.streets.push(sn.straatnaam.geografischeNaam.spelling);
         })
-      })
 
-    this.setBusNumbers();
+        this.setBusNumbers();
+      })
   }
 
   setBusNumbers(): void {
@@ -181,6 +181,19 @@ export class AddEditEstablishmentComponent implements OnInit {
 
         let collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
         this.busNumbers = Array.from(numbers).sort(collator.compare);
+
+        const busNumbersOptionField: HTMLElement = document.querySelector('select[formControlName=bus]') as HTMLElement;
+        if(this.busNumbers.length === 0) {
+          const option = document.createElement('option');
+          option.innerText = 'Geen';
+          busNumbersOptionField.append(option);
+        } else {
+          const options = busNumbersOptionField.querySelectorAll('option');
+          Array.from(options).forEach(o => {
+            if(o.innerText === 'Geen')
+              o.remove();
+          })
+        }
       })
   }
 

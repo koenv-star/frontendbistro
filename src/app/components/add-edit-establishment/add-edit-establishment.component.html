@@ -66,50 +66,71 @@
         </select>
       </div>
 
+      <!-- gemeente en postcode -->
       <div class="row mt-2">
-        <label for="community">Gemeente:</label>
+        <div class="col-sm-10">
+          <div class="row">
+            <label for="community">Gemeente:</label>
 
-        <select class="form-control" formControlName="community" (change)="onChangeCommunity($event)">
-          <ng-container *ngFor="let community of allCommunities">
-            <option *ngIf="community.id >= communityStartId && community.id <= communityEndId" [id]="community.id" value="{{ community.name }}">
-              {{ community.name }}
-            </option>
-          </ng-container>
-        </select>
+            <select
+              class="form-control"
+              formControlName="community"
+              (change)="onChangeCommunity($event)"
+            >
+              <ng-container *ngFor="let community of allCommunities">
+                <option
+                  *ngIf="
+                    community.id >= communityStartId &&
+                    community.id <= communityEndId
+                  "
+                  [id]="community.id"
+                  value="{{ community.name }}"
+                >
+                  {{ community.name }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <label for="postcode">Postcode:</label>
+          <input
+            id="postcode"
+            class="form-control"
+            formControlName="zipcode"
+            type="number"
+            readonly
+          />
+        </div>
       </div>
 
+      <!-- straat en huisnummer -->
       <div class="row mt-2">
-        <label for="postcode">Postcode:</label>
-        <input
-          id="postcode"
-          class="form-control"
-          formControlName="zipcode"
-          type="number"
-          readonly
-        />
-      </div>
+        <div class="col-sm-10">
+          <div class="row">
+            <label for="straat">Straat:</label>
+            <select
+              id="straat"
+              class="form-control"
+              formControlName="street"
+              (change)="setBusNumbers()"
+            >
+              <option *ngFor="let street of streets">{{ street }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+            <label for="huisnummer">Huisnummer:</label>
+            <select
+              id="huisnummer"
+              class="form-control"
+              formControlName="bus"
+              type="text"
+            >
+              <option *ngFor="let bn of busNumbers">{{ bn }}</option>
+            </select>
 
-      <div class="row mt-2">
-        <label for="straat">Straat:</label>
-        <select
-          id="straat"
-          class="form-control"
-          formControlName="street"
-          (change)="setBusNumbers()">
-          <option *ngFor="let street of streets">{{ street }}</option>
-        </select>
-      </div>
-
-      <div class="row mt-2">
-        <label for="huisnummer">Huisnummer:</label>
-        <select
-          id="huisnummer"
-          class="form-control"
-          formControlName="bus"
-          type="text">
-          <option *ngFor="let bn of busNumbers">{{ bn }}</option>
-          <option *ngIf="busNumbers.length === 0">Geen huisnummers gevonden</option>
-        </select>
+        </div>
       </div>
     </div>
 
