@@ -4,6 +4,7 @@ import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
 import { Stringtool } from 'src/app/tools/stringtool';
+import { Time } from '@angular/common';
 
 /**
  * Gemaakt door Jan
@@ -228,8 +229,8 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     for(let i = 0; i < this.openingHours.length; i+=2) {
 
-      let openingsUur: number = Stringtool.getHoursFromString(this.openingHours[i].value);
-      let sluitingsUur: number = Stringtool.getHoursFromString(this.openingHours[i+1].value);
+      let openingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i].value);
+      let sluitingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i+1].value);
 
       if(this.openingHours[i].value > this.openingHours[i+1].value)
         this.openingHours[i].setErrors({ 'invalidHour': true });
@@ -237,7 +238,8 @@ export class AddEditEstablishmentComponent implements OnInit {
       else if(this.openingHours[i+1].value === this.openingHours[i].value)
         this.openingHours[i].setErrors({ 'invalidHour': true });
 
-      else if(sluitingsUur - openingsUur < 1)
+      else if(sluitingsTijd.hours - openingsTijd.hours < 1 ||
+        sluitingsTijd.hours - openingsTijd.hours === 1 && sluitingsTijd.minutes - openingsTijd.minutes < 0)
         this.openingHours[i].setErrors({ 'invalidHour': true });
 
       else if(this.openingHours[i+1] > this.openingHours[i].value)
