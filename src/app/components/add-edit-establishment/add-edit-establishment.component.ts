@@ -29,6 +29,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   clocks: any[];
   openingHours: AbstractControl[];
   timeInputs: HTMLElement[];
+  openCloseBtns: HTMLElement[];
 
   // image
   imageUrl: string;
@@ -53,6 +54,7 @@ export class AddEditEstablishmentComponent implements OnInit {
                         this.sluitingsuurWo, this.openingsuurDo, this.sluitingsuurDo, this.openingsuurVr, this.sluitingsuurVr,
                         this.openingsuurZa, this.sluitingsuurZa, this.openingsuurZo, this.sluitingsuurZo];
     this.timeInputs = Array.from(document.querySelectorAll('input[type=time]'));
+    this.openCloseBtns = Array.from(document.querySelectorAll('.timeBtn'));
 
     // image
     this.imageUrl = '';
@@ -228,9 +230,12 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   // opening hours
-  onClocksChange(event): void {
+  onClocksChange(): void {
 
     for(let i = 0; i < this.openingHours.length; i+=2) {
+
+      if(this.timeInputs[i].style.visibility === 'hidden')
+        continue;
 
       let openingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i].value);
       let sluitingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i+1].value);
@@ -255,8 +260,8 @@ export class AddEditEstablishmentComponent implements OnInit {
     let btn = event.target;
     if(btn.innerText === 'Gesloten') {
       this.openingHours[begin].setErrors(null);
-      this.openingHours[begin].setValue(null);
-      this.openingHours[end].setValue(null);
+      this.openingHours[begin].setValue('00:00');
+      this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'hidden';
       this.timeInputs[end].style.visibility = 'hidden';
       btn.innerText = 'Open';
@@ -286,6 +291,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     if(this.addEstablishmentFormGroup.invalid) {
       this.addEstablishmentFormGroup.markAllAsTouched();
+      this.onClocksChange();
       return;
     }
 

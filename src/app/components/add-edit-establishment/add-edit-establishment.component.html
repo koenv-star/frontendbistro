@@ -177,7 +177,7 @@
           <div class="row">
             <label class="float-left">Maandag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurMa"
               type="time"
@@ -188,7 +188,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurMa"
               type="time"
               min="00:00"
@@ -197,7 +197,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(0, 1, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(0, 1, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurMa.invalid && (openingsuurMa.touched || openingsuurMa.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -209,7 +209,7 @@
           <div class="row">
             <label class="float-left">Dinsdag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurDi"
               type="time"
@@ -220,7 +220,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurDi"
               type="time"
               min="00:00"
@@ -229,7 +229,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(2, 3, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(2, 3, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurDi.invalid && (openingsuurDi.touched || openingsuurDi.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -241,7 +241,7 @@
           <div class="row">
             <label class="float-left">Woensdag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurWo"
               type="time"
@@ -252,7 +252,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurWo"
               type="time"
               min="00:00"
@@ -261,7 +261,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(4, 5, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(4, 5, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurWo.invalid && (openingsuurWo.touched || openingsuurWo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -273,7 +273,7 @@
           <div class="row">
             <label class="float-left">Donderdag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurDo"
               type="time"
@@ -284,7 +284,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurDo"
               type="time"
               min="00:00"
@@ -293,7 +293,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(6, 7, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(6, 7, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurDo.invalid && (openingsuurDo.touched || openingsuurDo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -307,7 +307,7 @@
           <div class="row offset-sm-1">
             <label class="float-left">Vrijdag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurVr"
               type="time"
@@ -318,7 +318,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurVr"
               type="time"
               min="00:00"
@@ -327,7 +327,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(8, 9, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(8, 9, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurVr.invalid && (openingsuurVr.touched || openingsuurVr.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -339,7 +339,7 @@
           <div class="row offset-sm-1">
             <label class="float-left">Zaterdag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurZa"
               type="time"
@@ -350,7 +350,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurZa"
               type="time"
               min="00:00"
@@ -359,7 +359,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(10, 11, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(10, 11, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurZa.invalid && (openingsuurZa.touched || openingsuurZa.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
@@ -371,7 +371,7 @@
           <div class="row offset-sm-1">
             <label class="float-left">Zondag:</label>
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               class="float-left mr-2"
               formControlName="openingsuurZo"
               type="time"
@@ -382,7 +382,7 @@
               required
             />
             <input
-              (change)="onClocksChange($event)"
+              (change)="onClocksChange()"
               formControlName="sluitingsuurZo"
               type="time"
               min="00:00"
@@ -391,7 +391,7 @@
               value="00:00"
               required
             />
-            <button (click)="onOpenCloseToggle(12, 13, $event)" class="col-sm-6 btn btn-primary mt-1">Gesloten</button>
+            <button (click)="onOpenCloseToggle(12, 13, $event)" class="col-sm-6 btn btn-primary mt-1 timeBtn">Gesloten</button>
             <div
               *ngIf="openingsuurZo.invalid && (openingsuurZo.touched || openingsuurZo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
