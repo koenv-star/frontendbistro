@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
+import { AddmenuComponent } from './components/addmenu/addmenu.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'zaken', component: ZakenComponent },
+  { path: 'addmenu', component:AddmenuComponent }
+
 
 ];
 

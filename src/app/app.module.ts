@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
+import { AddmenuComponent } from './components/addmenu/addmenu.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ZakenComponent } from './components/zaken/zaken.component';
     RegisterComponent,
     MenuComponent,
     ZakenComponent,
+    AddmenuComponent,
   ],
   imports: [
     BrowserModule,
