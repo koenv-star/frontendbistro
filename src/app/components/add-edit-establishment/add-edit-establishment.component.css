@@ -31,3 +31,12 @@ img {
   content: url('../../../assets/bootstrap-icons/search.svg');
   background-color:  green;
 }
+
+.slide {
+  animation: slide 1s ease forwards;
+}
+
+@keyframes slide {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-200%); }
+}

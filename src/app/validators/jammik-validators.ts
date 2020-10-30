@@ -54,8 +54,6 @@ export class JammikValidators {
       const beginPosition: number = control.value.includes('.jpeg') ? nameLength -4 : nameLength -3;
       const extension: string = control.value.substring(beginPosition);
 
-      console.log(extension);
-
       return (regexp.test(extension) ? null : { 'mustBePngJpgOrJpeg': true });
     } else {
       return { 'mustBePngJpgOrJpeg': true };

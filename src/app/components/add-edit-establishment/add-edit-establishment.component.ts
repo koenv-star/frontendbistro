@@ -29,7 +29,6 @@ export class AddEditEstablishmentComponent implements OnInit {
   clocks: any[];
   openingHours: AbstractControl[];
   timeInputs: HTMLElement[];
-  openCloseBtns: HTMLElement[];
 
   // image
   imageUrl: string;
@@ -40,6 +39,7 @@ export class AddEditEstablishmentComponent implements OnInit {
               private placesService: PlacesService) { }
 
   ngOnInit(): void {
+
     this.buildForm();
 
     // address
@@ -54,7 +54,6 @@ export class AddEditEstablishmentComponent implements OnInit {
                         this.sluitingsuurWo, this.openingsuurDo, this.sluitingsuurDo, this.openingsuurVr, this.sluitingsuurVr,
                         this.openingsuurZa, this.sluitingsuurZa, this.openingsuurZo, this.sluitingsuurZo];
     this.timeInputs = Array.from(document.querySelectorAll('input[type=time]'));
-    this.openCloseBtns = Array.from(document.querySelectorAll('.timeBtn'));
 
     // image
     this.imageUrl = '';
@@ -77,27 +76,27 @@ export class AddEditEstablishmentComponent implements OnInit {
       address: this.formBuilder.group({
         province: new FormControl('Antwerpen', [Validators.required]),
         community: new FormControl('Aartselaar', [Validators.required]),
-        zipcode: new FormControl(2630, [Validators.required, Validators.pattern(new RegExp(/^\\d{4}$/))]),
+        zipcode: new FormControl(2630, [Validators.required]),
         street: new FormControl('Acacialaan', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('1', [Validators.required, JammikValidators.notOnlyWhitespace,
           JammikValidators.cannotBeGeen])
       }),
 
       openingHours: this.formBuilder.group({
-        openingsuurMa: new FormControl('00:00'),
-        sluitingsuurMa: new FormControl('00:00'),
-        openingsuurDi: new FormControl('00:00'),
-        sluitingsuurDi: new FormControl('00:00'),
-        openingsuurWo: new FormControl('00:00'),
-        sluitingsuurWo: new FormControl('00:00'),
-        openingsuurDo: new FormControl('00:00'),
-        sluitingsuurDo: new FormControl('00:00'),
-        openingsuurVr: new FormControl('00:00'),
-        sluitingsuurVr: new FormControl('00:00'),
-        openingsuurZa: new FormControl('00:00'),
-        sluitingsuurZa: new FormControl('00:00'),
-        openingsuurZo: new FormControl('00:00'),
-        sluitingsuurZo: new FormControl('00:00')
+        openingsuurMa: new FormControl('12:00'),
+        sluitingsuurMa: new FormControl('12:00'),
+        openingsuurDi: new FormControl('12:00'),
+        sluitingsuurDi: new FormControl('12:00'),
+        openingsuurWo: new FormControl('12:00'),
+        sluitingsuurWo: new FormControl('12:00'),
+        openingsuurDo: new FormControl('12:00'),
+        sluitingsuurDo: new FormControl('12:00'),
+        openingsuurVr: new FormControl('12:00'),
+        sluitingsuurVr: new FormControl('12:00'),
+        openingsuurZa: new FormControl('12:00'),
+        sluitingsuurZa: new FormControl('12:00'),
+        openingsuurZo: new FormControl('12:00'),
+        sluitingsuurZo: new FormControl('12:00')
       }),
 
       image: this.formBuilder.group({
@@ -232,6 +231,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   // opening hours
   onClocksChange(): void {
 
+    this.addEstablishmentFormGroup.get('openingHours').markAllAsTouched();
+
     for(let i = 0; i < this.openingHours.length; i+=2) {
 
       if(this.timeInputs[i].style.visibility === 'hidden')
@@ -260,14 +261,14 @@ export class AddEditEstablishmentComponent implements OnInit {
     let btn = event.target;
     if(btn.innerText === 'Gesloten') {
       this.openingHours[begin].setErrors(null);
-      this.openingHours[begin].setValue('00:00');
-      this.openingHours[end].setValue('00:00');
+      // this.openingHours[begin].setValue('00:00');
+      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'hidden';
       this.timeInputs[end].style.visibility = 'hidden';
       btn.innerText = 'Open';
     } else {
-      this.openingHours[begin].setValue('00:00');
-      this.openingHours[end].setValue('00:00');
+      // this.openingHours[begin].setValue('00:00');
+      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'visible';
       this.timeInputs[end].style.visibility = 'visible';
       btn.innerText = 'Gesloten';
@@ -292,11 +293,17 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(this.addEstablishmentFormGroup.invalid) {
       this.addEstablishmentFormGroup.markAllAsTouched();
       this.onClocksChange();
+
+      console.log(this.province.errors);
+      console.log(this.community.errors);
+      console.log(this.zipcode.errors);
+      console.log(this.street.errors);
+      console.log(this.bus.errors);
       return;
     }
 
-    const firstForm: HTMLElement = document.querySelector('form') as HTMLElement;
-    firstForm.style.background = 'black';
+    const firstForm = document.querySelector('#firstForm') as HTMLElement;
+    firstForm.classList.add('slide');
   }
 
   onSubmit(): void {
