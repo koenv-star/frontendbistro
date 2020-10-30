@@ -21,17 +21,18 @@
           class="col-sm-12 alert alert-danger mt-2 mb-0"
         >
           <span
+            class="float-left"
             *ngIf="
               establishmentName.errors.required ||
               establishmentName.errors.notOnlyWhitespace
             "
             >De naam van de zaak moet ingevuld zijn</span
           >
-          <span *ngIf="establishmentName.errors.pattern"
+          <span class="float-left" *ngIf="establishmentName.errors.pattern"
             >De naam mag geen _ bevatten</span
           >
-          <span *ngIf="establishmentName.errors.minlength"
-            >De naam moet minstens 2 karakters zijn</span
+          <span class="float-left" *ngIf="establishmentName.errors.minlength"
+            >De naam moet minstens 2 karakters bevatten</span
           >
         </div>
       </div>
@@ -44,6 +45,35 @@
           formControlName="parking"
           type="checkbox"
         />
+      </div>
+    </div>
+
+    <hr>
+
+    <div formGroupName="description" class="form-area">
+      <div class="row mt-2">
+        <label for="description">Omschrijving:</label>
+
+        <textarea class="form-control" formControlName="description"></textarea>
+        <div
+        *ngIf="
+          description.invalid &&
+          (description.touched || description.dirty)
+        "
+        class="col-sm-12 alert alert-danger mt-2 mb-0"
+      >
+        <span
+          class="float-left"
+          *ngIf="
+            description.errors.required ||
+            description.errors.notOnlyWhitespace
+          "
+          >De omschrijving moet ingevuld zijn</span
+        >
+        <span class="float-left" *ngIf="description.errors.minlength"
+          >De omschrijving moet minstens 2 karakters bevatten</span
+        >
+      </div>
       </div>
     </div>
 
@@ -399,6 +429,14 @@
       </div>
     </div>
 
-    <input type="submit" class="btn btn-primary my-2" />
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-primary my-2 float-right">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </form>
 </div>

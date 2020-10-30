@@ -64,6 +64,10 @@ export class AddEditEstablishmentComponent implements OnInit {
         parking: new FormControl()
       }),
 
+      description: this.formBuilder.group({
+        description: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
+      }),
+
       address: this.formBuilder.group({
         province: new FormControl('Antwerpen', [Validators.required]),
         community: new FormControl('Aartselaar', [Validators.required]),
@@ -106,7 +110,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   get street() { return this.addEstablishmentFormGroup.get('address.street'); }
   get bus() { return this.addEstablishmentFormGroup.get('address.bus'); }
 
-  // get openingsuren() { return (this.addEstablishmentFormGroup.get('openingHours') as FormArray); }
+  get description() { return this.addEstablishmentFormGroup.get('description.description'); }
+
   get openingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurMa'); }
   get sluitingsuurMa() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurMa'); }
   get openingsuurDi() { return this.addEstablishmentFormGroup.get('openingHours.openingsuurDi'); }
