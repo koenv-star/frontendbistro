@@ -15,8 +15,8 @@ import {isNull} from 'util';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent implements OnInit {
-  owner$: Owner;
-  costumer$: Costumer;
+  owner: Owner;
+  costumer: Costumer;
 
   constructor(private serviceCredentials: CredentialServiceService,
               private router: Router,
@@ -33,10 +33,10 @@ export class MyAccountComponent implements OnInit {
       this.serviceAuth.userChange$.next({email: user.email, role: user.role});
       this.serviceAccount.updateUser();
       this.serviceAccount.costumer$.asObservable().subscribe(data => {
-        this.costumer$ = data;
+        this.costumer = data;
       });
       this.serviceAccount.owner$.asObservable().subscribe(data => {
-        this.owner$ = data;
+        this.owner = data;
       });
     }
   }

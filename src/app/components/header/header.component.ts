@@ -43,12 +43,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.tokenservice.signout();
-    this.service.userChange$.next({email: null, role: null});
-    this.serviceAccount.costumer$.next(null);
-    this.serviceAccount.owner$.next(null);
-    this.isOwner = false;
-    this.isCostumer = false;
+    this.tokenservice.signout(); // clearing the sessionStorage
+    this.service.userChange$.next({email: null, role: null}); // clearing the authorization BehaviorSubject's values.
+    this.serviceAccount.costumer$.next(null); // clearing the Account service Costumer BehaviorSubject's values.
+    this.serviceAccount.owner$.next(null);// clearing the Account service Owner  BehaviorSubject's values.
+    this.isOwner = false; // turning the header is not Owner.
+    this.isCostumer = false; // turning the header is not Costumer.
   }
 
 
@@ -67,7 +67,6 @@ export class HeaderComponent implements OnInit {
       this.serviceAccount.owner$.asObservable().subscribe(res => {
         this.owner = res;
         if (!isNull(this.owner)) {
-          console.log('notnull');
           this.isOwner = true;
         }
       });
@@ -75,16 +74,18 @@ export class HeaderComponent implements OnInit {
       this.serviceAccount.costumer$.asObservable().subscribe(res => {
         this.costumer = res;
         if (!isNull(this.costumer)) {
-          console.log('notnull Cost');
           this.isCostumer = true;
         }
 
       });
+
       this.checkStatus();
 
     }
   }
-
+// checking if the user logged in or not
+// if logged in then checking the role
+// changing the header bar
   checkStatus() {
 
     if (!isNull(this.costumer)) {
