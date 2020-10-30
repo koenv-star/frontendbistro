@@ -198,7 +198,7 @@
               required
             />
             <div
-              *ngIf="openingsuurMa.invalid"
+              *ngIf="openingsuurMa.invalid && (openingsuurMa.touched || openingsuurMa.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurMa.errors.invalidHour">Niet geldig</span>
@@ -229,7 +229,7 @@
               required
             />
             <div
-              *ngIf="openingsuurDi.invalid"
+              *ngIf="openingsuurDi.invalid && (openingsuurDi.touched || openingsuurDi.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurDi.errors.invalidHour">Niet geldig</span>
@@ -260,7 +260,7 @@
               required
             />
             <div
-              *ngIf="openingsuurWo.invalid"
+              *ngIf="openingsuurWo.invalid && (openingsuurWo.touched || openingsuurWo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurWo.errors.invalidHour">Niet geldig</span>
@@ -291,7 +291,7 @@
               required
             />
             <div
-              *ngIf="openingsuurDo.invalid"
+              *ngIf="openingsuurDo.invalid && (openingsuurDo.touched || openingsuurDo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurDo.errors.invalidHour">Niet geldig</span>
@@ -324,7 +324,7 @@
               required
             />
             <div
-              *ngIf="openingsuurVr.invalid"
+              *ngIf="openingsuurVr.invalid && (openingsuurVr.touched || openingsuurVr.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurVr.errors.invalidHour">Niet geldig</span>
@@ -355,7 +355,7 @@
               required
             />
             <div
-              *ngIf="openingsuurZa.invalid"
+              *ngIf="openingsuurZa.invalid && (openingsuurZa.touched || openingsuurZa.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurZa.errors.invalidHour">Niet geldig</span>
@@ -386,7 +386,7 @@
               required
             />
             <div
-              *ngIf="openingsuurZo.invalid"
+              *ngIf="openingsuurZo.invalid && (openingsuurZo.touched || openingsuurZo.dirty)"
               class="col-sm-12 alert alert-danger mt-2 mb-0"
             >
               <span *ngIf="openingsuurZo.errors.invalidHour">Niet geldig</span>
@@ -431,12 +431,13 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <button class="btn btn-primary my-2 float-right">
+        <button (click)="goToNextSection($event)" class="btn btn-primary my-2 float-right">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
           </svg>
         </button>
       </div>
     </div>
+
   </form>
 </div>

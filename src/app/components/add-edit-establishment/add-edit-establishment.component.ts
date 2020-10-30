@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { PlacesService } from 'src/app/services/places.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
+import { Stringtool } from 'src/app/tools/stringtool';
 
 /**
  * Gemaakt door Jan
@@ -33,7 +34,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   inputFileLabel: HTMLElement;
 
   constructor(private formBuilder: FormBuilder,
-    private placesService: PlacesService) { }
+              private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -227,7 +228,16 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     for(let i = 0; i < this.openingHours.length; i+=2) {
 
+      let openingsUur: number = Stringtool.getHoursFromString(this.openingHours[i].value);
+      let sluitingsUur: number = Stringtool.getHoursFromString(this.openingHours[i+1].value);
+
       if(this.openingHours[i].value > this.openingHours[i+1].value)
+        this.openingHours[i].setErrors({ 'invalidHour': true });
+
+      else if(this.openingHours[i+1].value === this.openingHours[i].value)
+        this.openingHours[i].setErrors({ 'invalidHour': true });
+
+      else if(sluitingsUur - openingsUur < 1)
         this.openingHours[i].setErrors({ 'invalidHour': true });
 
       else if(this.openingHours[i+1] > this.openingHours[i].value)
@@ -246,6 +256,17 @@ export class AddEditEstablishmentComponent implements OnInit {
     reader.onload = (event: any) => {
       this.imageUrl = event.target.result;
     }
+  }
+
+  goToNextSection(): void {
+
+    if(this.addEstablishmentFormGroup.invalid) {
+      this.addEstablishmentFormGroup.markAllAsTouched();
+      return;
+    }
+
+    const firstForm: HTMLElement = document.querySelector('form') as HTMLElement;
+    firstForm.style.background = 'black';
   }
 
   onSubmit(): void {

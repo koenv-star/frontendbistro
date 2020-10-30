@@ -9,6 +9,8 @@ export class Zaak {
 
   id: number;
   naam: string;
+  omschrijving: string;
+  fotoUrl: string;
   parking: boolean;
   rating: number;
   openingsUren: OpeningsUren;
