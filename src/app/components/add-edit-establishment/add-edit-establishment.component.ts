@@ -305,6 +305,32 @@ export class AddEditEstablishmentComponent implements OnInit {
     btnContainer.style.display = 'none';
   }
 
+  addTable(event): void {
+
+    const secondPart = document.querySelector('#secondPart');
+    secondPart.querySelector('.form-group')
+      .insertAdjacentHTML('beforeend', `<div class="row mt-2">
+      <div class="col-sm-12 input-group">
+        <div class="btn btn-primary mx-auto" style='display: inline-block;'>
+          <input type="number">
+          tafel(s) met
+          <input type="number" />
+          <i class="fas fa-chair ml-1"></i>
+          en
+        </div>
+      </div>
+    </div>`);
+  }
+
+  removeTable(event): void {
+
+    const formGroup = document.querySelector('.form-group') as HTMLElement;
+    const tables = Array.from(formGroup.querySelectorAll('.row'));
+    if(tables.length === 1) return;
+
+    formGroup.removeChild(tables[tables.length -1]);
+  }
+
   onSubmit(): void {
 
   }

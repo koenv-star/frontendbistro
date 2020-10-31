@@ -45,13 +45,18 @@ img {
   display: none;
 }
 
-.input-group {
-  left: 50%;
-  transform: translateX(-12.5%);
+.input-group .btn:hover {
+  background: #0275d8 !important;
+  transition: none;
+  cursor: auto;
 }
 
-.input-group button {
-  border-radius: 0px;
+.input-group input {
+  border: none;
+}
+
+.input-group .fa-plus {
+  cursor: pointer;
 }
 
 @keyframes slide-left {
