@@ -1,0 +1,86 @@
+<!--  -->
+<div class="container">
+  <!--Title-->
+  <h1 class="mt-3 text-primary">Menu item</h1>
+  <p class="lead">Gelieve hier een item toe te voegen aan je menu!</p>
+  <div class="form-group">
+    <!-- <div class="col-lg d-flex justify-content-center">
+        <div class="d-flex flex-column align-items-center">
+          <div class="container-fluid"> -->
+    <form [formGroup]="menuForm" (ngSubmit)="addToMenuItemsList()">
+      <label class="mt-3" for="naam">Naam :</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="ex: spagheti"
+        formControlName="naam"
+      />
+
+      <label class="mt-3" for="categorie">Categorie :</label>
+      <select class="form-control form-control-lg">
+        <option>Cocktails</option>
+        <option>Hoofdgerechten</option>
+        <option>Desserten</option>
+        <option>Frisdranken</option>
+      </select>
+
+      <label class="mt-3" for="beschrijving">Beschrijving:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="beschrijving"
+        formControlName="beschrijving"
+      />
+      <label class="mt-3" for="prijs">Prijs :</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="prijs"
+        formControlName="prijs"
+      />
+
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <div class="container-fluid">
+            <button
+              type="submit"
+              class="btn btn-custom mt-4"
+              style="width: 100%"
+            >
+              Voeg Toe aan Menu!
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="container-fluid">
+            <button
+              type="button"
+              class="btn btn-custom mt-4"
+              style="width: 100%"
+            >
+              Stuur menu door!
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 mt-4" *ngIf="menuItems.length>0">
+    <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
+  <h3 class="text-center" >Items</h3>
+  <hr class="accent my-5" />
+</div>
+<div class="card-columns"  >
+  <div class="card card-body" *ngFor="let item of menuItems">
+    <span class="float-right font-weight-bold">{{item.prijs}}</span>
+    <h6 class="text-truncate">{{item.naam}}</h6>
+    <p class="small">
+      {{item.beschrijving}}
+    </p>
+  </div>
+</div>
+</div>
+<!-- </div>
+  </div>
+</div> -->

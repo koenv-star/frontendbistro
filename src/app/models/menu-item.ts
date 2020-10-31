@@ -1,6 +1,17 @@
-export class MenuItem {
+import { Categorie } from './categorie.enum';
 
-  id: number;
-  naam: string;
-  prijs: number;
+export class MenuItem {
+  constructor(
+    public id: BigInteger,
+    public naam: String,
+    public prijs: BigInteger,
+    public beschrijving: String,
+    public categorie: Categorie
+  ) {
+    this.id = id;
+    this.naam = naam;
+    this.prijs = prijs;
+    this.beschrijving=beschrijving;
+    this.categorie=categorie;
+  }
 }

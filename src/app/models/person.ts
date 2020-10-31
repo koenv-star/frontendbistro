@@ -1,8 +1,13 @@
 export abstract class Person {
-
-  email: string;
-  naam: string;
-  voornaam: string;
-  wachtwoord: string;
-  krediet: number;
+  constructor(
+    public naam: String,
+    public voornaam: String,
+    public email: String,
+    public wachtwoord: String
+  ) {
+    this.naam = naam;
+    this.voornaam = voornaam;
+    this.email = email;
+    this.wachtwoord = wachtwoord;
+  }
 }

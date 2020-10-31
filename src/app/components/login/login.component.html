@@ -1,25 +1,49 @@
-<div class="row m-5">
-    <div class="col-7">
-<form [formGroup]="loginForm" *ngIf=!loginstatus (ngSubmit)="login()">
-  <label for="username">Username :</label>
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Enter username"
-    formControlName="username"
-  />
+<app-header></app-header>
+<div class="d-flex justify-content-center perfect-centering">
+  <div class="container">
+    <!--Title-->
+    <div class="row">
+      <div class="col-lg d-flex justify-content-center">
+        <div class="d-flex flex-column align-items-center">
+          <img alt="welkom bij Jammik" class=" d-lg-block img-fluid" src="assets/images/BannerIcons/LoginBanner.png">
+          <div class="container-fluid">
+            <form [formGroup]="loginForm" *ngIf=!loginstatus (ngSubmit)="login()">
+              <label class="mt-3" for="username"><i class="fa fa-user mr-2" aria-hidden="true"></i>Username :</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="example@example.be"
+                formControlName="username"
+              />
 
-  <label for="password">Password :</label>
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Enter password"
-    formControlName="password"
-  />
+              <label class="mt-3" for="password"><i class="fa fa-key mr-2" aria-hidden="true"></i>Password :</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="password"
+                formControlName="password"
+              />
 
-  <button type="submit" class="btn btn-primary mt-2">Submit</button>
-</form>
+              <input type="checkbox" class="mr-2 mt-3" style="" formControlName="remember"/>
+              <label for="remember">Remember me?</label>
 
-<h1 *ngIf=loginstatus>Already logged in !</h1>
+              <div class="container-fluid">
+                <button type="submit" class="btn btn-custom m-4 "
+                        style=" color:black !important;width: 100%; border-color: black!important;">Log in!
+                </button>
+              </div>
+            </form>
+            <h1 *ngIf=loginstatus>Already logged in !</h1>
+          </div>
+          <div class="container-fluid">
+            <a routerLink="/register">
+              New user?<span style="color: blue">Sign up!</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
