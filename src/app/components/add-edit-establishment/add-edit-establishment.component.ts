@@ -288,22 +288,21 @@ export class AddEditEstablishmentComponent implements OnInit {
     }
   }
 
-  goToNextSection(): void {
+  goToNextSection(event): void {
 
-    if(this.addEstablishmentFormGroup.invalid) {
-      this.addEstablishmentFormGroup.markAllAsTouched();
-      this.onClocksChange();
+    // if(this.addEstablishmentFormGroup.invalid) {
+    //   this.addEstablishmentFormGroup.markAllAsTouched();
+    //   this.onClocksChange();
+    //   return;
+    // }
 
-      console.log(this.province.errors);
-      console.log(this.community.errors);
-      console.log(this.zipcode.errors);
-      console.log(this.street.errors);
-      console.log(this.bus.errors);
-      return;
-    }
-
-    const firstForm = document.querySelector('#firstForm') as HTMLElement;
-    firstForm.classList.add('slide');
+    const firstPart = document.querySelector('#firstPart') as HTMLElement;
+    const secondPart = document.querySelector('#secondPart') as HTMLElement;
+    const btnContainer = document.querySelector('#goToNextBtnContainer') as HTMLElement;
+    firstPart.classList.add('slide-left');
+    secondPart.classList.add('slide-left2');
+    secondPart.style.display = 'block';
+    btnContainer.style.display = 'none';
   }
 
   onSubmit(): void {
