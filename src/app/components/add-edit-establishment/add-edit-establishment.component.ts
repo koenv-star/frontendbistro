@@ -5,6 +5,9 @@ import { JammikValidators } from 'src/app/validators/jammik-validators';
 import { allCommunities } from 'src/app/app.component';
 import { Stringtool } from 'src/app/tools/stringtool';
 import { Time } from '@angular/common';
+import { Adres } from 'src/app/models/adres';
+import { OpeningsUren } from 'src/app/models/openings-uren';
+import { Dag } from 'src/app/models/dag';
 
 /**
  * Gemaakt door Jan
@@ -34,6 +37,9 @@ export class AddEditEstablishmentComponent implements OnInit {
   imageUrl: string;
   picture: File;
   inputFileLabel: HTMLElement;
+
+  // tables
+  tafelStoelInputs: HTMLElement[];
 
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService) { }
@@ -305,16 +311,17 @@ export class AddEditEstablishmentComponent implements OnInit {
     btnContainer.style.display = 'none';
   }
 
-  addTable(event): void {
+  // tafels en stoelen
+  addTable(): void {
 
     const secondPart = document.querySelector('#secondPart');
     secondPart.querySelector('.form-group')
-      .insertAdjacentHTML('beforeend', `<div class="row mt-2">
+      .insertAdjacentHTML('beforeend', `<div class="row mt-2 table-chair-box">
       <div class="col-sm-12 input-group">
-        <div class="btn btn-primary mx-auto" style='display: inline-block;'>
-          <input type="number">
+        <div class="btn btn-primary mx-auto" style="background: #0275d8 !important; transition: none; cursor: auto;">
+          <input onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" type="number" class="table-chair" />
           tafel(s) met
-          <input type="number" />
+          <input onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" type="number" class="table-chair" />
           <i class="fas fa-chair ml-1"></i>
           en
         </div>
@@ -322,7 +329,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     </div>`);
   }
 
-  removeTable(event): void {
+  removeTable(): void {
 
     const formGroup = document.querySelector('.form-group') as HTMLElement;
     const tables = Array.from(formGroup.querySelectorAll('.row'));
@@ -331,7 +338,44 @@ export class AddEditEstablishmentComponent implements OnInit {
     formGroup.removeChild(tables[tables.length -1]);
   }
 
+  tableChairsValidation(): boolean {
+
+    this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
+
+    for(let i = 0; i < this.tafelStoelInputs.length; i++) {
+      console.log(this.tafelStoelInputs[i].nodeValue);
+    }
+
+    return true;
+  }
+
+  makeAddress(): Adres {
+    let street = this.street.value;
+    let bus = this.bus.value;
+    let zipcode = this.zipcode.value;
+    let community = this.community.value;
+    return new Adres(0, street, bus, zipcode, community);
+  }
+
+  makeOpeningsUren(): OpeningsUren {
+    let days: Dag[] = [
+      new Dag('Maandag', this.openingsuurMa.value, this.sluitingsuurMa.value),
+      new Dag('Dinsdag', this.openingsuurDi.value, this.sluitingsuurDi.value),
+      new Dag('Woensdag', this.openingsuurWo.value, this.sluitingsuurWo.value),
+      new Dag('Donderdag', this.openingsuurDo.value, this.sluitingsuurDo.value),
+      new Dag('Vrijdag', this.openingsuurVr.value, this.sluitingsuurVr.value),
+      new Dag('Zaterdag', this.openingsuurZa.value, this.sluitingsuurZa.value),
+      new Dag('Zondag', this.openingsuurZo.value, this.sluitingsuurZo.value)
+    ];
+    return new OpeningsUren(0, days);
+  }
+
   onSubmit(): void {
 
+    if(!this.tableChairsValidation()) return;
+
+    let adres: Adres = this.makeAddress();
+    let openingsUren: OpeningsUren = this.makeOpeningsUren();
+    this.tafelStoelInputs = Array.from(document.querySelectorAll(".table-chair"));
   }
 }

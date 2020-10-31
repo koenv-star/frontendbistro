@@ -134,7 +134,7 @@
               id="postcode"
               class="form-control"
               formControlName="zipcode"
-              type="number"
+              type="text"
               readonly
             />
           </div>
@@ -545,12 +545,12 @@
 
       <div class="row">
         <div class="col-sm-12">
-        <button (click)="addTable($event)" class="btn btn-primary mr-1">
+        <button (click)="addTable()" class="btn btn-primary mr-1">
           Tafel
           <i class="fas fa-plus"></i>
         </button>
 
-        <button (click)="removeTable($event)" class="btn btn-primary ml-1">
+        <button (click)="removeTable()" class="btn btn-primary ml-1">
           Tafel
           <i class="fas fa-minus"></i>
         </button>
@@ -558,6 +558,8 @@
 
       </div>
     </div>
+
+    <hr>
 
     <input (click)="onSubmit()" class="btn btn-primary my-2" type="submit" value="Voeg zaak toe!" />
   </div>
