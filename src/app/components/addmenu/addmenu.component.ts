@@ -22,14 +22,13 @@ export class AddmenuComponent implements OnInit {
     });
   }
 
-  addToMenu(){
-
-  let naam=  this.menuForm.value.naam;
- let prijs=   this.menuForm.value.prijs
-  let categorie=  this.menuForm.value.categorie
-  let beschrijving=  this.menuForm.value.beschrijving;
-    this.item=new MenuItem(null,naam,prijs,beschrijving,categorie)
-    this.menuItems.push(this.item)
-    this.item=null;
+  addToMenuItemsList() {
+    let naam = this.menuForm.value.naam;
+    let prijs = this.menuForm.value.prijs;
+    let categorie = this.menuForm.value.categorie;
+    let beschrijving = this.menuForm.value.beschrijving;
+    this.item = new MenuItem(null, naam, prijs, beschrijving, categorie);
+    this.menuItems.push(this.item);
+    this.item = null;
   }
 }
