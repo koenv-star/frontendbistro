@@ -6,6 +6,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import { CostumersListComponent } from './components/costumers-list/costumers-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { ZaakComponent } from './components/zaak/zaak.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'zaken/:id', component: ZaakComponent },
 ];
 
 @NgModule({

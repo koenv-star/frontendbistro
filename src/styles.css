@@ -10,22 +10,36 @@ body {
   background-image: url("assets/images/background.png");
   background-size: cover !important;
   background-repeat: no-repeat !important;
-  color: #B72DE4 !important;
+  color: back !important;
 }
 
 .btn-custom {
   font-weight: bold !important;
   font-family: "Apple Chancery", serif;
   background: none !important;
-  border: 2px solid #B72DE4 !important;
+  border: 2px solid black !important;
   border-radius: 21px !important;
-  color: #B72DE4 !important;
+  color:black !important;
 }
 
 .btn:hover {
   background: #FECB0F !important;
 
   transition: 1s;
+}
+
+.checked {
+  color: orange;
+}
+
+.custom-banner-image{
+  max-height: 600px;
+}
+
+@media (max-width: 800px) {
+  .custom-banner-image{
+    max-height: 400px;
+  }
 }
 
 
@@ -38,6 +52,10 @@ body {
 @media (max-width: 600px) {
   html {
     font-size: 1rem;  /*1rem = 16px*/
+  }
+
+  .custom-banner-image{
+    max-height: 200px;
   }
 }
 

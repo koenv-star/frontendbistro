@@ -9,6 +9,8 @@ export class Zaak {
 
   id: number;
   naam: string;
+  imageURL: string;
+  description: string;
   parking: boolean;
   rating: number;
   openingsUren: OpeningsUren;
