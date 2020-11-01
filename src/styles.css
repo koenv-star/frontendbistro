@@ -18,14 +18,28 @@ body {
   font-family: "Apple Chancery", serif;
   background: none !important;
   border: 2px solid black !important;
-  border-radius: 15px !important;
-  color: black !important;
+  border-radius: 21px !important;
+  color:black !important;
 }
 
 .btn:hover {
   background: #FECB0F !important;
 
   transition: 1s;
+}
+
+.checked {
+  color: orange;
+}
+
+.custom-banner-image{
+  max-height: 600px;
+}
+
+@media (max-width: 800px) {
+  .custom-banner-image{
+    max-height: 400px;
+  }
 }
 
 
@@ -38,6 +52,10 @@ body {
 @media (max-width: 600px) {
   html {
     font-size: 1rem;  /*1rem = 16px*/
+  }
+
+  .custom-banner-image{
+    max-height: 200px;
   }
 }
 
