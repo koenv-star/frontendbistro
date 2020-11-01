@@ -1,32 +1,113 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <a class="navbar-brand mt-2" href="../../../index.html">
-    <img src="../../../assets/images/LogoJammik/Jammik.png" width="100" height="25" class="d-inline-block align-top"
+    <img src="../../../assets/images/icons/100x100/JammikBlack.png" width="100" height="25" class="d-inline-block align-top"
          alt="Jammik Logo" loading="lazy">
   </a>
-  <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
           (click)="toggleNavbar()">
     <span class="line"></span>
     <span class="line"></span>
-    <span class="line"style="margin-bottom: 0;"></span>
+    <span class="line" style="margin-bottom: 0;"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
-    <ul class="navbar-nav ml-auto text-center">
+
+    <ul class="navbar-nav ml-auto text-center" *ngIf="isUitbater">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Ads</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/zaken">Mijn Zaken</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Inkoms</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Reservatie</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">
+          <img src="assets/images/icons/100x100/coinBlack.png" class="" height="25" width="auto" alt="Kredieten" >
+        </a>
+        <p style="font-size: 6px;" *ngIf="uitbater.krediet">{{uitbater.krediet}}</p>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/MyAccount">
+          <img src="assets/images/icons/100x100/userIconBlack.png" class="" height="25" width="auto" alt="User" title="My Account">
+        </a>
+        <p style="font-size: 8px;">Welkom {{uitbater.voornaam}}</p>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="" (click)="logout()">
+          <img src="assets/images/icons/100x100/loginIcon.png" class="" height="25" width="auto" alt="Log Out" title="Log out">
+        </a>
+      </li>
+
+    </ul>
+
+    <ul class="navbar-nav ml-auto text-center" *ngIf="isKlant">
       <li class="nav-item active">
         <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item">
-        <a  routerLink="/login" class="nav-link">
-          <img src="assets/images/BannerIcons/loginIcon.png"  class="mr-1 ml-0" width="auto" height="16" alt="">Log In
-      </a>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Beoordelingen</a>
       </li>
-      <li class="nav-item">
-        <a routerLink="/register" class="nav-link">
-          <img src="../../../assets/images/BannerIcons/SignupIcon.png" class="mr-1" width="auto" height="16" alt="">Sign Up
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Bestellingen</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">Reservatie</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="">
+          <img src="assets/images/icons/100x100/coinBlack.png" class="" height="25" width="auto" alt="Kredieten">
+          <p> </p>
+        </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/MyAccount">
+          <img src="assets/images/icons/100x100/userIconBlack.png" class="" height="25" width="auto" alt="User" title="My Account">
+          <p>Welkom {{this.klant.voornaam}}</p>
+        </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="" (click)="logout()">
+          <img src="assets/images/icons/100x100/loginIcon.png" class="" height="25" width="auto" alt="Log Out" title="Log out">
         </a>
       </li>
     </ul>
+
+    <ul class="navbar-nav ml-auto text-center" *ngIf="!isUitbater && !isKlant">
+      <li class="nav-item active">
+        <a class="nav-link" href="./index.html"><i class="fa fa-home"  width="auto" height="30" aria-hidden="true"></i> <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/login" class="nav-link">
+          <img src="assets/images/icons/100x100/loginIcon.png" class="mr-1" width="auto" height="25" alt="Log in button " title="Log in" >
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/register" class="nav-link">
+          <img src="../../../assets/images/BannerIcons/SignupIcon.png" class="" width="auto" height="25" alt="Sign in button" title="Sign in">
+        </a>
+      </li>
+    </ul>
+
+
   </div>
 </nav>

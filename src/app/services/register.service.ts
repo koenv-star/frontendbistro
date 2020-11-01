@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Costumer } from '../models/costumer';
-import { Owner } from '../models/owner';
+import {Uitbater} from '../models/uitbater';
+import {Klant} from '../models/klant';
 
 
 
@@ -16,15 +16,15 @@ const REG_UITBATER_URL = 'http://localhost:8080/uitbaters';
 export class RegisterService {
   constructor(private http: HttpClient) {}
 
-  registerUitbater(newOwner: Owner) {
+  registerUitbater(newOwner: Uitbater) {
 
-    return this.http.post<Owner>(
+    return this.http.post<Uitbater>(
       REG_UITBATER_URL,newOwner)
   }
 
-  registerklant(newcostumer: Costumer): Observable<any> {
-  
-    return this.http.post<Costumer>(REGKLANT_URL, newcostumer);
+  registerklant(newcostumer: Klant): Observable<any> {
+
+    return this.http.post<Klant>(REGKLANT_URL, newcostumer);
 
 }
 }

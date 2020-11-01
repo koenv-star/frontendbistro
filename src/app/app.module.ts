@@ -6,7 +6,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './helpers/auth-interceptor';
-import { CostumersListComponent } from './components/costumers-list/costumers-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttperrorinterceptorService } from './services/httperrorinterceptor.service';
 import { ErrorComponent } from './components/error/error.component';
@@ -17,13 +16,13 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    CostumersListComponent,
     ErrorComponent,
     HomeComponent,
     HeaderComponent,
@@ -33,6 +32,8 @@ import { ZaakComponent } from './components/zaak/zaak.component';
     ZakenComponent,
     AddmenuComponent,
     ZaakComponent,
+    MyAccountComponent,
+
   ],
   imports: [
     BrowserModule,

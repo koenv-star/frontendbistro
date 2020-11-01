@@ -1,6 +1,6 @@
 
 nav  ul li a{
-  color: #B72DE4 !important;
+  color: black !important;
   border-radius: 21px;
   font-family: "Apple Chancery", serif;
 }
@@ -12,12 +12,12 @@ nav  ul li a:hover{
 .navbar-toggler{
   width: 47px;
   height: 30px;
-  border: 2px solid #B72DE4 !important;
+  border: 2px solid black !important;
 }
 .navbar-toggler .line{
   width: 100%;
   float: left;
   height: 2px;
-  background-color: #B72DE4;
+  background-color: black;
   margin-bottom: 5px;
 }

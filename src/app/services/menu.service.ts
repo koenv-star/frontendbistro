@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Shop } from '../models/shop';
+import {Zaak} from '../models/zaak';
+
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,8 @@ export class MenuService {
 
   constructor(private http: HttpClient) {}
 
-  showMenuofShop(shopname: String) {
-    let url = `${this.MENU_URL}/${shopname}`;
-    return this.http.get<Shop>(url);
+  showMenuofShop(zaaknaam: String) {
+    let url = `${this.MENU_URL}/${zaaknaam}`;
+    return this.http.get<Zaak>(url);
   }
 }

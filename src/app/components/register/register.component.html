@@ -15,12 +15,12 @@
               <div class="row">
                 <div class="row col-lg d-flex justify-content-start mx-3">
                   <label class="mt-3" for="naam"><i class="fa fa-user mr-2" aria-hidden="true"></i>Naam :</label>
-                  <input type="text" class="form-control" placeholder="Uw Naam" formControlName="naam" required=""/>
+                  <input type="text" class="form-control" id="naam" placeholder="Uw Naam" formControlName="naam" required=""/>
                 </div>
                 <div class="row col-lg d-flex justify-content-start mx-3">
                   <label class="mt-3" for="achternaam"><i class="fa fa-user mr-2" aria-hidden="true"></i>Achternaam
                     :</label>
-                  <input type="text" class="form-control" placeholder="Uw Achternaam" formControlName="achternaam"
+                  <input type="text" class="form-control" id="achternaam" placeholder="Uw Achternaam" formControlName="achternaam"
                          required=""/>
                 </div>
               </div>
@@ -31,40 +31,23 @@
                 <div class="row col-lg d-flex justify-content-start mx-3">
 
                   <label class="mt-3" for="email"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>Email :</label>
-                  <input type="text" class="form-control" placeholder="example@example.be" formControlName="email"
+                  <input type="text" class="form-control" id="email" placeholder="example@example.be" formControlName="email"
                          required=""/>
                 </div>
-                <div class="row col-lg d-flex justify-content-start mx-3">
-                  <label class="mt-3" for="her-email"><i class="fa fa-envelope mr-2" aria-hidden="true"></i>Her-Email
-                    :</label>
-                  <input type="text" class="form-control" placeholder="example@example.be" formControlName="heremail"
-                         required=""/>
-                </div>
-              </div>
-
-
-              <!--Wachtwoord-->
-              <div class="row">
                 <div class="row col-lg d-flex justify-content-start mx-3">
                   <label class="mt-3" for="wachtwoord"><i class="fa fa-key mr-2" aria-hidden="true"></i>Wachtwoord
                     :</label>
-                  <input type="text" class="form-control" placeholder="Uw Wachtwoord" formControlName="wachtwoord"
+                  <input type="text" class="form-control"  id="wachtwoord" placeholder="Uw Wachtwoord" formControlName="wachtwoord"
                          required=""/>
                 </div>
-                <div class="row col-lg d-flex justify-content-start mx-3">
 
-                  <label class="mt-3" for="her-wachtwoord"><i class="fa fa-key mr-2" aria-hidden="true"></i>Her-Wachtwoord
-                    :</label>
-                  <input type="text" class="form-control" placeholder="Herhaal uw wachtwoord"
-                         formControlName="herwachtwoord" required=""/>
-                </div>
               </div>
 
               <!--Rol-->
               <div class="row">
                 <div class="row col-lg d-flex justify-content-start mx-3">
                   <label class="mt-3" for="rol"><i class="fa fa-cogs mr-2" aria-hidden="true"></i>Rol :</label>
-                  <select class="form-control" formControlName="rol" name="rol" required="">
+                  <select class="form-control" formControlName="rol" id="rol" name="rol" required="">
                     <option value="default" disabled>Select Uw rol</option>
                     <option value="gebruiker">Gebruiker</option>
                     <option value="uitbater">Uitbater</option>

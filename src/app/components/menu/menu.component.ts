@@ -3,6 +3,8 @@ import { Categorie } from 'src/app/models/categorie.enum';
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { MenuService } from 'src/app/services/menu.service';
+import {TokenStorageService} from '../../services/token-storage.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -18,11 +20,14 @@ export class MenuComponent implements OnInit {
   cocktails: MenuItem[] = new Array();
   frisdranken: MenuItem[] = new Array();
 
-  constructor(private service: MenuService) {}
+  constructor(private service: MenuService,
+              private serviceToken: TokenStorageService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getzaak('bijmemhet');
-    
+
+    this.getzaak(this.route.snapshot.paramMap.get("zaakNaam"));
+
   }
 
   getzaak(naam: String) {

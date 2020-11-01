@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Shop } from 'src/app/models/shop';
-import { User } from 'src/app/models/user';
-import { ShopService } from 'src/app/services/shop.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {Zaak} from '../../models/zaak';
+import {ZaakService} from '../../services/zaak.service';
 
 @Component({
   selector: 'app-zaken',
@@ -10,21 +9,21 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   styleUrls: ['./zaken.component.css'],
 })
 export class ZakenComponent implements OnInit {
-  shops: Shop[];
+  zaken: Zaak[];
   constructor(
-    private service: ShopService,
+    private service: ZaakService,
     private tokens: TokenStorageService
   ) {}
 
   ngOnInit(): void {
-    this.getShopsByOwner();
+    this.getZakenBijUitbater();
   }
 
-  getShopsByOwner() {
+  getZakenBijUitbater() {
     let user = this.tokens.getUser();
 
-    this.service.getShopsByOwnerEmail(user.email).subscribe((data) => {
-      this.shops = data;
+    this.service.getZakenBijUitbaterEmail(user.email).subscribe((data) => {
+      this.zaken = data;
     });
   }
 }
