@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
+import { ZaakComponent } from './components/zaak/zaak.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import { AddmenuComponent } from './components/addmenu/addmenu.component';
     MenuComponent,
     ZakenComponent,
     AddmenuComponent,
+    ZaakComponent,
   ],
   imports: [
     BrowserModule,
