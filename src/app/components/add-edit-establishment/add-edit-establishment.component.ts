@@ -430,6 +430,15 @@ export class AddEditEstablishmentComponent implements OnInit {
     let tafels: Tafel[] = [];
     this.tafelStoelInputs = Array.from(document.querySelectorAll('input[type=number]'));
 
+    for(let i = 0; i < this.tafelStoelInputs.length; i += 2) {
+      let tafelAmount: number = Number.parseInt(this.tafelStoelInputs[i].value);
+      let stoelAmount: number = Number.parseInt(this.tafelStoelInputs[i+1].value);
+
+      for(let j = 1; j <= tafelAmount; j++) {
+        tafels.push(new Tafel(0, stoelAmount));
+      }
+    }
+
     return tafels;
   }
 
@@ -437,10 +446,12 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     if(!this.checkForInvalidTableFields()) return;
     if(!this.checkAmountOfTableInputs()) return;
+    if(!this.checkForDuplicateTafelStoelValues()) return;
 
     // making zaak object
     let adres: Adres = this.makeAddress();
     let openingsUren: OpeningsUren = this.makeOpeningsUren();
+    let tafels: Tafel[] = this.makeTafels();
     this.tafelStoelInputs = Array.from(document.querySelectorAll(".table-chair"));
   }
 }

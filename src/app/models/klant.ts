@@ -4,6 +4,6 @@ import { Reservatie } from './reservatie';
 
 export class Klant extends Person {
 
-  reservateis: Reservatie[];
+  reservaties: Reservatie[];
   bestellingVerzamelingen: BestellingVerzameling;
 }
