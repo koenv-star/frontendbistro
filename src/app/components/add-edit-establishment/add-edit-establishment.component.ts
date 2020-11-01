@@ -79,7 +79,7 @@ export class AddEditEstablishmentComponent implements OnInit {
       }),
 
       description: this.formBuilder.group({
-        description: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace])
+        description: new FormControl('', [Validators.required, Validators.minLength(20), JammikValidators.notOnlyWhitespace])
       }),
 
       address: this.formBuilder.group({
@@ -299,11 +299,11 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   goToNextSection(event): void {
 
-    // if(this.addEstablishmentFormGroup.invalid) {
-    //   this.addEstablishmentFormGroup.markAllAsTouched();
-    //   this.onClocksChange();
-    //   return;
-    // }
+    if(this.addEstablishmentFormGroup.invalid) {
+      this.addEstablishmentFormGroup.markAllAsTouched();
+      this.onClocksChange();
+      return;
+    }
 
     const firstPart = document.querySelector('#firstPart') as HTMLElement;
     const secondPart = document.querySelector('#secondPart') as HTMLElement;
@@ -343,15 +343,13 @@ export class AddEditEstablishmentComponent implements OnInit {
     let stoelAmountB: number;
 
     for(let i = 0; i < this.tafelStoelInputs.length; i += 2) {
-      tafelAmountA = Number.parseInt(this.tafelStoelInputs[i].value);
       stoelAmountA = Number.parseInt(this.tafelStoelInputs[i+1].value);
 
       for(let j = i + 2; j < this.tafelStoelInputs.length; j += 2) {
-        tafelAmountB = Number.parseInt(this.tafelStoelInputs[j].value);
         stoelAmountB = Number.parseInt(this.tafelStoelInputs[j+1].value);
 
-        if(tafelAmountA === tafelAmountB && stoelAmountA === stoelAmountB) {
-          this.tafelStoelFeedback = 'Zelfde aantal tafels en stoelen';
+        if(stoelAmountA === stoelAmountB) {
+          this.tafelStoelFeedback = 'Twee keer zelfde aantal stoelen';
           return false;
         }
       }
