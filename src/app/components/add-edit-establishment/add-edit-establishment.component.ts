@@ -8,6 +8,8 @@ import { Time } from '@angular/common';
 import { Adres } from 'src/app/models/adres';
 import { OpeningsUren } from 'src/app/models/openings-uren';
 import { Dag } from 'src/app/models/dag';
+import { ReturnStatement } from '@angular/compiler';
+import { Tafel } from 'src/app/models/tafel';
 
 /**
  * Gemaakt door Jan
@@ -39,7 +41,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   inputFileLabel: HTMLElement;
 
   // tables
-  tafelStoelInputs: HTMLElement[];
+  tafelStoelInputs: HTMLInputElement[];
+  tafelStoelFeedback: string = '';
 
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService) { }
@@ -312,7 +315,67 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   // tafels en stoelen
+  checkForInvalidTableFields(): boolean {
+
+    this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
+
+    for(let input of this.tafelStoelInputs) {
+
+      if(input.value.length < 1) {
+        this.tafelStoelFeedback = 'Er zijn lege velden';
+        return false;
+      } else if (input.value === '0') {
+        this.tafelStoelFeedback = 'De waarde kan niet 0 zijn';
+        return false;
+      }
+    }
+
+    this.tafelStoelFeedback = '';
+    return true;
+  }
+
+  checkForDuplicateTafelStoelValues(): boolean {
+
+    this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
+    let tafelAmountA: number;
+    let stoelAmountA: number;
+    let tafelAmountB: number;
+    let stoelAmountB: number;
+
+    for(let i = 0; i < this.tafelStoelInputs.length; i += 2) {
+      tafelAmountA = Number.parseInt(this.tafelStoelInputs[i].value);
+      stoelAmountA = Number.parseInt(this.tafelStoelInputs[i+1].value);
+
+      for(let j = i + 2; j < this.tafelStoelInputs.length; j += 2) {
+        tafelAmountB = Number.parseInt(this.tafelStoelInputs[j].value);
+        stoelAmountB = Number.parseInt(this.tafelStoelInputs[j+1].value);
+
+        if(tafelAmountA === tafelAmountB && stoelAmountA === stoelAmountB) {
+          this.tafelStoelFeedback = 'Zelfde aantal tafels en stoelen';
+          return false;
+        }
+      }
+    }
+
+    this.tafelStoelFeedback = '';
+    return true;
+  }
+
+  checkAmountOfTableInputs(): boolean {
+
+    this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
+    if(this.tafelStoelInputs.length < 2) {
+      this.tafelStoelFeedback = 'Geen tafels zijn toegevoegd';
+      return false;
+    }
+
+    this.tafelStoelFeedback = '';
+    return true;
+  }
+
   addTable(): void {
+    if(!this.checkForInvalidTableFields()) return;
+    if(!this.checkForDuplicateTafelStoelValues()) return;
 
     const secondPart = document.querySelector('#secondPart');
     secondPart.querySelector('.form-group')
@@ -331,22 +394,13 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   removeTable(): void {
 
+    this.tafelStoelFeedback = '';
+
     const formGroup = document.querySelector('.form-group') as HTMLElement;
     const tables = Array.from(formGroup.querySelectorAll('.row'));
     if(tables.length === 1) return;
 
     formGroup.removeChild(tables[tables.length -1]);
-  }
-
-  tableChairsValidation(): boolean {
-
-    this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
-
-    for(let i = 0; i < this.tafelStoelInputs.length; i++) {
-      console.log(this.tafelStoelInputs[i].nodeValue);
-    }
-
-    return true;
   }
 
   makeAddress(): Adres {
@@ -367,13 +421,24 @@ export class AddEditEstablishmentComponent implements OnInit {
       new Dag('Zaterdag', this.openingsuurZa.value, this.sluitingsuurZa.value),
       new Dag('Zondag', this.openingsuurZo.value, this.sluitingsuurZo.value)
     ];
+
     return new OpeningsUren(0, days);
+  }
+
+  makeTafels(): Tafel[] {
+
+    let tafels: Tafel[] = [];
+    this.tafelStoelInputs = Array.from(document.querySelectorAll('input[type=number]'));
+
+    return tafels;
   }
 
   onSubmit(): void {
 
-    if(!this.tableChairsValidation()) return;
+    if(!this.checkForInvalidTableFields()) return;
+    if(!this.checkAmountOfTableInputs()) return;
 
+    // making zaak object
     let adres: Adres = this.makeAddress();
     let openingsUren: OpeningsUren = this.makeOpeningsUren();
     this.tafelStoelInputs = Array.from(document.querySelectorAll(".table-chair"));

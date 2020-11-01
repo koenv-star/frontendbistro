@@ -559,6 +559,11 @@
       </div>
     </div>
 
+    <div *ngIf="tafelStoelFeedback.length > 0"
+      class="col-sm-6 mx-auto alert alert-danger mt-2 mb-0">
+      <span>{{ tafelStoelFeedback }}</span>
+    </div>
+
     <hr>
 
     <input (click)="onSubmit()" class="btn btn-primary my-2" type="submit" value="Voeg zaak toe!" />
