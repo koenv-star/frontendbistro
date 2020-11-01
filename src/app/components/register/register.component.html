@@ -48,8 +48,8 @@
                 <div class="row col-lg d-flex justify-content-start mx-3">
                   <label class="mt-3" for="rol"><i class="fa fa-cogs mr-2" aria-hidden="true"></i>Rol :</label>
                   <select class="form-control" formControlName="rol" id="rol" name="rol" required="">
-                    <option value="default" disabled>Select Uw rol</option>
-                    <option value="gebruiker">Gebruiker</option>
+                    <option value="default" disabled>Selecteer uw rol</option>
+                    <option value="gebruiker">Klant</option>
                     <option value="uitbater">Uitbater</option>
                   </select>
                 </div>
@@ -63,8 +63,8 @@
                 <!--Log in button-->
                 <div class="row col-lg d-flex justify-content-lg-end justify-content-md-center justify-content-sm-center">
                   <button type="submit" class="btn btn-custom m-3"
-                          style="color:black !important;border-color: black!important; width: 200px!important;">Schreef
-                    in
+                          style="color:black !important;border-color: black!important; width: 200px!important;">Schrijf
+                    in!
                   </button>
                 </div>
                 <!--Cancel Button-->
@@ -83,7 +83,7 @@
             </form>
 
 
-            <h1 *ngIf=registerStatus>Already logged in !</h1>
+            <h1 *ngIf=registerStatus>Succesvol geregistreerd!!!</h1>
           </div>
         </div>
       </div>

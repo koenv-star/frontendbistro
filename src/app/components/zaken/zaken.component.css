@@ -5,3 +5,7 @@
   .checked {
     color: orange;
   }
+
+  .card {
+    min-height: 100px;
+}
