@@ -12,11 +12,7 @@ import { ZaakService } from 'src/app/services/zaak.service';
   styleUrls: ['./zaak.component.css']
 })
 export class ZaakComponent implements OnInit {
-<<<<<<< HEAD
- zaak : Zaak = new Zaak();
-=======
   zaak:Zaak = new Zaak();
->>>>>>> zaakindex
 
   constructor(private zaakService: ZaakService, private route: ActivatedRoute) {
     const id:number =  Number(this.route.snapshot.paramMap.get('id'))

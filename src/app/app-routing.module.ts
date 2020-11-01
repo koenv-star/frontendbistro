@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'error', component: ErrorComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'zaken', component: ZakenComponent },
-  { path: 'addmenu', component:AddmenuComponent }
+  { path: 'addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
 ];
 
