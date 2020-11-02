@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         2000.0,
-        rol,
         new Array(),
         new Array()
       );
@@ -68,7 +67,6 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         1000.0,
-        rol,
         null
       );
 

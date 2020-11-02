@@ -17,6 +17,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/models/menu';
+import { MenuItem } from 'src/app/models/menu-item';
+import { Categorie } from 'src/app/models/categorie.enum';
+import { isNull } from 'util';
 
 /**
  * Gemaakt door Jan
@@ -29,6 +32,9 @@ import { Menu } from 'src/app/models/menu';
 export class AddEditEstablishmentComponent implements OnInit {
 
   addEstablishmentFormGroup: FormGroup;
+
+  // uitbater
+  uitbater: Uitbater;
 
   // address
   allCommunities = allCommunities;
@@ -51,9 +57,6 @@ export class AddEditEstablishmentComponent implements OnInit {
   tafelStoelInputs: HTMLInputElement[];
   tafelStoelFeedback: string = '';
 
-  // uitbater
-  uitbater: Uitbater;
-
   // zaak
   zaak: Zaak;
 
@@ -67,10 +70,8 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // build the form
     this.buildForm();
-
-    // uitbater
-    this.getUitbater();
 
     // address
     this.streets = new Array();
@@ -268,8 +269,8 @@ export class AddEditEstablishmentComponent implements OnInit {
       if(this.timeInputs[i].style.visibility === 'hidden')
         continue;
 
-      let openingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i].value);
-      let sluitingsTijd: Time = Stringtool.getHoursFromString(this.openingHours[i+1].value);
+      let openingsTijd: Time = Stringtool.getTimeFromString(this.openingHours[i].value);
+      let sluitingsTijd: Time = Stringtool.getTimeFromString(this.openingHours[i+1].value);
 
       if(this.openingHours[i].value > this.openingHours[i+1].value)
         this.openingHours[i].setErrors({ 'invalidHour': true });
@@ -358,9 +359,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   checkForDuplicateTafelStoelValues(): boolean {
 
     this.tafelStoelInputs = Array.from(document.querySelectorAll("input[type=number]"));
-    let tafelAmountA: number;
     let stoelAmountA: number;
-    let tafelAmountB: number;
     let stoelAmountB: number;
 
     for(let i = 0; i < this.tafelStoelInputs.length; i += 2) {
@@ -464,13 +463,37 @@ export class AddEditEstablishmentComponent implements OnInit {
   getUitbater(): void {
 
     let user = this.tokenService.getUser();
-    if (!user) {
+    if (!isNull(user)) {
       this.authService.userChange$.next({email: user.email, role: user.role});
       this.accountService.updateUser();
-      this.accountService.uitbater$.asObservable().subscribe(data => {
-        this.uitbater = data;
+      this.accountService.uitbater$.asObservable()
+        .subscribe(data => {
+          this.uitbater = new Uitbater(data.naam, data.voornaam, data.email, data.wachtwoord, data.krediet, data.reservaties, data.zaken);
+          this.makeZaak();
+          this.postZaak();
       });
     }
+  }
+
+  getMenu(): Menu {
+    let menuItems: MenuItem[] = [
+      new MenuItem(0, 'Spaghetti', 12.99, 'De beste spaghetti', Categorie.HOOFDGERECHTEN)
+    ];
+    return new Menu(0, menuItems);
+  }
+
+  makeZaak(): void {
+    // making zaak object
+    let openingsUren: OpeningsUren = this.makeOpeningsUren();
+    let adres: Adres = this.makeAddress();
+    let tafels: Tafel[] = this.makeTafels();
+    let menu: Menu = this.getMenu();
+
+    this.zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres,
+                        menu, this.uitbater, tafels, new Array());
+
+    // put zaak object in session storage
+    window.sessionStorage.setItem('zaak', JSON.stringify(this.zaak));
   }
 
   onSubmit(): void {
@@ -479,16 +502,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkAmountOfTableInputs()) return;
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
-    // making zaak object
-    let openingsUren: OpeningsUren = this.makeOpeningsUren();
-    let adres: Adres = this.makeAddress();
-    let tafels: Tafel[] = this.makeTafels();
-
-    this.zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres,
-                        new Menu(0, new Array), this.uitbater, tafels, new Array());
-
-    // put zaak object in session storage
-    window.sessionStorage.setItem('zaak', JSON.stringify(this.zaak));
+    this.getUitbater();
   }
 
   postZaak(): void {
