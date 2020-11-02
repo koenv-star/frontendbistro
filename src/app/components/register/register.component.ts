@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
         rol,
         null
       );
-      
+
       this.registerService.registerUitbater(uitbater).subscribe();
       this.registerStatus = true;
     } else {
@@ -70,7 +70,6 @@ export class RegisterComponent implements OnInit {
         rol,
         null
       );
-      
       this.registerService.registerklant(klant).subscribe();
       this.registerStatus = true;
     }
