@@ -55,9 +55,10 @@ export class RegisterComponent implements OnInit {
         wachtwoord,
         2000.0,
         rol,
-        null
+        new Array(),
+        new Array()
       );
-      
+
       this.registerService.registerUitbater(uitbater).subscribe();
       this.registerStatus = true;
     } else {
@@ -70,7 +71,7 @@ export class RegisterComponent implements OnInit {
         rol,
         null
       );
-      
+
       this.registerService.registerklant(klant).subscribe();
       this.registerStatus = true;
     }

@@ -12,6 +12,17 @@ export class ZaakService {
 
   constructor(private http: HttpClient) { }
 
+  getZaak(id:number) :Observable<Zaak>{
+    return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/id=" + id);
+  }
+
+  getZakenBijUitbaterEmail(email: String) {
+    let url = `${this.zaakBaseUrl}/${email}`;
+
+    return this.http.get<Zaak[]>(url);
+  }
+
+
   postZaak(formData: FormData): Observable<Zaak> {
 
     let httpHeaders = new HttpHeaders({

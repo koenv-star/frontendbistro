@@ -31,6 +31,8 @@ export class TokenStorageService {
     let preRole = splitted.toString().split('"authority":')[1].toString().split(',')[0];
     let actualrole = preRole.substring(1, (preRole.length - 3));
     console.log(actualrole);
+
+    return actualrole;
   }
 
   public saveUser(user: User) {

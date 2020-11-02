@@ -12,7 +12,7 @@ import {ZaakService} from 'src/app/services/zaak.service';
   styleUrls: ['./zaak.component.css']
 })
 export class ZaakComponent implements OnInit {
-  zaak: Zaak = new Zaak();
+  zaak: Zaak;
 
   constructor(private zaakService: ZaakService,
               private router: Router,
