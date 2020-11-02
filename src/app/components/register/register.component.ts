@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { RegisterService } from 'src/app/services/register.service';
 
 import * as bcrypt from 'bcryptjs';
-import {Uitbater} from '../../models/uitbater';
-import {Klant} from '../../models/klant';
+import { Uitbater } from '../../models/uitbater';
+import { Klant } from '../../models/klant';
 
 @Component({
   selector: 'app-register',
@@ -54,9 +54,12 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         2000.0,
-        rol,null);
-
+        rol,
+        null
+      );
+      
       this.registerService.registerUitbater(uitbater).subscribe();
+      this.registerStatus = true;
     } else {
       let klant = new Klant(
         naam,
@@ -64,9 +67,12 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         1000.0,
-        rol, null);
-
+        rol,
+        null
+      );
+      
       this.registerService.registerklant(klant).subscribe();
+      this.registerStatus = true;
     }
 
     // this.router.navigateByUrl('/');
