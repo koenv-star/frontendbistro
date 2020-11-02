@@ -33,22 +33,22 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="">
-          <img src="assets/images/icons/100x100/coinBlack.png" class="" height="25" width="auto" alt="Kredieten" >
+        <a class="nav-link" routerLink="" alt="krediet" title="Mijn Krediet">
+          <i class="fas fa-euro-sign"></i>
         </a>
         <p style="font-size: 6px;" *ngIf="uitbater.krediet">{{uitbater.krediet}}</p>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/MyAccount">
-          <img src="assets/images/icons/100x100/userIconBlack.png" class="" height="25" width="auto" alt="User" title="My Account">
+        <a class="nav-link" routerLink="/MyAccount" alt="Mijn Account" title="Mijn Account">
+          <i class="far fa-user-circle"></i>
         </a>
         <p style="font-size: 8px;">Welkom {{uitbater.voornaam}}</p>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="" (click)="logout()">
-          <img src="assets/images/icons/100x100/loginIcon.png" class="" height="25" width="auto" alt="Log Out" title="Log out">
+        <a class="nav-link" routerLink="" (click)="logout()" alt="Log Out" title="Log out">
+          <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
 
@@ -71,39 +71,39 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="">
-          <img src="assets/images/icons/100x100/coinBlack.png" class="" height="25" width="auto" alt="Kredieten">
-          <p> </p>
+        <a class="nav-link" routerLink="" alt="krediet" title="Mijn Krediet">
+          <i class="fas fa-euro-sign"></i>
         </a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/MyAccount">
-          <img src="assets/images/icons/100x100/userIconBlack.png" class="" height="25" width="auto" alt="User" title="My Account">
+        <a class="nav-link" routerLink="/MyAccount" alt="Mijn Account" title="Mijn Account">
+          <i class="far fa-user-circle"></i>
+        </a>
           <p>Welkom {{this.klant.voornaam}}</p>
-        </a>
+
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="" (click)="logout()">
-          <img src="assets/images/icons/100x100/loginIcon.png" class="" height="25" width="auto" alt="Log Out" title="Log out">
+        <a class="nav-link" routerLink="" (click)="logout()" alt="Log Out" title="Log out">
+          <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto text-center" *ngIf="!isUitbater && !isKlant">
       <li class="nav-item active">
-        <a class="nav-link" href="./index.html"><i class="fa fa-home"  width="auto" height="30" aria-hidden="true"></i> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="./index.html" alt="Home" title="Home"><i class="fas fa-home mr-1"></i><span class="sr-only">(current)</span></a>
       </li>
 
       <li class="nav-item">
-        <a routerLink="/login" class="nav-link">
-          <img src="assets/images/icons/100x100/loginIcon.png" class="mr-1" width="auto" height="25" alt="Log in button " title="Log in" >
+        <a routerLink="/login" class="nav-link" alt="Login" title="Login">
+          <i class="fas fa-sign-in-alt mr-1 "></i>
         </a>
       </li>
       <li class="nav-item">
-        <a routerLink="/register" class="nav-link">
-          <img src="../../../assets/images/BannerIcons/SignupIcon.png" class="" width="auto" height="25" alt="Sign in button" title="Sign in">
+        <a routerLink="/register" class="nav-link" alt="Register" title="Register">
+          <i class="fas fa-user-plus mr-1"></i>
         </a>
       </li>
     </ul>
