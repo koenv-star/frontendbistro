@@ -7,7 +7,6 @@ export abstract class Person {
     public email: String,
     public wachtwoord: String,
     public krediet: number,
-    public role: String,
     public reservaties: Reservatie[]
   ) {
     this.naam = naam;
@@ -15,7 +14,6 @@ export abstract class Person {
     this.email = email;
     this.wachtwoord = wachtwoord;
     this.krediet = krediet;
-    this.role = role;
     this.reservaties = reservaties;
 
   }

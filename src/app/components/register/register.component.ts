@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         2000.0,
-        rol,
         null
       );
 
@@ -67,7 +66,6 @@ export class RegisterComponent implements OnInit {
         email,
         wachtwoord,
         1000.0,
-        rol,
         null
       );
       this.registerService.registerklant(klant).subscribe();

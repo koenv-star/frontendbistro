@@ -68,4 +68,31 @@ export class AdsComponent implements OnInit {
     })
 
   }
+  //  showing the section of the ordering options and restaurants
+  bestelNu(){
+    let view = document.querySelector(".firstView") as HTMLElement;
+    let view2 = document.querySelector(".secondView") as HTMLElement;
+    view.style.display = "none";
+    view.style.animation ="leftSlider 2s ease forwards";
+    view.style.transition ="2s";
+    view.classList.add("leftSlider");
+    view2.style.animation = "rightSlider 2s ease forwards";
+    view2.style.display = "block";
+    view2.classList.add("rightSlider")
+  }
+//canceling the ordering process
+  cancel() {
+    let view = document.querySelector(".firstView") as HTMLElement;
+    let view2 = document.querySelector(".secondView") as HTMLElement;
+    view.style.display = "block";
+    view.style.animation ="rightSlider 2s ease forwards";
+    view.classList.add("rightSlider");
+    view2.style.animation = "leftSlider 2s ease forwards";
+    view2.style.display = "none";
+    view2.classList.add("leftSlider")
+  }
+
+  koopNu() {
+    // to-do buying process with credit
+  }
 }

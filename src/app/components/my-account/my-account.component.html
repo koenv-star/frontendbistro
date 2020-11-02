@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 <div class="d-flex justify-content-center">
   <div class="container">
     <div class="row">
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <p><i class="fas fa-info-circle mr-2"></i>Rol: {{ uitbater.role.substring(5, uitbater.role.length) }}</p>
+                <p><i class="fas fa-info-circle mr-2"></i>Rol: </p>
 
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
@@ -41,7 +41,7 @@
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <p>  <i class="fa fa-cutlery mr-2" aria-hidden="true"></i>Reservaties :
                 </p>
-                <p *ngFor="let reservatie of this.uitbater.reservaties">{{reservatie}}</p>
+                <p *ngFor="let reservatie of this.uitbater.reservaties">{{reservatie}} </p>
 
               </div>
 
@@ -65,7 +65,7 @@
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <p>
                   <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
-                  : {{ klant.email }} {{ klant.role.substring(5, klant.role.length) }}
+                  : {{ klant.email }}
                 </p>
               </div>
             </div>
@@ -89,4 +89,4 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+
