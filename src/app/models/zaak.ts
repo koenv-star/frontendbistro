@@ -9,8 +9,8 @@ export class Zaak {
 
   id: number;
   naam: string;
-  omschrijving: string;
-  fotoUrl: string;
+  imageURL: string;
+  description: string;
   parking: boolean;
   rating: number;
   openingsUren: OpeningsUren;
@@ -20,13 +20,13 @@ export class Zaak {
   tafels: Tafel[];
   reservaties: Reservatie[];
 
-  constructor(id: number, naam: string, omschrijving: string, fotoUrl: string, parking: boolean, rating: number, openingsUren: OpeningsUren,
+  constructor(id: number, naam: string, description: string, imageUrl: string, parking: boolean, rating: number, openingsUren: OpeningsUren,
     adres: Adres, menu: Menu, uitbater: Uitbater, tafels: Tafel[], reservaties: Reservatie[]) {
 
       this.id = id;
       this.naam = naam;
-      this.omschrijving = omschrijving;
-      this.fotoUrl = fotoUrl;
+      this.description = description;
+      this.imageURL = imageUrl;
       this.parking = parking;
       this.rating = rating;
       this.openingsUren = openingsUren;

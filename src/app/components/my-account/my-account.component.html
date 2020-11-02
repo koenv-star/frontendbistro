@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="d-flex justify-content-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg d-flex justify-content-center">
+        <div class="d-flex flex-column align-items-center">
+          <img
+            src="assets/images/icons/100x100/AccountDetailsLogoBlack.png"
+            class="img-fluid d-lg-block mb-3"
+            style="width: auto; height: 200px"
+            alt="Account details"
+          />
+          <div class="container" *ngIf="this.uitbater">
+            <div class="row">
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i
+                  >Naam : {{ uitbater.naam }} {{ uitbater.voornaam }}
+                </p>
+              </div>
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
+                  : {{ uitbater.email }} {{ uitbater.role }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <img
+                    src="assets/images/icons/100x100/coinBlack.png"
+                    class="mr-2"
+                    height="auto"
+                    width="25"
+                    alt="Kredieten"
+                  />Kredieten : {{ uitbater.krediet }}
+                </p>
+              </div>
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-cutlery mr-2" aria-hidden="true"></i
+                  >Reservaties : {{ uitbater.reservaties }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col-lg-12 d-flex justify-content-start mx-3" >
+                <p>
+                  <i class="fa fa-briefcase mr-2" aria-hidden="true" ></i>Mijn
+                  Zaken: 
+                </p >
+                <p *ngFor="let zaak of  uitbater.zaken ">{{zaak.naam}}, </p> 
+              </div>
+
+              <div class="row col-lg-12 d-flex justify-content-start mx-3 mb-5">
+                <!--if els needed here can be used-->
+              </div>
+            </div>
+          </div>
+          <div class="container" *ngIf="this.klant">
+            <div class="row">
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i
+                  >Naam : {{ klant.naam }} {{ klant.voornaam }}
+                </p>
+              </div>
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
+                  : {{ klant.email }} {{ klant.role }}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <img
+                    src="assets/images/icons/100x100/coinBlack.png"
+                    class="mr-2"
+                    height="auto"
+                    width="25"
+                    alt="Kredieten"
+                  />Kredieten : {{ klant.krediet }}
+                </p>
+              </div>
+              <div class="row col-lg-12 d-flex justify-content-start mx-3">
+                <p>
+                  <i class="fa fa-cutlery mr-2" aria-hidden="true"></i
+                  >Reservaties : {{ klant.reservaties }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
