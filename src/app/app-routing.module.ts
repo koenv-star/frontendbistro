@@ -11,6 +11,7 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
+import { AllZakenComponent } from './all-zaken/all-zaken.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'zaken', component: ZakenComponent },
   { path: 'addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
+  { path: 'allZaken', component: AllZakenComponent},
 ];
 
 @NgModule({

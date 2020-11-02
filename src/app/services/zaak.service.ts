@@ -22,4 +22,8 @@ export class ZaakService {
 
     return this.http.get<Zaak[]>(url);
   }
+
+  public getAllZaken() :Observable<Zaak[]>{
+    return this.http.get<Zaak[]>(this.backendUrl);
+  }
 }
