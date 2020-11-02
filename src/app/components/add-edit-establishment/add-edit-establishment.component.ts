@@ -10,6 +10,9 @@ import { OpeningsUren } from 'src/app/models/openings-uren';
 import { Dag } from 'src/app/models/dag';
 import { ReturnStatement } from '@angular/compiler';
 import { Tafel } from 'src/app/models/tafel';
+import { Zaak } from 'src/app/models/zaak';
+import { Uitbater } from 'src/app/models/uitbater';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 /**
  * Gemaakt door Jan
@@ -45,7 +48,8 @@ export class AddEditEstablishmentComponent implements OnInit {
   tafelStoelFeedback: string = '';
 
   constructor(private formBuilder: FormBuilder,
-              private placesService: PlacesService) { }
+              private placesService: PlacesService,
+              private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -423,6 +427,11 @@ export class AddEditEstablishmentComponent implements OnInit {
     return new OpeningsUren(0, days);
   }
 
+  makeUitbater(): Uitbater {
+    let uitbater: Uitbater;
+    return
+  }
+
   makeTafels(): Tafel[] {
 
     let tafels: Tafel[] = [];
@@ -447,9 +456,17 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
     // making zaak object
-    let adres: Adres = this.makeAddress();
+    let zaak: Zaak;
     let openingsUren: OpeningsUren = this.makeOpeningsUren();
+    let adres: Adres = this.makeAddress();
+    let uitbater: Uitbater = this.makeUitbater();
     let tafels: Tafel[] = this.makeTafels();
-    this.tafelStoelInputs = Array.from(document.querySelectorAll(".table-chair"));
+
+    zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres, null,
+           uitbater, tafels, new Array());
+  }
+
+  postZaak(): void {
+
   }
 }

@@ -5,8 +5,8 @@ export class Uitbater extends Person {
 
   zaken: Zaak[];
 
-  constructor(zaken: Zaak[]) {
-    super();
+  constructor(email: string, naam: string, voornaam: string, wachtwoord: string, krediet: number, zaken: Zaak[]) {
+    super(email, naam, voornaam, wachtwoord, krediet);
     this.zaken = zaken;
   }
 }
