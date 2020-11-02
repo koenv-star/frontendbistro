@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Costumer } from '../models/costumer';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Klant} from '../models/klant';
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,6 +16,7 @@ const LIST_URL = 'http://localhost:8080/klanten';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  userChange$ = new BehaviorSubject({email: null, role: null});
   constructor(private http: HttpClient) {}
 
   // 'Content-Type': 'application/json',
@@ -45,33 +46,10 @@ export class AuthenticationService {
     );
   }
 
-  // authenticate(username, password) {
-  //   return this.http
-  //     .post<any>(LOGIN_URL, { username, password })
-  //     .pipe(
-  //       map(userData => {
-  //         sessionStorage.setItem("username", username);
-  //         let tokenStr = "Bearer " + userData.token;
-  //         sessionStorage.setItem("token", tokenStr);
-  //         return userData;
-  //       })
-  //     );
-  // }
 
-  register(user): Observable<any> {
-    return this.http.post(
-      REG_URL,
-      {
-        voornaam: user.surname,
-        naam: user.name,
-        email: user.email,
-        paswoord: user.password,
-      },
-      httpOptions
-    );
-  }
 
-  list(): Observable<Costumer[]> {
-    return this.http.get<Costumer[]>(LIST_URL);
+
+  list(): Observable<Klant[]> {
+    return this.http.get<Klant[]>(LIST_URL);
   }
 }

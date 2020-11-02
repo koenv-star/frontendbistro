@@ -8,11 +8,15 @@ import { Time } from '@angular/common';
 import { Adres } from 'src/app/models/adres';
 import { OpeningsUren } from 'src/app/models/openings-uren';
 import { Dag } from 'src/app/models/dag';
-import { ReturnStatement } from '@angular/compiler';
 import { Tafel } from 'src/app/models/tafel';
 import { Zaak } from 'src/app/models/zaak';
 import { Uitbater } from 'src/app/models/uitbater';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { AccountService } from 'src/app/services/account.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ZaakService } from 'src/app/services/zaak.service';
+import { Router } from '@angular/router';
+import { Menu } from 'src/app/models/menu';
 
 /**
  * Gemaakt door Jan
@@ -47,13 +51,26 @@ export class AddEditEstablishmentComponent implements OnInit {
   tafelStoelInputs: HTMLInputElement[];
   tafelStoelFeedback: string = '';
 
+  // uitbater
+  uitbater: Uitbater;
+
+  // zaak
+  zaak: Zaak;
+
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService,
-              private tokenService: TokenStorageService) { }
+              private accountService: AccountService,
+              private tokenService: TokenStorageService,
+              private authService: AuthenticationService,
+              private zaakService: ZaakService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
     this.buildForm();
+
+    // uitbater
+    this.getUitbater();
 
     // address
     this.streets = new Array();
@@ -427,11 +444,6 @@ export class AddEditEstablishmentComponent implements OnInit {
     return new OpeningsUren(0, days);
   }
 
-  makeUitbater(): Uitbater {
-    let uitbater: Uitbater;
-    return
-  }
-
   makeTafels(): Tafel[] {
 
     let tafels: Tafel[] = [];
@@ -449,6 +461,18 @@ export class AddEditEstablishmentComponent implements OnInit {
     return tafels;
   }
 
+  getUitbater(): void {
+
+    let user = this.tokenService.getUser();
+    if (!user) {
+      this.authService.userChange$.next({email: user.email, role: user.role});
+      this.accountService.updateUser();
+      this.accountService.uitbater$.asObservable().subscribe(data => {
+        this.uitbater = data;
+      });
+    }
+  }
+
   onSubmit(): void {
 
     if(!this.checkForInvalidTableFields()) return;
@@ -456,17 +480,27 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
     // making zaak object
-    let zaak: Zaak;
     let openingsUren: OpeningsUren = this.makeOpeningsUren();
     let adres: Adres = this.makeAddress();
-    let uitbater: Uitbater = this.makeUitbater();
     let tafels: Tafel[] = this.makeTafels();
 
-    zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres, null,
-           uitbater, tafels, new Array());
+    this.zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres,
+                        new Menu(0, new Array), this.uitbater, tafels, new Array());
+
+    // put zaak object in session storage
+    window.sessionStorage.setItem('zaak', JSON.stringify(this.zaak));
   }
 
   postZaak(): void {
 
+    const formData = new FormData();
+    formData.append('zaak', JSON.stringify(this.zaak));
+    formData.append('imageFile', this.picture, this.picture.name);
+
+    this.zaakService.postZaak(formData)
+      .subscribe(data => {
+        this.router.navigateByUrl('');
+        window.sessionStorage.removeItem('zaak');
+      });
   }
 }
