@@ -34,7 +34,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   addEstablishmentFormGroup: FormGroup;
 
   // uitbater
-  uitbater: Uitbater;
+  uitbaterEmail: string;
 
   // address
   allCommunities = allCommunities;
@@ -460,7 +460,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     return tafels;
   }
 
-  getUitbater(): void {
+  getUitbaterEmail(): void {
 
     let user = this.tokenService.getUser();
     if (!isNull(user)) {
@@ -468,7 +468,7 @@ export class AddEditEstablishmentComponent implements OnInit {
       this.accountService.updateUser();
       this.accountService.uitbater$.asObservable()
         .subscribe(data => {
-          this.uitbater = new Uitbater(data.naam, data.voornaam, data.email, data.wachtwoord, data.krediet, data.reservaties, data.zaken);
+          this.uitbaterEmail = data.email;
           this.makeZaak();
           this.postZaak();
       });
@@ -490,7 +490,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     let menu: Menu = this.getMenu();
 
     this.zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres,
-                        menu, this.uitbater, tafels, new Array());
+                        menu, this.uitbaterEmail, tafels, new Array());
 
     // put zaak object in session storage
     window.sessionStorage.setItem('zaak', JSON.stringify(this.zaak));
@@ -502,7 +502,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkAmountOfTableInputs()) return;
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
-    this.getUitbater();
+    this.getUitbaterEmail();
   }
 
   postZaak(): void {
