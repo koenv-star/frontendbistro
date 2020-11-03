@@ -1,0 +1,22 @@
+<<<<<<< Updated upstream
+<p>bestellen works!</p>
+=======
+<div class="d-flex justify-content-center">
+    <div class="card w-50">
+        <div class="card-header">
+            <h4><span class="fa fa-shopping-bag"></span> Bestellen</h4>
+        </div>
+        <div class="card-body">
+            <form *ngIf="bestellingen != null">
+                <div class="d-flex-inline" *ngFor="let bestelling of bestellingen; let i=index">
+                    <h4>{{menuItem}}</h4> <h6>{{zaaken[index].naam}}</h6>
+                </div>
+
+            </form>
+        </div>
+        <div class="card-footer d-flex justify-content-center justify-content-lg-end">
+            <button class="btn btn-custom my-4" style="width: 30%;">Bestel</button>
+        </div>
+    </div>
+</div>
+>>>>>>> Stashed changes

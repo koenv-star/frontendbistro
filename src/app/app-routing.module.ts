@@ -11,7 +11,11 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
+<<<<<<< HEAD
 import {AdsComponent} from './components/ads/ads.component';
+=======
+<<<<<<< Updated upstream
+>>>>>>> took changes from stash
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
 <<<<<<< HEAD
 import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
@@ -19,6 +23,8 @@ import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
 
 =======
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
+=======
+>>>>>>> Stashed changes
 import { BestellenComponent } from './components/bestellen/bestellen.component';
 >>>>>>> added bestellen compo en service linked to page in header
 
@@ -38,11 +44,18 @@ const routes: Routes = [
   { path: 'zaken', component: ZakenComponent },
   { path: 'menu/:zaakNaam/addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
+<<<<<<< HEAD
   { path: 'ads', component:AdsComponent},
   { path: 'allZaken', component: AllZakenComponent},
 <<<<<<< HEAD
 
 =======
+=======
+<<<<<<< Updated upstream
+  { path: 'allZaken', component: AllZakenComponent},
+=======
+>>>>>>> Stashed changes
+>>>>>>> took changes from stash
   { path: 'bestellen', component: BestellenComponent},
 >>>>>>> added bestellen compo en service linked to page in header
 ];

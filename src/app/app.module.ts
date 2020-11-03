@@ -42,11 +42,7 @@ import { BestellenComponent } from './components/bestellen/bestellen.component';
     AdsComponent,
     KredietComponent,
     AllZakenComponent,
-<<<<<<< HEAD
-
-=======
     BestellenComponent,
->>>>>>> added bestellen compo en service linked to page in header
   ],
   imports: [
     BrowserModule,
