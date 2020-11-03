@@ -36,6 +36,7 @@ export class TokenStorageService {
 
     return actualrole;
   }
+
   public saveUser(user: User) {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));

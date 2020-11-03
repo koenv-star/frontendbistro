@@ -11,11 +11,14 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
+import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
 
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'error', component: ErrorComponent },
+  { path: 'addestablishment', component: AddEditEstablishmentComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'MyAccount', component: MyAccountComponent },
@@ -27,6 +30,7 @@ const routes: Routes = [
   { path: 'zaken', component: ZakenComponent },
   { path: 'addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
+
 ];
 
 @NgModule({

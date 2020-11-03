@@ -12,6 +12,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
@@ -27,13 +28,13 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    AddEditEstablishmentComponent,
     RegisterComponent,
     MenuComponent,
     ZakenComponent,
     AddmenuComponent,
     ZaakComponent,
     MyAccountComponent,
-
   ],
   imports: [
     BrowserModule,

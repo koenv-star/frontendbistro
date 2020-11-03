@@ -18,8 +18,6 @@ export class AccountService {
               private serviceAuth: AuthenticationService,
               private userService: CredentialServiceService,
               private router: Router) {
-
-
   }
 
   updateUser(){
@@ -42,4 +40,3 @@ export class AccountService {
     });
   }
 }
-
