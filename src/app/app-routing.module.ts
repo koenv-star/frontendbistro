@@ -12,8 +12,7 @@ import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
-
-
+import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -22,15 +21,13 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'MyAccount', component: MyAccountComponent },
-  { path: 'header', component: HeaderComponent },
-  { path: 'footer', component: FooterComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'menu/:zaakNaam', component: MenuComponent },
   { path: 'zaken', component: ZakenComponent },
   { path: 'addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
-
+  { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent }
 ];
 
 @NgModule({
