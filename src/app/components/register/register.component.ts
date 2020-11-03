@@ -55,6 +55,7 @@ export class RegisterComponent implements OnInit {
         wachtwoord,
         2000.0,
         new Array(),
+        new Array(),
         new Array()
       );
 

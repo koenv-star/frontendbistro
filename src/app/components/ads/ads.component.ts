@@ -139,9 +139,8 @@ export class AdsComponent implements OnInit {
         this.uitbater.email,
         "a".repeat(60),
         krediet,
-        this.uitbater.reservaties);
-      tempUitbater.zaken = this.uitbater.zaken;
-      tempUitbater.bestellingVerzamelingen = this.uitbater.bestellingVerzamelingen;
+        this.uitbater.reservaties, this.uitbater.bestellingVerzamelingen,
+        this.uitbater.zaken);
       this.serviceCredentials.updateUitbater(this.uitbater.email, tempUitbater).subscribe(data => {
         console.log(data);
       });

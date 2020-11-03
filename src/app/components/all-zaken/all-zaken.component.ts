@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Zaak } from '../models/zaak';
-import { ZaakService } from '../services/zaak.service';
+import {Zaak} from '../../models/zaak';
+import {ZaakService} from '../../services/zaak.service';
+
 
 @Component({
   selector: 'app-all-zaken',
