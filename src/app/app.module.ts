@@ -18,6 +18,7 @@ import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { AdsComponent } from './components/ads/ads.component';
+import { KredietComponent } from './components/krediet/krediet.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AdsComponent } from './components/ads/ads.component';
     ZaakComponent,
     MyAccountComponent,
     AdsComponent,
+    KredietComponent,
 
   ],
   imports: [

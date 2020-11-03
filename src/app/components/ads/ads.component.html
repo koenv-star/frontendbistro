@@ -1,72 +1,82 @@
-
 <div class="container text-center firstView">
   <h1>Advertenties</h1>
   <div class="container mb-lg-3 mt-lg-5">
     <ng-container>
       <h6>Als uitbater kan uw advertentieruimte kopen op
-      de landingspagina.</h6>
+        de landingspagina.</h6>
     </ng-container>
     <ng-container><h6>Voor een aantal credits krijgt uw zaak een aantal
       vertoningen.</h6>
     </ng-container>
 
   </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg d-flex justify-content-center ">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th scope="col">Formule</th>
-                  <th scope="col">Krediet</th>
-                  <th scope="col">Vertoningen</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th scope="row">Budget</th>
-                  <td>20</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <th scope="row">Standard</th>
-                  <td>50</td>
-                  <td>1000</td>
-                </tr>
-                <tr>
-                  <th scope="row">Premium</th>
-                  <td>100</td>
-                  <td>3000</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      <button class="btn btn-primary mb-5 mt-2 rounded" (click)="bestelNu()"><i class="fas fa-credit-card"></i> Bestel Nu!</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg d-flex justify-content-center ">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Formule</th>
+            <th scope="col">Krediet</th>
+            <th scope="col">Vertoningen</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">Budget</th>
+            <td>20</td>
+            <td>200</td>
+          </tr>
+          <tr>
+            <th scope="row">Standard</th>
+            <td>50</td>
+            <td>1000</td>
+          </tr>
+          <tr>
+            <th scope="row">Premium</th>
+            <td>100</td>
+            <td>3000</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
+  </div>
+  <button class="btn btn-primary mb-5 mt-2 rounded" (click)="bestelNu()"><i class="fas fa-credit-card"></i> Bestel Nu!
+  </button>
+</div>
 
 
-      <div class="container justify-content-lg-center secondView">
-        <form [formGroup]="bestelAd" action="">
-          <div>
-            <label for="formule">Selecteer uw formule</label>
-            <select name="formule" id="formule" formControlName="formule" required="">
-              <option value="Budget" selected> Budget  </option>
-              <option value="Budget" selected> Standard  </option>
-              <option value="Budget" selected> Premium  </option>
-
-            </select>
-          </div>
-          <div>
-            <label for="zaak">Selecteer uw zaak</label>
-            <select name="zaak" id="zaak" required="">
-              <option *ngFor="let opt of this.zaken" [value]="opt.id" >{{opt.naam}}</option>
-
-            </select>
-          </div>
-          <button class="btn btn-primary mb-5 mt-2 mr-2" (click)="koopNu()"><i class="fas fa-check-circle mr-2"></i> Koop Nu</button>
-          <button class="btn btn-danger mb-5 mt-2" (click)="cancel()"><i class="fas fa-window-close mr-2"></i> Annuleer!</button>
-        </form>
+<div class="container secondView">
+  <form [formGroup]="bestelAd" (ngSubmit)="koopNu()">
+    <div class="container justify-content-lg-center">
+      <div>
+        <select class="rounded " name="formule" id="formule" formControlName="formule" required="">
+          <option value="" selected disabled>Selecteer uw formule</option>
+          <option value="20"> Budget</option>
+          <option value="50"> Standard</option>
+          <option value="100"> Premium</option>
+        </select>
       </div>
+      <div>
+        <select name="zaak" class="rounded mt-3 " id="zaak" formControlName="zaak" required>
+          <option value="" selected disabled>Selecteer uw zaak</option>
+          <option *ngFor="let opt of this.zaken" [value]="opt.naam">{{opt.naam}}</option>
+        </select>
+      </div>
+      <div>
+      <textarea class="rounded text-left" name="text" formControlName="text" style="width: 250px; height:150px; ">
+
+      </textarea>
+      </div>
+    </div>
+    <a class="btn btn-primary mb-5 mt-2 mr-2" id="Koop" (click)="koopNu()"><i class="fas fa-check-circle mr-2"></i> Koop
+      Nu
+    </a>
+    <a class="btn btn-danger mb-5 mt-2" id="Annuleer" (click)="cancel()"><i class="fas fa-window-close mr-2"></i>
+      Annuleer!
+    </a>
+
+  </form>
+</div>
 

@@ -7,6 +7,7 @@ import {Klant} from '../models/klant';
 
 const KLANT_URL = 'http://localhost:8080/klanten/';
 const UITBATER_URL = 'http://localhost:8080/uitbaters/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +33,10 @@ export class CredentialServiceService {
       UITBATER_URL + email);
   }
 
+  updateUitbater(email, uitbater: Uitbater) {
+    return this.http.put<Uitbater>(
+      UITBATER_URL + email, uitbater);
+
+  }
 
 }
