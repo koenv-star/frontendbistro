@@ -27,7 +27,7 @@ export class PlacesService {
   }
 
   getStreetsByCommunity(community: string): Observable<any> {
-    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/?gemeentenaam=${community}&limit=10000`, {headers: this.httpHeaders});
+    return this.http.get<any>(this.placesBaseUrl + `/straatnamen?gemeentenaam=${community}&limit=10000`, {headers: this.httpHeaders});
   }
 
   getBusNumbers(zipcode: number, street: string): Observable<any> {

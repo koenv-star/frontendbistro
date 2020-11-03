@@ -16,12 +16,12 @@ export class Zaak {
   openingsUren: OpeningsUren;
   adres: Adres;
   menu: Menu;
-  uitbater: Uitbater;
+  email: string;
   tafels: Tafel[];
   reservaties: Reservatie[];
 
   constructor(id: number, naam: string, description: string, imageUrl: string, parking: boolean, rating: number, openingsUren: OpeningsUren,
-    adres: Adres, menu: Menu, uitbater: Uitbater, tafels: Tafel[], reservaties: Reservatie[]) {
+    adres: Adres, menu: Menu, email: string, tafels: Tafel[], reservaties: Reservatie[]) {
 
       this.id = id;
       this.naam = naam;
@@ -32,7 +32,7 @@ export class Zaak {
       this.openingsUren = openingsUren;
       this.adres = adres;
       this.menu = menu;
-      this.uitbater = uitbater;
+      this.email = email;
       this.tafels = tafels;
       this.reservaties = reservaties;
   }
