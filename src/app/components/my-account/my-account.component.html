@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 <div class="d-flex justify-content-center">
   <div class="container">
     <div class="row">
@@ -46,12 +46,11 @@
             </div>
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3" >
-                <p>
-                  <i class="fa fa-briefcase mr-2" aria-hidden="true" ></i>Mijn
+                  <i class="fa fa-briefcase mr-2 mt-1" aria-hidden="true" ></i>Mijn
                   Zaken: 
-                </p >
-                <p *ngFor="let zaak of  uitbater.zaken ">{{zaak.naam}}, </p> 
-              </div>
+                  <ng-container *ngFor="let zaak of  uitbater.zaken ">
+                  <li class="ml-2" style="list-style: none;">{{zaak.naam}}</li>
+                </ng-container>
 
               <div class="row col-lg-12 d-flex justify-content-start mx-3 mb-5">
                 <!--if els needed here can be used-->
@@ -98,4 +97,4 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+

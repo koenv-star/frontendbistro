@@ -31,6 +31,4 @@ export class CredentialServiceService {
     return this.http.get<Uitbater>(
       UITBATER_URL + email);
   }
-
-
 }

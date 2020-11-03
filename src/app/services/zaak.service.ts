@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Zaak } from '../models/zaak';
 import { Observable } from 'rxjs';
@@ -7,19 +7,36 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ZaakService {
-  private backendUrl:string = "http://localhost:8080/zaken";
-  ZAKEN_URL = 'http://localhost:8080/zaken';
-
+  
+  private zaakBaseUrl = 'http://localhost:8080/zaken';
 
   constructor(private http: HttpClient) { }
 
-
-  public getZaak(id:number) :Observable<Zaak>{
-    return this.http.get<Zaak>(this.backendUrl + "/zaak/id=" + id);
+  getZaak(id:number) :Observable<Zaak>{
+    return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/id=" + id);
   }
+
   getZakenBijUitbaterEmail(email: String) {
-    let url = `${this.ZAKEN_URL}/${email}`;
+    let url = `${this.zaakBaseUrl}/${email}`;
 
     return this.http.get<Zaak[]>(url);
   }
+
+
+  postZaak(formData: FormData): Observable<Zaak> {
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Disposition': 'form-data',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    return this.http.post<Zaak>(this.zaakBaseUrl, formData, {headers: httpHeaders});
+  }
+
+  showMenuofShop(zaaknaam: String) {
+    let url = `${this.zaakBaseUrl}/zaak/${zaaknaam}`;
+    return this.http.get<Zaak>(url);
+  }
+
 }
