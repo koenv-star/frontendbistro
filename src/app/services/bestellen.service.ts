@@ -1,30 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Bestelling } from '../models/bestelling';
+import { BestellingVerzameling } from '../models/bestelling-verzameling';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class BestellenService {
-  private BestellingToken:string = "SESSION_BESTELLING"
-  private NumberToken:string = "SESSION_NUMBERS"
+  private BVKEY:string = "BV_KEY";
+  private ZKEY:string = "Z_KEY";
 
   constructor() { }
 
-  public getBestellingen():Bestelling[] {
-    return JSON.parse(window.sessionStorage.getItem(this.BestellingToken));
+  public getBestellingen():BestellingVerzameling {
+    return JSON.parse(window.sessionStorage.getItem(this.BVKEY));
   }
 
-  public saveBestellingen(bestellingen:Bestelling[]) {
-    window.sessionStorage.setItem(this.BestellingToken, JSON.stringify(bestellingen));
+  public saveBestellingen(BestellingVerzameling:BestellingVerzameling) {
+    window.sessionStorage.setItem(this.BVKEY, JSON.stringify(BestellingVerzameling));
   }
 
-  public getNumbers():number[] {
-    return JSON.parse(window.sessionStorage.getItem(this.NumberToken));
+  public add(bestelling:Bestelling, zaakNaam:string){
+    let besVer:BestellingVerzameling = this.getBestellingen();
+    let namen:string[] = this.getZaakNamen();
+    besVer.bestellingen[besVer.bestellingen.length] = bestelling;
+    namen[namen.length] = zaakNaam;
+    this.saveBestellingen(besVer);
+    this.saveZaakNamen(namen);
   }
 
-  public saveNumbers(numbers:number[]){
-    return window.sessionStorage.setItem(this.NumberToken, JSON.stringify(numbers));
+  public getZaakNamen():string[] {
+    return JSON.parse(window.sessionStorage.getItem(this.ZKEY));
   }
-  
+
+  public saveZaakNamen(zaakNamen:string[]) {
+    window.sessionStorage.setItem(this.ZKEY,JSON.stringify(zaakNamen));
+  }
+
 }

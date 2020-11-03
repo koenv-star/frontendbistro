@@ -1,22 +1,28 @@
-<<<<<<< Updated upstream
-<p>bestellen works!</p>
-=======
 <div class="d-flex justify-content-center">
     <div class="card w-50">
         <div class="card-header">
             <h4><span class="fa fa-shopping-bag"></span> Bestellen</h4>
         </div>
         <div class="card-body">
-            <form *ngIf="bestellingen != null">
-                <div class="d-flex-inline" *ngFor="let bestelling of bestellingen; let i=index">
-                    <h4>{{menuItem}}</h4> <h6>{{zaaken[index].naam}}</h6>
+            <div *ngFor="let item of besVer.bestellingen; let i=index" class="d-flex justify-content-lg-between" id="{{i}}">
+                <div>
+                    <h4>{{item.menuItem.naam}}</h4>
+                    <h6>{{item.menuItem.beschrijving}}</h6>
                 </div>
-
-            </form>
+                <div>
+                    <h6>{{getCategorie(item.menuItem.categorie)}}</h6>
+                    <h6>{{zaken[i]}}</h6>
+                </div>
+                <div>
+                    <h5><span class="fas fa-euro-sign"></span> {{item.menuItem.prijs}} x</h5>
+                    <div>
+                        <input class="mr-0 w-75" type="number" id="{{i}}" value="{{item.aantal}}" (input)="updateItem($event)">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-footer d-flex justify-content-center justify-content-lg-end">
-            <button class="btn btn-custom my-4" style="width: 30%;">Bestel</button>
+            <button class="btn btn-custom my-2" style="width: 30%;">Bestel</button>
         </div>
     </div>
 </div>
->>>>>>> Stashed changes
