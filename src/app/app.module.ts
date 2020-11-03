@@ -12,6 +12,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
@@ -19,6 +20,8 @@ import { ZaakComponent } from './components/zaak/zaak.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { AdsComponent } from './components/ads/ads.component';
 import { KredietComponent } from './components/krediet/krediet.component';
+import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { KredietComponent } from './components/krediet/krediet.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    AddEditEstablishmentComponent,
     RegisterComponent,
     MenuComponent,
     ZakenComponent,
@@ -37,6 +41,7 @@ import { KredietComponent } from './components/krediet/krediet.component';
     MyAccountComponent,
     AdsComponent,
     KredietComponent,
+    AllZakenComponent,
 
   ],
   imports: [

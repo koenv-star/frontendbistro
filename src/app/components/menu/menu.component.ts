@@ -38,6 +38,10 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  getMenu(){
+    return this.menu;
+  }
+
   sort() {
     for (let item of this.items) {
       console.log(item.categorie);

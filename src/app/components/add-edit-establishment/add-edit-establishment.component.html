@@ -1,0 +1,571 @@
+<div class="container text-center" style="overflow-x: hidden">
+  <h1>Voeg hier uw zaak toe</h1>
+
+  <form
+    id="firstForm"
+    [formGroup]="addEstablishmentFormGroup"
+  >
+    <div id="firstPart">
+      <hr />
+
+      <div formGroupName="establishment" class="form-area">
+        <div class="row mt-2">
+          <label for="naam">Naam:</label>
+          <input
+            id="naam"
+            class="form-control"
+            formControlName="establishmentName"
+            type="text"
+          />
+          <div
+            *ngIf="
+              establishmentName.invalid &&
+              (establishmentName.touched || establishmentName.dirty)
+            "
+            class="col-sm-12 alert alert-danger mt-2 mb-0"
+          >
+            <span
+              class="float-left"
+              *ngIf="
+                establishmentName.errors.required ||
+                establishmentName.errors.notOnlyWhitespace
+              "
+              >De naam van de zaak moet ingevuld zijn</span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.pattern"
+              >De naam mag geen _ bevatten</span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.minlength"
+              >De naam moet minstens 2 karakters bevatten</span
+            >
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <label for="parking">Parking:</label>
+          <input
+            id="parkingCheckbox"
+            class="form-control"
+            formControlName="parking"
+            type="checkbox"
+          />
+        </div>
+      </div>
+
+      <hr />
+
+      <div formGroupName="description" class="form-area">
+        <div class="row mt-2">
+          <label for="description">Omschrijving:</label>
+
+          <textarea
+            class="form-control"
+            formControlName="description"
+          ></textarea>
+          <div
+            *ngIf="
+              description.invalid && (description.touched || description.dirty)
+            "
+            class="col-sm-12 alert alert-danger mt-2 mb-0"
+          >
+            <span
+              class="float-left"
+              *ngIf="
+                description.errors.required ||
+                description.errors.notOnlyWhitespace
+              "
+              >De omschrijving moet ingevuld zijn</span
+            >
+            <span class="float-left" *ngIf="description.errors.minlength"
+              >De omschrijving moet minstens 20 karakters bevatten</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div formGroupName="address" class="form-area">
+        <div class="row mt-2">
+          <label for="province">Provincie:</label>
+
+          <select
+            class="form-control"
+            formControlName="province"
+            (change)="onChangeProvince($event)"
+          >
+            <option value="Antwerpen" selected>Antwerpen</option>
+            <option value="Limburg">Limburg</option>
+            <option value="Oost-Vlaanderen">Oost-Vlaanderen</option>
+            <option value="Vlaams-Brabant">Vlaams-Brabant</option>
+            <option value="West-Vlaanderen">West-Vlaanderen</option>
+          </select>
+        </div>
+
+        <!-- gemeente en postcode -->
+        <div class="row mt-2">
+          <div class="col-sm-10">
+            <div class="row">
+              <label for="community">Gemeente:</label>
+
+              <select
+                class="form-control"
+                formControlName="community"
+                (change)="onChangeCommunity($event)"
+              >
+                <ng-container *ngFor="let community of allCommunities">
+                  <option
+                    *ngIf="
+                      community.id >= communityStartId &&
+                      community.id <= communityEndId
+                    "
+                    [id]="community.id"
+                    value="{{ community.name }}"
+                  >
+                    {{ community.name }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <label class="float-left" for="postcode">Postcode:</label>
+            <input
+              id="postcode"
+              class="form-control"
+              formControlName="zipcode"
+              type="text"
+              readonly
+            />
+          </div>
+        </div>
+
+        <!-- straat en huisnummer -->
+        <div class="row mt-2">
+          <div class="col-sm-10">
+            <div class="row">
+              <label for="straat">Straat:</label>
+              <select
+                id="straat"
+                class="form-control"
+                formControlName="street"
+                (change)="setBusNumbers()"
+              >
+                <option *ngFor="let street of streets">{{ street }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <label class="float-left" for="huisnummer">Huisnummer:</label>
+            <select
+              id="huisnummer"
+              class="form-control"
+              formControlName="bus"
+              type="text"
+            >
+              <option *ngFor="let bn of busNumbers">{{ bn }}</option>
+            </select>
+            <div
+              *ngIf="bus.invalid"
+              class="col-sm-12 alert alert-danger mt-2 mb-0"
+            >
+              <span *ngIf="bus.errors.cannotBeGeen">Verboden</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div formGroupName="openingHours" class="form-area">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="row">
+              <label class="float-left">Maandag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurMa"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurMa"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(0, 1, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurMa.invalid &&
+                  (openingsuurMa.touched || openingsuurMa.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurMa.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="float-left">Dinsdag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurDi"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurDi"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(2, 3, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurDi.invalid &&
+                  (openingsuurDi.touched || openingsuurDi.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurDi.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="float-left">Woensdag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurWo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurWo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(4, 5, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurWo.invalid &&
+                  (openingsuurWo.touched || openingsuurWo.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurWo.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+
+            <div class="row">
+              <label class="float-left">Donderdag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurDo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurDo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(6, 7, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurDo.invalid &&
+                  (openingsuurDo.touched || openingsuurDo.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurDo.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="row offset-sm-1">
+              <label class="float-left">Vrijdag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurVr"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurVr"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(8, 9, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurVr.invalid &&
+                  (openingsuurVr.touched || openingsuurVr.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurVr.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+
+            <div class="row offset-sm-1">
+              <label class="float-left">Zaterdag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurZa"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurZa"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(10, 11, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurZa.invalid &&
+                  (openingsuurZa.touched || openingsuurZa.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurZa.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+
+            <div class="row offset-sm-1">
+              <label class="float-left">Zondag:</label>
+              <input
+                (change)="onClocksChange()"
+                class="float-left mr-2"
+                formControlName="openingsuurZo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <input
+                (change)="onClocksChange()"
+                formControlName="sluitingsuurZo"
+                type="time"
+                min="00:00"
+                max="24:00"
+                step="1800"
+                value="00:00"
+                required
+              />
+              <button
+                (click)="onOpenCloseToggle(12, 13, $event)"
+                class="col-sm-6 btn btn-primary mt-1 timeBtn"
+              >
+                Gesloten
+              </button>
+              <div
+                *ngIf="
+                  openingsuurZo.invalid &&
+                  (openingsuurZo.touched || openingsuurZo.dirty)
+                "
+                class="col-sm-12 alert alert-danger mt-2 mb-0"
+              >
+                <span *ngIf="openingsuurZo.errors.invalidHour"
+                  >Niet geldig</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div formGroupName="image">
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <img width="500px" class="mb-2" [src]="imageUrl" />
+
+            <div class="custom-file">
+              <input
+                (change)="onFileSelected($event)"
+                class="custom-file-input"
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                id="customFile"
+                formControlName="image"
+              />
+              <label class="custom-file-label" for="customFile"
+                >Foto inladen:</label
+              >
+            </div>
+
+            <div
+              *ngIf="image.invalid && (image.touched || image.dirty)"
+              class="alert alert-danger mt-2 mb-0"
+            >
+              <span *ngIf="image.errors.mustBePngJpgOrJpeg"
+                >Image must have extension .png, .jpg or .jpeg</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- button to go to next section -->
+  <div id="goToNextBtnContainer" class="row">
+    <div class="col-sm-12">
+      <button
+        (click)="goToNextSection($event)"
+        class="btn btn-primary my-2 float-right"
+      >
+        <svg
+          width="1em"
+          height="1em"
+          viewBox="0 0 16 16"
+          class="bi bi-arrow-right"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="secondPart">
+    <hr />
+
+    <div class="form-group">
+
+      <div class="row">
+        <div class="col-sm-12">
+        <button (click)="addTable()" class="btn btn-primary mr-1">
+          Tafel
+          <i class="fas fa-plus"></i>
+        </button>
+
+        <button (click)="removeTable()" class="btn btn-primary ml-1">
+          Tafel
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="tafelStoelFeedback.length > 0"
+      class="col-sm-6 mx-auto alert alert-danger mt-2 mb-0">
+      <span>{{ tafelStoelFeedback }}</span>
+    </div>
+
+    <hr>
+
+    <input (click)="onSubmit()" class="btn btn-primary my-2" type="submit" value="Voeg zaak toe!" />
+  </div>
+</div>

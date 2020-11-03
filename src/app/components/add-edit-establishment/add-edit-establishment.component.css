@@ -1,0 +1,78 @@
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: left;
+}
+
+#parkingCheckbox {
+  width: 25px;
+}
+
+input[type=file]:hover {
+  cursor: pointer;
+}
+
+div[formGroupname=openingHours] label {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+img {
+  border-radius: 20px;
+}
+
+.custom-file-label {
+  width: 100%;
+}
+
+/* change content of file selector button */
+.custom-file-input ~ .custom-file-label::after {
+  content: url('../../../assets/bootstrap-icons/search.svg');
+  background-color:  green;
+}
+
+.slide-left {
+  animation: slide-left 1s ease forwards;
+}
+
+.slide-left2 {
+  animation: slide-left2 1s ease forwards;
+}
+
+#secondPart {
+  transform: translateX(110%);
+  display: none;
+}
+
+.input-group input {
+  border: none;
+}
+
+.input-group .fa-plus {
+  cursor: pointer;
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(0%);
+    width: auto;
+    height: auto;
+    visibility: visible;
+  }
+  to {
+    transform: translateX(-200%);
+    width: 0;
+    height: 0;
+    overflow: hidden;
+   }
+}
+
+@keyframes slide-left2 {
+  from {
+    transform: translateX(100%);
+   }
+  to {
+    transform: translateX(0%);
+   }
+}
