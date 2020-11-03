@@ -21,7 +21,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { AdsComponent } from './components/ads/ads.component';
 import { KredietComponent } from './components/krediet/krediet.component';
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
-
+import { BestellenComponent } from './components/bestellen/bestellen.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,11 @@ import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
     AdsComponent,
     KredietComponent,
     AllZakenComponent,
+<<<<<<< HEAD
 
+=======
+    BestellenComponent,
+>>>>>>> added bestellen compo en service linked to page in header
   ],
   imports: [
     BrowserModule,
