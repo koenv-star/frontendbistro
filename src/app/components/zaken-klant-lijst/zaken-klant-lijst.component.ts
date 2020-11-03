@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { defaults as defaultControls } from 'ol/control';
+
 import Map from 'ol/Map';
-import View from 'ol/View';
-import VectorLayer from 'ol/layer/Vector';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
+import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import * as olProj from 'ol/proj';
-import TileLayer from 'ol/layer/Tile';
-import ZoomToExtent from 'ol/control/ZoomToExtent';
+import View from 'ol/View';
+import { fromLonLat } from 'ol/proj';
+import Feature  from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import { Icon, Style } from 'ol/style.js';
+import VectorSource from 'ol/source/Vector.js';
+import VectorLayer from 'ol/layer/Vector';
+import BaseLayer from 'ol/layer/Base';
 
 @Component({
   selector: 'app-zaken-klant-lijst',
@@ -19,6 +21,9 @@ export class ZakenKlantLijstComponent implements OnInit {
 
   currentPos: Position;
   map: Map;
+  currentPosMarker: Feature;
+  vectorLayer: BaseLayer;
+  vectorSource: VectorSource;
 
   constructor() { }
 
@@ -30,27 +35,45 @@ export class ZakenKlantLijstComponent implements OnInit {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
+        this.addCurrentPosMarker();
         this.createMap();
       });
     }
   }
 
+  addCurrentPosMarker(): void {
+    this.currentPosMarker = new Feature({
+      geometry: new Point(fromLonLat([this.currentPos.coords.longitude, this.currentPos.coords.latitude]))
+    });
+
+    this.currentPosMarker.setStyle(new Style({
+      image: new Icon(({
+        color: '#8959A8',
+        crossOrigin: 'anonymous',
+        src: 'assets/bootstrap-icons/house.svg',
+        imgSize: [20, 20]
+      }))
+    }));
+  }
+
   createMap(): void {
+
+    this.vectorSource = new VectorSource({
+      features: [this.currentPosMarker]
+    });
+
+    this.vectorLayer = new VectorLayer({
+      source: this.vectorSource
+    });
+
     this.map = new Map({
       target: 'zaken_map',
-      layers: [new TileLayer({source: new OSM()})],
+      layers: [new Tile({source: new OSM()}), this.vectorLayer],
       view: new View({
-        center: olProj.fromLonLat([this.currentPos.coords.longitude, this.currentPos.coords.latitude]),
-        zoom: 12
+        center: fromLonLat([this.currentPos.coords.longitude, this.currentPos.coords.latitude]),
+        zoom: 13
       }),
-      controls: defaultControls().extend([
-        new ZoomToExtent({
-          extent: [
-            813079.7791264898, 5929220.284081122,
-            848966.9639063801, 5936863.986909639
-          ]
-        })
-      ])
+      controls: []
     });
   }
 }
