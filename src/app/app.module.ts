@@ -18,6 +18,7 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { AllZakenComponent } from './all-zaken/all-zaken.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     AddmenuComponent,
     ZaakComponent,
     MyAccountComponent,
+    AllZakenComponent,
   ],
   imports: [
     BrowserModule,

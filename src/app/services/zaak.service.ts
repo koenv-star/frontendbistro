@@ -20,8 +20,11 @@ export class ZaakService {
     let url = `${this.zaakBaseUrl}/${email}`;
 
     return this.http.get<Zaak[]>(url);
-  }
+  } 
 
+  public getAllZaken() :Observable<Zaak[]>{
+    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+  }
 
   postZaak(formData: FormData): Observable<Zaak> {
 
