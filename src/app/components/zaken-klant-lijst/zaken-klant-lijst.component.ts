@@ -107,6 +107,7 @@ export class ZakenKlantLijstComponent implements OnInit {
       name: zaak != null ? zaak.naam : 'U bent hier',
       address: zaak != null ? zaak.adres : null,
       imageUrl: zaak != null ? zaak.imageURL : null,
+      zaakId: zaak != null ? zaak.id : null,
       geometry: new Point(fromLonLat([coordX, coordY]))
     });
 
@@ -127,6 +128,7 @@ export class ZakenKlantLijstComponent implements OnInit {
     const overlayFeatureName = document.querySelector('#feature-name') as HTMLElement;
     const overlayFeatureAddress = document.querySelector('#feature-address') as HTMLElement;
     const overlayFeatureImg = document.querySelector('#feature-image') as HTMLElement;
+    const overlayFeatureLink = document.querySelector('#feature-link') as HTMLElement;
     const overlayLayer = new Overlay({ element: overlayContainerElement });
     this.map.addOverlay(overlayLayer);
 
@@ -139,18 +141,23 @@ export class ZakenKlantLijstComponent implements OnInit {
         let featureName: string = feature.get('name');
         let featureAddress: Adres = feature.get('address');
         let feaureImageUrl: string = feature.get('imageUrl');
+        let featureId: string = feature.get('zaakId');
         overlayLayer.setPosition(coordinates);
         overlayFeatureName.innerHTML = featureName;
 
         if(featureName === 'U bent hier') {
           overlayFeatureAddress.innerHTML = '';
           overlayFeatureImg.removeAttribute('src');
+          overlayFeatureLink.style.display = 'none';
         }
         else {
           overlayFeatureAddress.innerHTML = `${featureAddress.straat} ${featureAddress.huisNr},
           ${featureAddress.postcode} ${featureAddress.gemeente}`;
 
           overlayFeatureImg.setAttribute('src', `./assets/images/restaurants/${feaureImageUrl}`);
+          overlayFeatureLink.style.display = 'block';
+          overlayFeatureLink.innerText = `Naar ${featureName}`;
+          overlayFeatureLink.setAttribute('href', `zaken/${featureId}`);
         }
       })
     })
