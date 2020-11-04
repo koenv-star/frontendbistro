@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Circle, Fill, Icon, Style } from 'ol/style.js';
 import { fromLonLat } from 'ol/proj';
-import { fromUserCoordinate } from 'ol/proj';
-import { toLonLat } from 'ol/proj';
-import { toUserCoordinate } from 'ol/proj';
-import { transform } from 'ol/proj';
 
 import Map from 'ol/Map';
 import Tile from 'ol/layer/Tile';
@@ -18,7 +14,6 @@ import BaseLayer from 'ol/layer/Base';
 import { Zaak } from 'src/app/models/zaak';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { PlacesService } from 'src/app/services/places.service';
-import { source } from 'openlayers';
 import { Overlay } from 'ol';
 import { Adres } from 'src/app/models/adres';
 
@@ -40,6 +35,14 @@ export class ZakenKlantLijstComponent implements OnInit {
   vectorSource: VectorSource;
   zaken: Zaak[];
 
+  // popup
+  overlayContainerElement: HTMLElement;
+  overlayFeatureName: HTMLElement;
+  overlayFeatureParking: HTMLElement;
+  overlayFeatureAddress: HTMLElement;
+  overlayFeatureImg: HTMLElement;
+  overlayFeatureLink: HTMLElement;
+
   constructor(private zaakService: ZaakService,
               private placesService: PlacesService) { }
 
@@ -48,6 +51,14 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.vectorLayer = new VectorLayer({ source: this.vectorSource });
     this.getLocation();
     this.getRestaurants();
+
+    // popup
+    this.overlayContainerElement = document.querySelector('.overlay-container') as HTMLElement;
+    this.overlayFeatureName = document.querySelector('#feature-name') as HTMLElement;
+    this.overlayFeatureParking = document.querySelector('#feature-parking');
+    this.overlayFeatureAddress = document.querySelector('#feature-address') as HTMLElement;
+    this.overlayFeatureImg = document.querySelector('#feature-image') as HTMLElement;
+    this.overlayFeatureLink = document.querySelector('#feature-link') as HTMLElement;
   }
 
   getLocation(): void {
@@ -105,6 +116,7 @@ export class ZakenKlantLijstComponent implements OnInit {
 
     let marker = new Feature({
       name: zaak != null ? zaak.naam : 'U bent hier',
+      parking: zaak != null ? zaak.parking : null,
       address: zaak != null ? zaak.adres : null,
       imageUrl: zaak != null ? zaak.imageURL : null,
       zaakId: zaak != null ? zaak.id : null,
@@ -124,12 +136,7 @@ export class ZakenKlantLijstComponent implements OnInit {
 
   showPopupOnMarkerClick(): any {
 
-    const overlayContainerElement = document.querySelector('.overlay-container') as HTMLElement;
-    const overlayFeatureName = document.querySelector('#feature-name') as HTMLElement;
-    const overlayFeatureAddress = document.querySelector('#feature-address') as HTMLElement;
-    const overlayFeatureImg = document.querySelector('#feature-image') as HTMLElement;
-    const overlayFeatureLink = document.querySelector('#feature-link') as HTMLElement;
-    const overlayLayer = new Overlay({ element: overlayContainerElement });
+    const overlayLayer = new Overlay({ element: this.overlayContainerElement });
     this.map.addOverlay(overlayLayer);
 
     this.map.on('click', (event) => {
@@ -139,25 +146,29 @@ export class ZakenKlantLijstComponent implements OnInit {
       this.map.forEachFeatureAtPixel(event.pixel, (feature: any, layer) => {
         let coordinates = event.coordinate;
         let featureName: string = feature.get('name');
+        let featureParking: string = feature.get('parking');
         let featureAddress: Adres = feature.get('address');
         let feaureImageUrl: string = feature.get('imageUrl');
         let featureId: string = feature.get('zaakId');
         overlayLayer.setPosition(coordinates);
-        overlayFeatureName.innerHTML = featureName;
+        this.overlayFeatureName.innerHTML = featureName;
 
         if(featureName === 'U bent hier') {
-          overlayFeatureAddress.innerHTML = '';
-          overlayFeatureImg.removeAttribute('src');
-          overlayFeatureLink.style.display = 'none';
+          this.overlayFeatureParking.innerText = '';
+          this.overlayFeatureAddress.innerHTML = '';
+          this.overlayFeatureImg.removeAttribute('src');
+          this.overlayFeatureLink.style.display = 'none';
         }
         else {
-          overlayFeatureAddress.innerHTML = `${featureAddress.straat} ${featureAddress.huisNr},
+          this.overlayFeatureParking.innerText = featureParking ? 'Parking: Ja' : 'Parking: Neen';
+
+          this.overlayFeatureAddress.innerHTML = `${featureAddress.straat} ${featureAddress.huisNr},
           ${featureAddress.postcode} ${featureAddress.gemeente}`;
 
-          overlayFeatureImg.setAttribute('src', `./assets/images/restaurants/${feaureImageUrl}`);
-          overlayFeatureLink.style.display = 'block';
-          overlayFeatureLink.innerText = `Naar ${featureName}`;
-          overlayFeatureLink.setAttribute('href', `zaken/${featureId}`);
+          this.overlayFeatureImg.setAttribute('src', `./assets/images/restaurants/${feaureImageUrl}`);
+          this.overlayFeatureLink.style.display = 'block';
+          this.overlayFeatureLink.innerText = `Naar ${featureName}`;
+          this.overlayFeatureLink.setAttribute('href', `zaken/${featureId}`);
         }
       })
     })
