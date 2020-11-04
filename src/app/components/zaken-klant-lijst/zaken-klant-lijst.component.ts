@@ -17,6 +17,7 @@ import VectorLayer from 'ol/layer/Vector';
 import BaseLayer from 'ol/layer/Base';
 import { Zaak } from 'src/app/models/zaak';
 import { ZaakService } from 'src/app/services/zaak.service';
+import { PlacesService } from 'src/app/services/places.service';
 
 /**
  * Gemaakt door Jan
@@ -35,7 +36,8 @@ export class ZakenKlantLijstComponent implements OnInit {
   vectorSource: VectorSource;
   zaken: Zaak[];
 
-  constructor(private zaakService: ZaakService) { }
+  constructor(private zaakService: ZaakService,
+              private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.getLocation();
@@ -109,7 +111,23 @@ export class ZakenKlantLijstComponent implements OnInit {
 
   putRestaurantsOnMap(): void {
     this.zaken.forEach(zaak => {
-      console.log(zaak.adres);
+      this.placesService.getCoordinatesFromAddress(zaak.adres)
+        .subscribe(data => {
+
+          let restaurantMarker = new Feature({
+            geometry: new Point(fromLonLat([data.bbox[2], data.bbox[3]]))
+          });
+
+          restaurantMarker.setStyle(new Style({
+            image: new Icon(({
+              crossOrigin: 'anonymous',
+              src: 'assets/bootstrap-icons/shop.svg',
+              imgSize: [20, 20]
+            }))
+          }));
+
+          this.vectorSource.addFeature(restaurantMarker);
+        })
     })
   }
 }
