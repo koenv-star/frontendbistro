@@ -27,6 +27,7 @@ export class MyAccountComponent implements OnInit {
   ngOnInit(): void {
     // checking if the user already logged in changing the header according
     // to user information.
+
     let user = this.serviceToken.getUser();
     if (!isNull(user)) {
       this.serviceAuth.userChange$.next({email: user.email, role: user.role});
@@ -39,4 +40,6 @@ export class MyAccountComponent implements OnInit {
       });
     }
   }
+
+
 }

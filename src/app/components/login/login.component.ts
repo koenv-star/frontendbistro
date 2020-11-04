@@ -55,7 +55,8 @@ export class LoginComponent implements OnInit {
       this.service.userChange$.next({email: username, role});
       // Updating the user and getting the information of user from database
       this.serviceAccount.updateUser();
-      this.router.navigateByUrl('/MyAccount');
+      this.router.navigateByUrl('/MyAccount').finally(() => location.reload());
+
     });
   }
 }
