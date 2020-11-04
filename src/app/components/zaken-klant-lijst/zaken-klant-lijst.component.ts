@@ -20,6 +20,7 @@ import { ZaakService } from 'src/app/services/zaak.service';
 import { PlacesService } from 'src/app/services/places.service';
 import { source } from 'openlayers';
 import { Overlay } from 'ol';
+import { Adres } from 'src/app/models/adres';
 
 /**
  * Gemaakt door Jan
@@ -32,6 +33,7 @@ import { Overlay } from 'ol';
 export class ZakenKlantLijstComponent implements OnInit {
 
   currentPos: Position;
+  currentAddress: Adres;
   map: Map;
   currentPosMarker: Feature;
   vectorLayer: BaseLayer;
@@ -103,6 +105,8 @@ export class ZakenKlantLijstComponent implements OnInit {
 
     let marker = new Feature({
       name: zaak != null ? zaak.naam : 'U bent hier',
+      address: zaak != null ? zaak.adres : null,
+      imageUrl: zaak != null ? zaak.imageURL : null,
       geometry: new Point(fromLonLat([coordX, coordY]))
     });
 
@@ -120,7 +124,9 @@ export class ZakenKlantLijstComponent implements OnInit {
   showPopupOnMarkerClick(): any {
 
     const overlayContainerElement = document.querySelector('.overlay-container') as HTMLElement;
-    const overlayFeatureName = document.querySelector('#feature-name');
+    const overlayFeatureName = document.querySelector('#feature-name') as HTMLElement;
+    const overlayFeatureAddress = document.querySelector('#feature-address') as HTMLElement;
+    const overlayFeatureImg = document.querySelector('#feature-image') as HTMLElement;
     const overlayLayer = new Overlay({ element: overlayContainerElement });
     this.map.addOverlay(overlayLayer);
 
@@ -129,10 +135,23 @@ export class ZakenKlantLijstComponent implements OnInit {
       overlayLayer.setPosition(undefined);
 
       this.map.forEachFeatureAtPixel(event.pixel, (feature: any, layer) => {
-        let clickedCoordinates = event.coordinate;
-        let clickedFeatureName: string = feature.get('name');
-        overlayLayer.setPosition(clickedCoordinates);
-        overlayFeatureName.innerHTML = clickedFeatureName;
+        let coordinates = event.coordinate;
+        let featureName: string = feature.get('name');
+        let featureAddress: Adres = feature.get('address');
+        let feaureImageUrl: string = feature.get('imageUrl');
+        overlayLayer.setPosition(coordinates);
+        overlayFeatureName.innerHTML = featureName;
+
+        if(featureName === 'U bent hier') {
+          overlayFeatureAddress.innerHTML = '';
+          overlayFeatureImg.removeAttribute('src');
+        }
+        else {
+          overlayFeatureAddress.innerHTML = `${featureAddress.straat} ${featureAddress.huisNr},
+          ${featureAddress.postcode} ${featureAddress.gemeente}`;
+
+          overlayFeatureImg.setAttribute('src', `./assets/images/restaurants/${feaureImageUrl}`);
+        }
       })
     })
   }
