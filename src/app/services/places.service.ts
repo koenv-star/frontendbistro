@@ -13,7 +13,6 @@ export class PlacesService {
   private placesBaseUrl: string = 'https://api.basisregisters.vlaanderen.be/v1';
   private httpHeaders = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST',
     'x-api-key': '950f3581-139e-45e4-bca3-18b006335d71'
   });
 
@@ -28,7 +27,7 @@ export class PlacesService {
   }
 
   getStreetsByCommunity(community: string): Observable<any> {
-    return this.http.get<any>(this.placesBaseUrl + `/straatnamen/?gemeentenaam=${community}&limit=10000`, {headers: this.httpHeaders});
+    return this.http.get<any>(this.placesBaseUrl + `/straatnamen?gemeentenaam=${community}&limit=10000`, {headers: this.httpHeaders});
   }
 
   getBusNumbers(zipcode: number, street: string): Observable<any> {

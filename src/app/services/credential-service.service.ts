@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
-import {Observable} from 'rxjs';
 import {Uitbater} from '../models/uitbater';
 import {Klant} from '../models/klant';
 
 const KLANT_URL = 'http://localhost:8080/klanten/';
 const UITBATER_URL = 'http://localhost:8080/uitbaters/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,4 +31,11 @@ export class CredentialServiceService {
     return this.http.get<Uitbater>(
       UITBATER_URL + email);
   }
+
+  updateUitbater(email, uitbater: Uitbater) {
+    return this.http.put<Uitbater>(
+      UITBATER_URL + email, uitbater);
+
+  }
+
 }

@@ -11,7 +11,11 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
+import {AdsComponent} from './components/ads/ads.component';
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
+import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
+
+
 
 
 
@@ -29,6 +33,8 @@ const routes: Routes = [
   { path: 'zaken', component: ZakenComponent },
   { path: 'menu/:zaakNaam/addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
+  { path: 'ads', component:AdsComponent},
+  { path: 'allZaken', component: AllZakenComponent},
 
 ];
 

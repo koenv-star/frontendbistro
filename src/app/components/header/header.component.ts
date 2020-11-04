@@ -34,27 +34,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getCredentials();
-
-  }
-
-  toggleNavbar() {
-    this.navbarOpen = !this.navbarOpen;
-  }
-
-  logout() {
-    this.tokenservice.signout(); // clearing the sessionStorage
-    this.service.userChange$.next({email: null, role: null}); // clearing the authorization BehaviorSubject's values.
-    this.serviceAccount.klant$.next(null); // clearing the Account service Costumer BehaviorSubject's values.
-    this.serviceAccount.uitbater$.next(null);// clearing the Account service Owner  BehaviorSubject's values.
-    this.isUitbater = false; // turning the header is not Owner.
-    this.isKlant = false; // turning the header is not Costumer.
-  }
-
-
-  getCredentials(){
-    // checking if the user already logged in setting the header according
-    // to user information
     let user = this.tokenservice.getUser();
     if (!isNull(user)) {
       //setting the authentication BehaviorSubject to
@@ -82,6 +61,28 @@ export class HeaderComponent implements OnInit {
       this.checkStatus();
 
     }
+
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
+
+  logout() {
+    this.tokenservice.signout(); // clearing the sessionStorage
+    this.service.userChange$.next({email: null, role: null}); // clearing the authorization BehaviorSubject's values.
+    this.serviceAccount.klant$.next(null); // clearing the Account service Costumer BehaviorSubject's values.
+    this.serviceAccount.uitbater$.next(null);// clearing the Account service Owner  BehaviorSubject's values.
+    this.isUitbater = false; // turning the header is not Owner.
+    this.isKlant = false; // turning the header is not Costumer.
+  }
+
+
+  getCredentials(){
+    // checking if the user already logged in setting the header according
+    // to user information
+
+
   }
 // checking if the user logged in or not
 // if logged in then checking the role

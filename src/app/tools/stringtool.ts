@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 
 export class Stringtool {
 
-  public static getHoursFromString(term: string): Time {
+  public static getTimeFromString(term: string): Time {
     if(!term.match('^[\\d]{2}:[\\d]{2}$')) return;
 
     let hoursAndMinutes: string[] = term.split(":");

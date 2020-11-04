@@ -49,12 +49,12 @@ export class RegisterComponent implements OnInit {
     console.log(voornaam, naam, wachtwoord, email, rol);
     if (rol == 'uitbater') {
       let uitbater = new Uitbater(
+        email,
         naam,
         voornaam,
-        email,
         wachtwoord,
         2000.0,
-        rol,
+        new Array(),
         new Array(),
         new Array()
       );
@@ -63,13 +63,13 @@ export class RegisterComponent implements OnInit {
       this.registerStatus = true;
     } else {
       let klant = new Klant(
+        email,
         naam,
         voornaam,
-        email,
         wachtwoord,
         1000.0,
-        rol,
-        null
+        new Array(),
+        new Array()
       );
 
       this.registerService.registerklant(klant).subscribe();

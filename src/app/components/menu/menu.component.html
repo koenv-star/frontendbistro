@@ -1,5 +1,3 @@
-
-
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-10 mx-auto col-12 text-center mb-3">
@@ -15,7 +13,7 @@
       <h3 class="text-center text-primary">Hoofdgerechten</h3>
       <hr class="accent my-5" />
     </div>
-    <div class="card-columns">
+    <div class="card-columns m-auto">
       <div class="card card-body" *ngFor="let item of hoofdgerechten">
         <span class="float-right font-weight-bold">{{ item.prijs }}</span>
         <h6 class="text-truncate">{{ item.naam }}</h6>
@@ -30,85 +28,98 @@
       <h3 class="text-center text-primary">Desserten</h3>
       <hr class="accent my-5" />
     </div>
-      <div class="card-columns">
-        <div class="card card-body" *ngFor="let item of desserten">
-          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-          <h6 class="text-truncate">{{ item.naam }}</h6>
-          <p class="small">
-            {{ item.beschrijving }}
-          </p>
-        </div>
+    <div class="card-columns m-auto">
+      <div class="card card-body" *ngFor="let item of desserten">
+        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+        <h6 class="text-truncate">{{ item.naam }}</h6>
+        <p class="small">
+          {{ item.beschrijving }}
+        </p>
       </div>
-      <div class="col-12 mt-4" *ngIf="cocktails.length > 0">
-        <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
-        <h3 class="text-center text-primary">Cocktails</h3>
-        <hr class="accent my-5" />
+    </div>
+    <div class="col-12 mt-4" *ngIf="cocktails.length > 0">
+      <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
+      <h3 class="text-center text-primary">Cocktails</h3>
+      <hr class="accent my-5" />
+    </div>
+    <div class="card-columns m-auto">
+      <div class="card card-body" *ngFor="let item of cocktails">
+        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+        <h6 class="text-truncate">{{ item.naam }}</h6>
+        <p class="small mb-0">
+          {{ item.beschrijving }}
+        </p>
       </div>
-      <div class="card-columns">
-        <div class="card card-body" *ngFor="let item of cocktails">
-          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-          <h6 class="text-truncate">{{ item.naam }}</h6>
-          <p class="small">
-            {{ item.beschrijving }}
-          </p>
-        </div>
-      </div>
-      <div class="col-12 mt-4" *ngIf="frisdranken.length > 0">
-        <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
-        <h3 class="text-center text-primary">Frisdranken</h3>
-        <hr class="accent my-5" />
-      </div>
-      <div class="card-columns">
-        <div class="card card-body" *ngFor="let item of frisdranken">
-          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-          <h6 class="text-truncate">{{ item.naam }}</h6>
-          <p class="small">
-            {{ item.beschrijving }}
-          </p>
-        </div>
+    </div>
+    <div class="col-12 mt-4" *ngIf="frisdranken.length > 0">
+      <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
+      <h3 class="text-center text-primary">Frisdranken</h3>
+      <hr class="accent my-5" />
+    </div>
+    <div class="card-columns m-auto">
+      <div class="card card-body" *ngFor="let item of frisdranken">
+        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+        <h6 class="text-truncate">{{ item.naam }}</h6>
+        <p class="small">
+          {{ item.beschrijving }}
+        </p>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="container mb-5">
-    <div class="row">
-      <!-- <div class="col-sm-3"></div> -->
-      <div class="col-sm-3">
-        <div class="container-fluid">
-          <button
-            type="button"
-            class="btn  btn-primary mt-4"
-            style="width: 100%"
-            onclick="deleteMenu()"
-          >
-            Delete Menu!
-          </button>
-        </div>
+<div class="container mb-5 ml-2">
+  <div class="row">
+    <!-- <div class="col-sm-3"></div> -->
+    <div class="col-sm-3">
+      <div class="container-fluid">
+        <button
+          type="button"
+          class="btn btn-primary mt-4"
+          style="width: 100%"
+          onclick="deleteMenu()"
+        >
+          Delete Menu!
+        </button>
       </div>
-      <div class="col-sm-3">
-        <div class="container-fluid">
-          <button
-            type="button"
-            class="btn  btn-primary mt-4"
-            style="width: 100%"
-            routerLink='addmenu'
-          >
-            Add Menu items!
-          </button>
-        </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="container-fluid">
+        <button
+          type="button"
+          class="btn btn-primary mt-4"
+          style="width: 100%"
+          routerLink="addmenu"
+        >
+          Add items!
+        </button>
       </div>
-      <div class="col-sm-3">
-        <div class="container-fluid">
-          <button
-            type="button"
-            class="btn btn-primary mt-4"
-            style="width: 100%"
-            (click)="slaMenuOp()"
-          >
-            Stuur menu door!
-          </button>
-        </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="container-fluid">
+        <button
+          type="button"
+          class="btn btn-primary mt-4"
+          style="width: 100%"
+          (click)="slaMenuOp()"
+        >
+          Save
+        </button>
       </div>
     </div>
   </div>
-
+  <div class="row">
+    <div class="col-sm-3 ml-0 mb-4">
+      <div class="container-fluid">
+        <button
+          type="button"
+          class="btn btn-primary mt-4 ml-0"
+          style="width: 50%"
+          routerLink="../../zaken"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

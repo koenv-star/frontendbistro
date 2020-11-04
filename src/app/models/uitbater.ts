@@ -1,13 +1,18 @@
-import { Person } from './person';
+
+import { Klant } from './klant';
 import { Reservatie } from './reservatie';
 import { Zaak } from './zaak';
+import {BestellingVerzameling} from './bestelling-verzameling';
 
-export class Uitbater extends Person {
+export class Uitbater extends Klant {
 
   zaken: Zaak[];
 
-  constructor(naam: string, voornaam: string, email: string, wachtwoord: string, krediet: number, role: string, reservaties: Reservatie[], zaken: Zaak[]) {
-    super(naam, voornaam, email, wachtwoord, krediet, role, reservaties);
+  constructor(naam: string, voornaam: string, email: string, wachtwoord: string, krediet: number,
+    reservaties: Reservatie[], bestellingVerzamelingen: BestellingVerzameling[], zaken: Zaak[]) {
+
+    super(email, naam, voornaam, wachtwoord, krediet, reservaties, bestellingVerzamelingen);
     this.zaken = zaken;
   }
+
 }
