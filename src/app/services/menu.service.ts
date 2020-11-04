@@ -16,7 +16,11 @@ export class MenuService {
   }
 
   slaMenuOp(menu: Menu) {
-   
     return this.http.put<Menu>(this.MENU_URL, menu);
+  }
+
+  deleteMenu(id: String) {
+    let url = `${this.MENU_URL}/${id}`;
+    return this.http.delete<Menu>(url);
   }
 }

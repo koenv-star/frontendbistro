@@ -59,7 +59,8 @@ export class MenuComponent implements OnInit {
 
   slaMenuOp() {
     this.menuservice.slaMenuOp(this.menu).subscribe((data) => {
-      this.menu = data;
+      this.serviceToken.saveMenu(this.menu);
+      location.reload();
     });
   }
 
@@ -75,11 +76,21 @@ export class MenuComponent implements OnInit {
         } else {
           if (item.categorie === Categorie.FRISDRANKEN) {
             this.frisdranken.push(item);
-          } else {
+          } else {  if (item.categorie === Categorie.COCKTAILS) {
             this.cocktails.push(item);
+          }
+           
           }
         }
       }
     }
+  }
+
+  clearMenu() {
+    this.menu.menuItems=new Array();
+    this.menuservice.slaMenuOp(this.menu).subscribe((data) => {
+      this.serviceToken.saveMenu(this.menu);
+      location.reload();
+    });
   }
 }
