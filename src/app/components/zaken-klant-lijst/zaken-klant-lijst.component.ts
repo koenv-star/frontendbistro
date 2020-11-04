@@ -18,6 +18,8 @@ import BaseLayer from 'ol/layer/Base';
 import { Zaak } from 'src/app/models/zaak';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { PlacesService } from 'src/app/services/places.service';
+import { source } from 'openlayers';
+import { Overlay } from 'ol';
 
 /**
  * Gemaakt door Jan
@@ -50,8 +52,9 @@ export class ZakenKlantLijstComponent implements OnInit {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
-        this.addMarker(this.currentPos.coords.longitude, this.currentPos.coords.latitude, 'house');
+        this.addMarker(null, this.currentPos.coords.longitude, this.currentPos.coords.latitude, 'house');
         this.createMap();
+        this.showPopupOnMarkerClick();
       });
     }
   }
@@ -61,7 +64,7 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.map = new Map({
       target: 'zaken_map',
       layers: [
-        new Tile({source: new OSM()}),
+        new Tile({source: new OSM(), opacity: 1}),
         new VectorLayer({
           source: this.vectorSource,
           style: new Style({
@@ -70,7 +73,7 @@ export class ZakenKlantLijstComponent implements OnInit {
               fill: new Fill({ color: 'red' })
             }),
         })
-        })],
+      })],
       view: new View({
         center: fromLonLat([this.currentPos.coords.longitude, this.currentPos.coords.latitude]),
         zoom: 13
@@ -91,14 +94,15 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.zaken.forEach(zaak => {
       this.placesService.getCoordinatesFromAddress(zaak.adres)
         .subscribe(data => {
-          this.addMarker(data.bbox[2], data.bbox[3], 'shop');
+          this.addMarker(zaak, data.bbox[2], data.bbox[3], 'shop');
         })
     })
   }
 
-  addMarker(coordX: number, coordY: number, img: string): void {
+  addMarker(zaak: Zaak, coordX: number, coordY: number, img: string): void {
 
     let marker = new Feature({
+      name: zaak != null ? zaak.naam : 'U bent hier',
       geometry: new Point(fromLonLat([coordX, coordY]))
     });
 
@@ -111,5 +115,25 @@ export class ZakenKlantLijstComponent implements OnInit {
     }));
 
     this.vectorSource.addFeature(marker);
+  }
+
+  showPopupOnMarkerClick(): any {
+
+    const overlayContainerElement = document.querySelector('.overlay-container') as HTMLElement;
+    const overlayFeatureName = document.querySelector('#feature-name');
+    const overlayLayer = new Overlay({ element: overlayContainerElement });
+    this.map.addOverlay(overlayLayer);
+
+    this.map.on('click', (event) => {
+
+      overlayLayer.setPosition(undefined);
+
+      this.map.forEachFeatureAtPixel(event.pixel, (feature: any, layer) => {
+        let clickedCoordinates = event.coordinate;
+        let clickedFeatureName: string = feature.get('name');
+        overlayLayer.setPosition(clickedCoordinates);
+        overlayFeatureName.innerHTML = clickedFeatureName;
+      })
+    })
   }
 }
