@@ -26,8 +26,8 @@ export class ZaakService {
     return this.http.get<Zaak[]>(this.zaakBaseUrl);
   }
 
-  getzaakByNaam(naam:string) {
-    return this.http.get(this.zaakBaseUrl + "/zaak/" + naam);
+  getzaakByNaam(naam:string): Observable<Zaak> {
+    return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/" + naam);
   }
 
   postZaak(formData: FormData): Observable<Zaak> {

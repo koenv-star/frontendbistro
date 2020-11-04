@@ -20,7 +20,7 @@ export class BestellenComponent implements OnInit {
 
   update() {
     if (this.bestellenService.getBestellingen() == null) {
-      this.besVer =  new BestellingVerzameling(0, new Array(), new Klant());
+      this.besVer =  new BestellingVerzameling(0, new Array(), null);
     } else {
       this.besVer = this.bestellenService.getBestellingen();
     }

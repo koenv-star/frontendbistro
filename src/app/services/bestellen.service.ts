@@ -32,7 +32,7 @@ export class BestellenService {
     let besVer:BestellingVerzameling = this.getBestellingen();
     let namen:string[] = this.getZaakNamen();
     if(besVer == null) {
-      besVer = new BestellingVerzameling(0, new Array(), new Klant());
+      besVer = new BestellingVerzameling(0, new Array(), null);
     }
     if (namen == null) {
       namen = new Array();
