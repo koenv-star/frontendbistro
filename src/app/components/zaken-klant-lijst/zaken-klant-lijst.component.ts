@@ -40,6 +40,8 @@ export class ZakenKlantLijstComponent implements OnInit {
               private placesService: PlacesService) { }
 
   ngOnInit(): void {
+    this.vectorSource = new VectorSource({ features: [] });
+    this.vectorLayer = new VectorLayer({ source: this.vectorSource });
     this.getLocation();
     this.getRestaurants();
   }
@@ -48,37 +50,13 @@ export class ZakenKlantLijstComponent implements OnInit {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
-        console.log(this.currentPos);
-        this.addCurrentPosMarker();
+        this.addMarker(this.currentPos.coords.longitude, this.currentPos.coords.latitude, 'house');
         this.createMap();
       });
     }
   }
 
-  addCurrentPosMarker(): void {
-    this.currentPosMarker = new Feature({
-      geometry: new Point(fromLonLat([this.currentPos.coords.longitude, this.currentPos.coords.latitude])),
-      name: 'U bent hier'
-    });
-
-    this.currentPosMarker.setStyle(new Style({
-      image: new Icon(({
-        crossOrigin: 'anonymous',
-        src: 'assets/bootstrap-icons/house.svg',
-        imgSize: [20, 20]
-      }))
-    }));
-  }
-
   createMap(): void {
-
-    this.vectorSource = new VectorSource({
-      features: [this.currentPosMarker]
-    });
-
-    this.vectorLayer = new VectorLayer({
-      source: this.vectorSource
-    });
 
     this.map = new Map({
       target: 'zaken_map',
@@ -113,21 +91,25 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.zaken.forEach(zaak => {
       this.placesService.getCoordinatesFromAddress(zaak.adres)
         .subscribe(data => {
-
-          let restaurantMarker = new Feature({
-            geometry: new Point(fromLonLat([data.bbox[2], data.bbox[3]]))
-          });
-
-          restaurantMarker.setStyle(new Style({
-            image: new Icon(({
-              crossOrigin: 'anonymous',
-              src: 'assets/bootstrap-icons/shop.svg',
-              imgSize: [20, 20]
-            }))
-          }));
-
-          this.vectorSource.addFeature(restaurantMarker);
+          this.addMarker(data.bbox[2], data.bbox[3], 'shop');
         })
     })
+  }
+
+  addMarker(coordX: number, coordY: number, img: string): void {
+
+    let marker = new Feature({
+      geometry: new Point(fromLonLat([coordX, coordY]))
+    });
+
+    marker.setStyle(new Style({
+      image: new Icon(({
+        crossOrigin: 'anonymous',
+        src: `assets/bootstrap-icons/${img}.svg`,
+        imgSize: [20, 20]
+      }))
+    }));
+
+    this.vectorSource.addFeature(marker);
   }
 }
