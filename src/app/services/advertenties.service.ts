@@ -5,7 +5,7 @@ import {Advertenties} from '../models/advertenties';
 
 
 
-const ADVERTENTIE_URL =  'http://localhost:8080/Advertenties';
+const ADVERTENTIE_URL =  'http://localhost:8080/advertenties';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +21,14 @@ export class AdvertentiesService {
   }
 
   getAllAdvertenties(){
-    return this.http.get(ADVERTENTIE_URL);
+    return this.http.get<Advertenties[]>(ADVERTENTIE_URL);
+  }
+
+  updateAdvertentie(adId,advertentie: Advertenties) {
+    return this.http.put<Advertenties>(ADVERTENTIE_URL +"/"+ adId, advertentie);
+  }
+
+  deleteAdvertentei(id: number) {
+    return this.http.delete(ADVERTENTIE_URL +"/"+id);
   }
 }

@@ -106,8 +106,16 @@
                 </div>
             </div>
             <div class="col-lg d-flex justify-content-center">
-                <div class="border border-secondary d-flex justify-content-center align-items-center" style="height: 325px; width: 200px; border-radius: 2rem;">
-                    <h1>AD</h1>
+                <div class="border border-secondary d-flex justify-content-center align-items-center" style="height: 325px; width: 200px;border-radius: 2rem;">
+                  <div>
+                    <img src="{{this.adImg}}" class="img-fluid rounded" alt="Ads image">
+                  <div class="container" *ngIf="adsNo">
+                    <ul style="list-style: none">
+                    <li>{{this.ads[adsNo].zaakNaam}}</li>
+                    <li>{{this.ads[adsNo].zaakDesc}}</li>
+                    </ul>
+                  </div>
+                  </div>
                 </div>
             </div>
         </div>
