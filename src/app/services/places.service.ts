@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Adres } from '../models/adres';
 
 /**
  * Gemaakt door Jan
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs';
 export class PlacesService {
 
   private placesBaseUrl: string = 'https://api.basisregisters.vlaanderen.be/v1';
+  private openRouteBaseUrl = 'https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf624894c2d3d5a31949b29250caf89d037ce9';
   private httpHeaders = new HttpHeaders({
     'Access-Control-Allow-Origin': '*',
     'x-api-key': '950f3581-139e-45e4-bca3-18b006335d71'
@@ -32,5 +34,9 @@ export class PlacesService {
 
   getBusNumbers(zipcode: number, street: string): Observable<any> {
     return this.http.get<any>(this.placesBaseUrl + `/adressen?postcode=${zipcode}&straatnaam=${street}`, {headers: this.httpHeaders});
+  }
+
+  getCoordinatesFromAddress(adres: Adres): Observable<any> {
+    return this.http.get<any>(this.openRouteBaseUrl + `&text=${adres.straat} ${adres.huisNr} ${adres.postcode} ${adres.gemeente}&boundary.country=BE`);
   }
 }
