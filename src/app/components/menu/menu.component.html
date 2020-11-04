@@ -1,6 +1,6 @@
 <div class="container py-5">
   <div class="row">
-    <div class="col-lg-10 mx-auto col-12 text-center mb-3">
+    <div class="mx-auto col-12 text-center mb-3">
       <h1 class="mt-0 text-primary">MenuKaart</h1>
       <p class="lead">
         Welkom op onze menuKaart. Maak een keuze uit ons geweldig assortement
@@ -12,72 +12,83 @@
       <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
       <h3 class="text-center text-primary">Hoofdgerechten</h3>
       <hr class="accent my-5" />
-    </div>
-    <div class="card-columns m-auto">
-      <div class="card card-body" *ngFor="let item of hoofdgerechten">
-        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-        <h6 class="text-truncate">{{ item.naam }}</h6>
-        <p class="small">
-          {{ item.beschrijving }}
-        </p>
+      <div class="card-columns">
+        <div class="card card-body" *ngFor="let item of hoofdgerechten">
+          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+          <h6 class="text-truncate">{{ item.naam }}</h6>
+          <p class="small">
+            {{ item.beschrijving }}
+          </p>
+          <div class="d-flex justify-content-center">
+            <button class="btn m-0 p-1 px-2 border-dark fas fa-plus fa-2x" (click)="addToBestellingen(item)"></button>
+          </div>
+        </div>
       </div>
     </div>
-
     <div class="col-12 mt-4" *ngIf="desserten.length > 0">
       <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
       <h3 class="text-center text-primary">Desserten</h3>
       <hr class="accent my-5" />
-    </div>
-    <div class="card-columns m-auto">
-      <div class="card card-body" *ngFor="let item of desserten">
-        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-        <h6 class="text-truncate">{{ item.naam }}</h6>
-        <p class="small">
-          {{ item.beschrijving }}
-        </p>
+  
+      <div class="card-columns">
+        <div class="card card-body" *ngFor="let item of desserten">
+          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+          <h6 class="text-truncate">{{ item.naam }}</h6>
+          <p class="small">
+            {{ item.beschrijving }}
+          </p>
+          <div class="d-flex justify-content-center">
+            <button class="btn m-0 p-1 px-2 border-dark fas fa-plus fa-2x" (click)="addToBestellingen(item)"></button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 mt-4" *ngIf="cocktails.length > 0">
       <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
-      <h3 class="text-center text-primary">Cocktails</h3>
+      <h3 class="text-center">Cocktails</h3>
       <hr class="accent my-5" />
-    </div>
-    <div class="card-columns m-auto">
-      <div class="card card-body" *ngFor="let item of cocktails">
-        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-        <h6 class="text-truncate">{{ item.naam }}</h6>
-        <p class="small mb-0">
-          {{ item.beschrijving }}
-        </p>
+      <div class="card-columns">
+        <div class="card card-body" *ngFor="let item of cocktails">
+          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+          <h6 class="text-truncate">{{ item.naam }}</h6>
+          <p class="small">
+            {{ item.beschrijving }}
+          </p>
+          <div class="d-flex justify-content-center">
+            <button class="btn m-0 p-1 px-2 border-dark fas fa-plus fa-2x" (click)="addToBestellingen(item)"></button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 mt-4" *ngIf="frisdranken.length > 0">
       <!-- Kunnen we categorie toevoegen aan menu in databese en dan deze hier weergeven -->
-      <h3 class="text-center text-primary">Frisdranken</h3>
+      <h3 class="text-center">Frisdranken</h3>
       <hr class="accent my-5" />
-    </div>
-    <div class="card-columns m-auto">
-      <div class="card card-body" *ngFor="let item of frisdranken">
-        <span class="float-right font-weight-bold">{{ item.prijs }}</span>
-        <h6 class="text-truncate">{{ item.naam }}</h6>
-        <p class="small">
-          {{ item.beschrijving }}
-        </p>
+      <div class="card-columns">
+        <div class="card card-body" *ngFor="let item of frisdranken">
+          <span class="float-right font-weight-bold">{{ item.prijs }}</span>
+          <h6 class="text-truncate">{{ item.naam }}</h6>
+          <p class="small">
+            {{ item.beschrijving }}
+          </p>
+          <div class="d-flex justify-content-center">
+            <button class="btn m-0 p-1 px-2 border-dark fas fa-plus fa-2x" (click)="addToBestellingen(item)"></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="container mb-5 ml-2">
+<div class="container mb-5">
   <div class="row">
-    <!-- <div class="col-sm-3"></div> -->
+    <div class="col-sm-3"></div>
     <div class="col-sm-3">
       <div class="container-fluid">
         <button
           type="button"
-          class="btn btn-primary mt-4"
+          class="btn btn-custom mt-4"
           style="width: 100%"
-          (click)="clearMenu()"
+          onclick="deleteMenu()"
         >
           Delete Menu!
         </button>

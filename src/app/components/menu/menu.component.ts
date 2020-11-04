@@ -6,6 +6,8 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { MenuService } from 'src/app/services/menu.service';
+import { BestellenService } from 'src/app/services/bestellen.service';
+import { Bestelling } from 'src/app/models/bestelling';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +17,7 @@ import { MenuService } from 'src/app/services/menu.service';
 export class MenuComponent implements OnInit {
   menu: Menu;
   items: MenuItem[];
-  zaaknaam: String;
+  zaaknaam: string;
 
   hoofdgerechten: MenuItem[] = new Array();
   desserten: MenuItem[] = new Array();
@@ -26,7 +28,8 @@ export class MenuComponent implements OnInit {
     private service: ZaakService,
     private menuservice: MenuService,
     private serviceToken: TokenStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private bestellenService:BestellenService
   ) {}
 
   ngOnInit(): void {
@@ -92,5 +95,10 @@ export class MenuComponent implements OnInit {
       this.serviceToken.saveMenu(this.menu);
       location.reload();
     });
+  } 
+  addToBestellingen(menuItem:MenuItem) {
+    this.bestellenService.add( new Bestelling(0, 1, menuItem, 0), this.zaaknaam);
   }
 }
+
+
