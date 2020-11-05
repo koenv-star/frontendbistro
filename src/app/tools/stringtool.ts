@@ -1,5 +1,9 @@
 import { Time } from '@angular/common';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class Stringtool {
 
   public static getTimeFromString(term: string): Time {
