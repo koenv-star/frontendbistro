@@ -1,0 +1,21 @@
+<div class="container">
+  <img
+    src="./assets/images/reserveren.PNG"
+    alt="afbeelding van de zaak"
+    class="img-fluid m-auto"
+    style="min-width: 60%; height: 30%"
+  >
+
+  <div class="card card-body m-2" *ngFor="let reservatie of reservaties">
+    <div class="container">
+      <h5 class="font-weight-bold">{{ reservatie.tijdstip }}</h5>
+      <p class="my-0">{{ reservatie.uurMarge }}</p>
+    </div>
+  </div>
+</div>
+<div class="col-12 mt-4">
+  <hr class="accent my-5" />
+</div>
+<div class="d-lg-inline-flex flex-wrap justify-content-center">
+ 
+</div>

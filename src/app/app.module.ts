@@ -21,6 +21,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { AdsComponent } from './components/ads/ads.component';
 import { KredietComponent } from './components/krediet/krediet.component';
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
+import { ReservatiesComponent } from './components/reservaties/reservaties.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
     AdsComponent,
     KredietComponent,
     AllZakenComponent,
+    ReservatiesComponent,
 
   ],
   imports: [

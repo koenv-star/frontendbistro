@@ -14,6 +14,7 @@ import {MyAccountComponent} from './components/my-account/my-account.component';
 import {AdsComponent} from './components/ads/ads.component';
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
 import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
+import { ReservatiesComponent } from './components/reservaties/reservaties.component';
 
 
 
@@ -22,7 +23,7 @@ import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'error', component: ErrorComponent },
-  // { path: 'addestablishment', component: AddEditEstablishmentComponent },
+  { path: 'addestablishment', component: AddEditEstablishmentComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'MyAccount', component: MyAccountComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'zaken/:id', component: ZaakComponent },
   { path: 'ads', component:AdsComponent},
   { path: 'allZaken', component: AllZakenComponent},
+  { path: 'zaken/:id/reservaties', component: ReservatiesComponent}
 
 ];
 

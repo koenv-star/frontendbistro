@@ -6,6 +6,7 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { MenuService } from 'src/app/services/menu.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-menu',
@@ -26,7 +27,8 @@ export class MenuComponent implements OnInit {
     private service: ZaakService,
     private menuservice: MenuService,
     private serviceToken: TokenStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -92,5 +94,9 @@ export class MenuComponent implements OnInit {
       this.serviceToken.saveMenu(this.menu);
       location.reload();
     });
+  }
+  
+  goback() {
+    this._location.back();
   }
 }
