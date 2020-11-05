@@ -26,8 +26,11 @@ const routes: Routes = [
   { path: 'zaken', component: ZakenComponent },
   { path: 'menu/:zaakNaam/addmenu', component:AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
+<<<<<<< HEAD
   { path: 'ads', component:AdsComponent},
   { path: 'allZaken', component: AllZakenComponent},
+=======
+>>>>>>> 65b1182ce8914165fdd8f2d21702a2a62427357e
   { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent }
 ];
 
