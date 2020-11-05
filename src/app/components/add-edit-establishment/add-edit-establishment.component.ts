@@ -476,9 +476,7 @@ export class AddEditEstablishmentComponent implements OnInit {
   }
 
   getMenu(): Menu {
-    let menuItems: MenuItem[] = [
-      new MenuItem(0, 'Spaghetti', 12.99, 'De beste spaghetti', Categorie.HOOFDGERECHTEN)
-    ];
+    let menuItems: MenuItem[] = [];
     return new Menu(0, menuItems);
   }
 

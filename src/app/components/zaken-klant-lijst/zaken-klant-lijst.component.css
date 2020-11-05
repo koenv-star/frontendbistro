@@ -1,0 +1,21 @@
+#zaken-lijst-component{
+  overflow-x: hidden;
+}
+
+#zaken_map {
+  height: 70vh;
+}
+
+.card {
+  display: none;
+}
+
+.overlay-container {
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  margin-left: -19rem;
+}
