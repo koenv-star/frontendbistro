@@ -12,7 +12,7 @@
             *ngFor="let zaak of zaken"
             routerLink="/zaken/{{ zaak.id }}">
                 <div class="container">
-                    <img src="{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top">
+                    <img src="assets/images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top">
                     <h5 class="font-weight-bold">{{ zaak.naam }}</h5>
                     <span class="text-truncate">Rating: </span>
                     <span

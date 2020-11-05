@@ -22,7 +22,7 @@ import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'error', component: ErrorComponent },
-  // { path: 'addestablishment', component: AddEditEstablishmentComponent },
+   { path: 'addestablishment', component: AddEditEstablishmentComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'MyAccount', component: MyAccountComponent },

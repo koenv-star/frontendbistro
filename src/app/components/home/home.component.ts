@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
       }
 
     } else {
-      this.adImg = '/assets/images/restaurants/ads.svg';
+      this.adImg = 'ads.svg';
     }
   }
 
@@ -86,9 +86,9 @@ export class HomeComponent implements OnInit {
       console.log(this.adZaak);
       let str = this.adZaak.imageURL;
       //getting url and replacing backslashes to forward and checks if there is duplicate remove them
-      this.adImg = str
-        .replace(/\\/g, '/')
-        .replace(/([^:]\/)\/+/g, '$1');
+      this.adImg = str;
+        // .replace(/\\/g, '/')
+        // .replace(/([^:]\/)\/+/g, '$1');
     });
   }
 }
