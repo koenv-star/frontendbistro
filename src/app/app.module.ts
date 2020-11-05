@@ -18,6 +18,10 @@ import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { AdsComponent } from './components/ads/ads.component';
+import { KredietComponent } from './components/krediet/krediet.component';
+import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     AddmenuComponent,
     ZaakComponent,
     MyAccountComponent,
+    AdsComponent,
+    KredietComponent,
+    AllZakenComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Zaak } from '../models/zaak';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZaakService {
-
+  
   private zaakBaseUrl = 'http://localhost:8080/zaken';
 
   constructor(private http: HttpClient) { }
@@ -20,8 +20,11 @@ export class ZaakService {
     let url = `${this.zaakBaseUrl}/${email}`;
 
     return this.http.get<Zaak[]>(url);
-  }
+  } 
 
+  public getAllZaken() :Observable<Zaak[]>{
+    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+  }
 
   postZaak(formData: FormData): Observable<Zaak> {
 
@@ -33,4 +36,10 @@ export class ZaakService {
 
     return this.http.post<Zaak>(this.zaakBaseUrl, formData, {headers: httpHeaders});
   }
+
+  showMenuofShop(zaaknaam: String) {
+    let url = `${this.zaakBaseUrl}/zaak/${zaaknaam}`;
+    return this.http.get<Zaak>(url);
+  }
+
 }

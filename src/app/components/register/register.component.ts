@@ -40,18 +40,18 @@ export class RegisterComponent implements OnInit {
 
   register() {
     let salt = '$2a$10$bNKWUpUbmE8FT92ojD2Ybe';
-    let naam = this.registerForm.value.achternaam;
+    let achternaam = this.registerForm.value.achternaam;
     let voornaam = this.registerForm.value.naam;
     let email = this.registerForm.value.email;
     let wachtwoord = bcrypt.hashSync(this.registerForm.value.wachtwoord, salt);
     let rol = this.registerForm.value.rol;
 
-    console.log(voornaam, naam, wachtwoord, email, rol);
+    console.log(voornaam, achternaam, wachtwoord, email, rol);
     if (rol == 'uitbater') {
       let uitbater = new Uitbater(
-        email,
-        naam,
+        achternaam,
         voornaam,
+        email,
         wachtwoord,
         2000.0,
         new Array(),
@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     } else {
       let klant = new Klant(
         email,
-        naam,
+        achternaam,
         voornaam,
         wachtwoord,
         1000.0,

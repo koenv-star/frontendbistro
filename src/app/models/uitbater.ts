@@ -1,7 +1,8 @@
-import { BestellingVerzameling } from './bestelling-verzameling';
+
 import { Klant } from './klant';
 import { Reservatie } from './reservatie';
 import { Zaak } from './zaak';
+import {BestellingVerzameling} from './bestelling-verzameling';
 
 export class Uitbater extends Klant {
 
@@ -13,4 +14,5 @@ export class Uitbater extends Klant {
     super(email, naam, voornaam, wachtwoord, krediet, reservaties, bestellingVerzamelingen);
     this.zaken = zaken;
   }
+
 }
