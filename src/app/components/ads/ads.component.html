@@ -61,7 +61,7 @@
       <div>
         <select name="zaak" class="rounded mt-3 " id="zaak" formControlName="zaak" required>
           <option value="" selected disabled>Selecteer uw zaak</option>
-          <option *ngFor="let opt of this.zaken" [value]="opt.naam">{{opt.naam}}</option>
+          <option *ngFor="let opt of this.zaken" [value]="opt.id">{{opt.naam}}</option>
         </select>
       </div>
       <div>

@@ -6,6 +6,9 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { MenuService } from 'src/app/services/menu.service';
+import { BestellenService } from 'src/app/services/bestellen.service';
+import { Bestelling } from 'src/app/models/bestelling';
+import { Zaak } from 'src/app/models/zaak';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +18,8 @@ import { MenuService } from 'src/app/services/menu.service';
 export class MenuComponent implements OnInit {
   menu: Menu;
   items: MenuItem[];
-  zaaknaam: String;
+  zaaknaam: string;
+  zaakId: number;
 
   hoofdgerechten: MenuItem[] = new Array();
   desserten: MenuItem[] = new Array();
@@ -26,13 +30,14 @@ export class MenuComponent implements OnInit {
     private service: ZaakService,
     private menuservice: MenuService,
     private serviceToken: TokenStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private bestellenService:BestellenService,
   ) {}
 
   ngOnInit(): void {
-    console.log(this.serviceToken.getMenu());
     this.zaaknaam = this.route.snapshot.paramMap.get('zaakNaam');
-    console.log(this.serviceToken.getZaakNaam());
+    this.service.getzaakByNaam(this.zaaknaam).subscribe(  res => { this.zaakId = res.id; }); 
+ 
     if (
       (this.serviceToken.getMenu() === null &&
         this.serviceToken.getZaakNaam == null) ||
@@ -45,7 +50,6 @@ export class MenuComponent implements OnInit {
       this.items = this.menu.menuItems;
       this.sort();
     }
-    console.log(this.menu);
   }
 
   getzaak(naam: String) {
@@ -92,5 +96,16 @@ export class MenuComponent implements OnInit {
       this.serviceToken.saveMenu(this.menu);
       location.reload();
     });
+  } 
+
+  addToBestellingen(menuItem:MenuItem) {
+    if(this.zaaknaam != null || this.zaakId != null)
+    this.bestellenService.add( new Bestelling(0, 1, menuItem, this.zaakId, 0), this.zaaknaam);
+    let mandje:HTMLElement = document.querySelector(".fa-shopping-bag") as HTMLElement;
+    mandje.style.animation = "shake 1s ease ";
+    setTimeout(() => {mandje.style.animation = "";}, 1000);
+    
   }
 }
+
+
