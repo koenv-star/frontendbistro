@@ -106,8 +106,19 @@
                 </div>
             </div>
             <div class="col-lg d-flex justify-content-center">
-                <div class="border border-secondary d-flex justify-content-center align-items-center" style="height: 325px; width: 200px; border-radius: 2rem;">
-                    <h1>AD</h1>
+                <div class="border border-secondary d-flex justify-content-center ad-container">
+                  <div>
+                    <img src="assets/images/restaurants/{{this.adImg}}" class="img-fluid ad-style mt-0"  alt="Ads image">
+                  <div class="container mt-2 justify-content-start text-left" *ngIf="adsNo">
+
+                    <h6>{{this.ads[adsNo].zaakNaam.toUpperCase()}}</h6>
+                    <ng-container>
+
+                    {{this.ads[adsNo].zaakDesc}}
+                    </ng-container>
+
+                  </div>
+                  </div>
                 </div>
             </div>
         </div>

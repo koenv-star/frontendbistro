@@ -11,8 +11,9 @@ import { ZaakComponent } from './components/zaak/zaak.component';
 import {MyAccountComponent} from './components/my-account/my-account.component';
 import {AdsComponent} from './components/ads/ads.component';
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
-import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
+import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
+import { BestellenComponent } from './components/bestellen/bestellen.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'zaken/:id', component: ZaakComponent },
   { path: 'ads', component:AdsComponent},
   { path: 'allZaken', component: AllZakenComponent},
-  { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent }
+  { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent },
+  { path: 'bestellen', component: BestellenComponent},
 ];
 
 @NgModule({

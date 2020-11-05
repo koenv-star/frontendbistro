@@ -23,6 +23,14 @@ export class AdsComponent implements OnInit {
   uitbater: Uitbater;
   //zaken van uitbater
   zaken: Zaak[];
+  //fiels for form
+  zaakId: number;
+  formule: string;
+  description: string;
+  numberOfShow: number;
+  krediet: number;
+  //een zaak van zaken
+  zaak: Zaak;
   //Advertentie object
   advertentie: Advertenties;
 
@@ -115,45 +123,63 @@ export class AdsComponent implements OnInit {
     // create in landing page to get all ads from the advertisement table.
 
     if (this.uitbater.krediet >= Number.parseInt(this.bestelAd.value.formule)) {
-      let zaakNaam: string = this.bestelAd.value.zaak;
-      let formule: string = this.bestelAd.value.formule;
-      let zaak = this.zaken.find(x => x.naam === zaakNaam);
-      let description: string = this.bestelAd.value.text;
-      let numberOfShow: number;
-      if (formule == '20') {
-        numberOfShow = 200;
+      this.zaakId = this.bestelAd.value.zaak;
+      this.formule = this.bestelAd.value.formule;
+      this.description = this.bestelAd.value.text;
+      this.krediet = this.uitbater.krediet - Number.parseInt(this.formule);
+      this.zaak = this.zaken.find(x => x.id == this.zaakId);
+      if (this.formule == '20') {
+        this.numberOfShow = 200;
       }
-      if (formule == '50') {
-        numberOfShow = 1000;
+      if (this.formule == '50') {
+        this.numberOfShow = 1000;
       }
-      if (formule == '100') {
-        numberOfShow = 3000;
-
+      if (this.formule == '100') {
+        this.numberOfShow = 3000;
       }
-      console.log(this.uitbater.krediet);
-      let krediet = this.uitbater.krediet - Number.parseInt(formule);
-      console.log(krediet);
 
-      let tempUitbater = new Uitbater(this.uitbater.naam,
-        this.uitbater.voornaam,
-        this.uitbater.email,
-        "a".repeat(60),
-        krediet,
-        this.uitbater.reservaties, this.uitbater.bestellingVerzamelingen,
-        this.uitbater.zaken);
-      this.serviceCredentials.updateUitbater(this.uitbater.email, tempUitbater).subscribe(data => {
-        console.log(data);
-      });
+      this.advertentie = new Advertenties(
+        0,
+        this.zaak.naam,
+        this.description,
+        this.zaak.id,
+        this.numberOfShow);
 
-
-      this.advertentie = new Advertenties(0, zaak.naam, description, numberOfShow);
-      this.serviceAdd.saveAdvertentie(this.advertentie).subscribe(data => {
-        console.log(data);
-      });
+      this.saveAdvertentie();
+      this.updateKrediet();
 
     } else {
-
       alert('Uw krediet niet genoug, reload AUB! ');
     }
+
+
   }
+
+  updateKrediet() {
+    console.log(this.krediet)
+
+    let tempUitbater = new Uitbater(
+      this.uitbater.naam,
+      this.uitbater.voornaam,
+      this.uitbater.email,
+      'a'.repeat(60),
+      this.krediet,
+      this.uitbater.reservaties,
+      this.uitbater.bestellingVerzamelingen,
+      this.uitbater.zaken);
+    this.serviceCredentials.updateUitbater(this.uitbater.email, tempUitbater).subscribe(data => {
+      console.log(data);
+    });
+
+  }
+
+  saveAdvertentie() {
+    let tempAdvertentie = new Advertenties(
+      0,this.zaak.naam,this.description,this.zaakId.valueOf(),this.numberOfShow
+    );
+    this.serviceAdd.saveAdvertentie(tempAdvertentie).subscribe(data => {
+      console.log(data);
+    });
+  }
+
 }

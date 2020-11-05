@@ -25,6 +25,10 @@ export class ZaakService {
     return this.http.get<Zaak[]>(url);
   }
 
+  getzaakByNaam(naam:string): Observable<Zaak> {
+    return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/" + naam);
+  }
+
   postZaak(formData: FormData): Observable<Zaak> {
 
     let httpHeaders = new HttpHeaders({
