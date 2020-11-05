@@ -168,8 +168,9 @@ export class ZakenKlantLijstComponent implements OnInit {
         let featureDistance: number = feature.get('distance');
         overlayLayer.setPosition(coordinates);
         this.overlayFeatureName.innerText = featureName;
+        this.changeDisplayHtmlElement(restaurantCard, 'none');
 
-        if(featureName != 'U bent hier') {
+        if(featureName !== 'U bent hier') {
 
           this.changeDisplayHtmlElement(restaurantCard, 'block');
 
