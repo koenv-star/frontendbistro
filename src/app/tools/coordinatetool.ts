@@ -1,3 +1,8 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class coordinateTool {
 
   public static coordinatesToDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -11,7 +16,7 @@ export class coordinateTool {
       Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     let d = R * c;
-    return d;
+    return Math.round((d + Number.EPSILON) * 100) / 100;
   }
 
   // Converts numeric degrees to radians

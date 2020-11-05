@@ -16,6 +16,7 @@ import { ZaakService } from 'src/app/services/zaak.service';
 import { PlacesService } from 'src/app/services/places.service';
 import { Overlay } from 'ol';
 import { Adres } from 'src/app/models/adres';
+import { coordinateTool } from 'src/app/tools/coordinatetool';
 
 /**
  * Gemaakt door Jan
@@ -40,11 +41,13 @@ export class ZakenKlantLijstComponent implements OnInit {
   overlayFeatureName: HTMLElement;
   overlayFeatureParking: HTMLElement;
   overlayFeatureAddress: HTMLElement;
+  overlayFeatureDistance: HTMLElement;
   overlayFeatureImg: HTMLElement;
   overlayFeatureLink: HTMLElement;
 
   constructor(private zaakService: ZaakService,
-              private placesService: PlacesService) { }
+              private placesService: PlacesService,
+              private coordinateTool: coordinateTool) { }
 
   ngOnInit(): void {
     this.vectorSource = new VectorSource({ features: [] });
@@ -57,6 +60,7 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.overlayFeatureName = document.querySelector('#feature-name') as HTMLElement;
     this.overlayFeatureParking = document.querySelector('#feature-parking');
     this.overlayFeatureAddress = document.querySelector('#feature-address') as HTMLElement;
+    this.overlayFeatureDistance = document.querySelector('#feature-distance') as HTMLElement;
     this.overlayFeatureImg = document.querySelector('#feature-image') as HTMLElement;
     this.overlayFeatureLink = document.querySelector('#feature-link') as HTMLElement;
   }
@@ -99,20 +103,27 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.zaakService.getAllZaken()
       .subscribe(data => {
         this.zaken = data;
-        // this.putRestaurantsOnMap();
+        this.putRestaurantsOnMap();
       })
   }
 
   putRestaurantsOnMap(): void {
-    this.zaken.forEach(zaak => {
-      this.placesService.getCoordinatesFromAddress(zaak.adres)
-        .subscribe(data => {
-          this.addMarker(zaak, data.bbox[2], data.bbox[3], 'shop');
-        })
-    })
+
+    // commented out for api call limit
+    // this.zaken.forEach(zaak => {
+    //   this.placesService.getCoordinatesFromAddress(zaak.adres)
+    //     .subscribe(data => {
+    //       this.addMarker(zaak, data.bbox[2], data.bbox[3], 'shop');
+    //     })
+    // })
+
+    this.placesService.getCoordinatesFromAddress(this.zaken[4].adres)
+      .subscribe(data => {
+        this.addMarker(this.zaken[4], data.bbox[2], data.bbox[3], 'shop');
+      })
   }
 
-  addMarker(zaak: Zaak, coordX: number, coordY: number, img: string): void {
+  addMarker(zaak: Zaak, lon: number, lat: number, img: string): void {
 
     let marker = new Feature({
       name: zaak != null ? zaak.naam : 'U bent hier',
@@ -120,7 +131,8 @@ export class ZakenKlantLijstComponent implements OnInit {
       address: zaak != null ? zaak.adres : null,
       imageUrl: zaak != null ? zaak.imageURL : null,
       zaakId: zaak != null ? zaak.id : null,
-      geometry: new Point(fromLonLat([coordX, coordY]))
+      distance: zaak != null ? coordinateTool.coordinatesToDistance(this.currentPos.coords.latitude, this.currentPos.coords.longitude, lat, lon) : 0,
+      geometry: new Point(fromLonLat([lon, lat]))
     });
 
     marker.setStyle(new Style({
@@ -145,25 +157,26 @@ export class ZakenKlantLijstComponent implements OnInit {
 
       this.map.forEachFeatureAtPixel(event.pixel, (feature: any, layer) => {
 
+        let restaurantCard = document.querySelector('.card') as HTMLElement;
+
         let coordinates = event.coordinate;
         let featureName: string = feature.get('name');
         let featureParking: string = feature.get('parking');
         let featureAddress: Adres = feature.get('address');
         let featureImageUrl: string = feature.get('imageUrl');
         let featureId: string = feature.get('zaakId');
+        let featureDistance: number = feature.get('distance');
         overlayLayer.setPosition(coordinates);
         this.overlayFeatureName.innerText = featureName;
 
-        if(featureName === 'U bent hier') {
-          this.changeDisplayHtmlElements('none', this.overlayFeatureParking, this.overlayFeatureAddress, this.overlayFeatureImg,
-            this.overlayFeatureLink);
-        }
-        else {
-          this.changeDisplayHtmlElements('block', this.overlayFeatureParking, this.overlayFeatureAddress, this.overlayFeatureImg,
-          this.overlayFeatureLink);
+        if(featureName != 'U bent hier') {
+
+          this.changeDisplayHtmlElement(restaurantCard, 'block');
+
           this.changeInnerTextHtmlElement(this.overlayFeatureParking, featureParking ? 'Parking: Ja' : 'Parking: Neen');
           this.changeInnerTextHtmlElement(this.overlayFeatureAddress, `${featureAddress.straat} ${featureAddress.huisNr},
           ${featureAddress.postcode} ${featureAddress.gemeente}`);
+          this.changeInnerTextHtmlElement(this.overlayFeatureDistance, `Afstand: ${featureDistance} km`);
           this.changeInnerTextHtmlElement(this.overlayFeatureLink, `Naar ${featureName}`);
 
           this.changeAttributeHtmlElement(this.overlayFeatureImg, 'src', `./assets/images/restaurants/${featureImageUrl}`);
@@ -173,8 +186,8 @@ export class ZakenKlantLijstComponent implements OnInit {
     })
   }
 
-  changeDisplayHtmlElements(value: string, ...elements: HTMLElement[]) {
-    elements.forEach(el => el.style.display = value);
+  changeDisplayHtmlElement(el: HTMLElement, value: string) {
+    el.style.display = value;
   }
 
   changeInnerTextHtmlElement(el: HTMLElement, value: string) {
