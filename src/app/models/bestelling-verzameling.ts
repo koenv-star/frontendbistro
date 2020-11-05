@@ -5,10 +5,10 @@ export class BestellingVerzameling {
 
   id: number;
   bestellingen: Bestelling[];
-  klant: Klant;
+  klant: string;
 
 
-  constructor(id:number , bestellingen:Bestelling[], klant:Klant) {
+  constructor(id:number , bestellingen:Bestelling[], klant:string) {
     this.id = id;
     this.bestellingen = bestellingen;
     this.klant = klant;

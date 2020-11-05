@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Bestelling } from '../models/bestelling';
 import { BestellingVerzameling } from '../models/bestelling-verzameling';
-import { Klant } from '../models/klant';
 import { AccountService } from './account.service';
 import { AuthenticationService } from './authentication.service';
 import { TokenStorageService } from './token-storage.service';
@@ -17,8 +16,8 @@ export class BestellenService {
   private ZKEY:string = "Z_KEY";
   private url:string = "http://localhost:8080/bestellingVerzameling";
 
-  constructor(private zakenService:ZaakService, private http: HttpClient, private tokenService:TokenStorageService,
-              private service: AuthenticationService, private serviceAccount: AccountService,) { }
+  constructor(private http: HttpClient, private tokenService:TokenStorageService,
+              private service: AuthenticationService, private serviceAccount: AccountService) { }
 
   public getBestellingen():BestellingVerzameling {
     return JSON.parse(window.sessionStorage.getItem(this.BVKEY));
@@ -37,11 +36,9 @@ export class BestellenService {
     if (namen == null) {
       namen = new Array();
     }
-    if (bestelling.zaakId == 0) {
-      this.zakenService.getzaakByNaam(zaakNaam).subscribe(res => {bestelling.zaakId = res.id});
-    }
     besVer.bestellingen[besVer.bestellingen.length] = bestelling;
     namen[namen.length] = zaakNaam;
+    console.log(besVer)
     this.saveBestellingen(besVer);
     this.saveZaakNamen(namen);
   }
@@ -60,15 +57,16 @@ export class BestellenService {
       this.service.userChange$.next({email: user.email,role: user.role});
       this.serviceAccount.updateUser();
       let besVer:BestellingVerzameling = this.getBestellingen();
+      besVer.klant = user.email;
     if (user.role == "ROLE_UITBATER") {
-      this.serviceAccount.uitbater$.asObservable().subscribe(res => besVer.klant = res).unsubscribe();
+      this.serviceAccount.uitbater$.asObservable().subscribe().unsubscribe();
     } else {
-      this.serviceAccount.klant$.asObservable().subscribe(res => besVer.klant = res).unsubscribe();
+      this.serviceAccount.klant$.asObservable().subscribe().unsubscribe();
     }
+    console.log(besVer);
     //window.sessionStorage.removeItem(this.BVKEY);
     //window.sessionStorage.removeItem(this.ZKEY);
-    console.log(besVer);
-    this.http.post<BestellingVerzameling>(this.url, besVer).subscribe();
+    this.http.post<BestellingVerzameling>(this.url, besVer).subscribe().unsubscribe();
     alert("Succes");
     }
   }
