@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ZaakService {
-  
+
   private zaakBaseUrl = 'http://localhost:8080/zaken';
 
   constructor(private http: HttpClient) { }
@@ -23,10 +23,6 @@ export class ZaakService {
   getZakenBijUitbaterEmail(email: String) {
     let url = `${this.zaakBaseUrl}/${email}`;
     return this.http.get<Zaak[]>(url);
-  } 
-
-  public getAllZaken() :Observable<Zaak[]>{
-    return this.http.get<Zaak[]>(this.zaakBaseUrl);
   }
 
   postZaak(formData: FormData): Observable<Zaak> {

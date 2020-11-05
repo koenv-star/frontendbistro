@@ -99,7 +99,7 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.zaakService.getAllZaken()
       .subscribe(data => {
         this.zaken = data;
-        this.putRestaurantsOnMap();
+        // this.putRestaurantsOnMap();
       })
   }
 
@@ -107,7 +107,7 @@ export class ZakenKlantLijstComponent implements OnInit {
     this.zaken.forEach(zaak => {
       this.placesService.getCoordinatesFromAddress(zaak.adres)
         .subscribe(data => {
-          this.addMarker(zaak, data[0].lon, data[0].lat, 'shop');
+          this.addMarker(zaak, data.bbox[2], data.bbox[3], 'shop');
         })
     })
   }
@@ -144,33 +144,44 @@ export class ZakenKlantLijstComponent implements OnInit {
       overlayLayer.setPosition(undefined);
 
       this.map.forEachFeatureAtPixel(event.pixel, (feature: any, layer) => {
+
         let coordinates = event.coordinate;
         let featureName: string = feature.get('name');
         let featureParking: string = feature.get('parking');
         let featureAddress: Adres = feature.get('address');
-        let feaureImageUrl: string = feature.get('imageUrl');
+        let featureImageUrl: string = feature.get('imageUrl');
         let featureId: string = feature.get('zaakId');
         overlayLayer.setPosition(coordinates);
-        this.overlayFeatureName.innerHTML = featureName;
+        this.overlayFeatureName.innerText = featureName;
 
         if(featureName === 'U bent hier') {
-          this.overlayFeatureParking.innerText = '';
-          this.overlayFeatureAddress.innerHTML = '';
-          this.overlayFeatureImg.removeAttribute('src');
-          this.overlayFeatureLink.style.display = 'none';
+          this.changeDisplayHtmlElements('none', this.overlayFeatureParking, this.overlayFeatureAddress, this.overlayFeatureImg,
+            this.overlayFeatureLink);
         }
         else {
-          this.overlayFeatureParking.innerText = featureParking ? 'Parking: Ja' : 'Parking: Neen';
+          this.changeDisplayHtmlElements('block', this.overlayFeatureParking, this.overlayFeatureAddress, this.overlayFeatureImg,
+          this.overlayFeatureLink);
+          this.changeInnerTextHtmlElement(this.overlayFeatureParking, featureParking ? 'Parking: Ja' : 'Parking: Neen');
+          this.changeInnerTextHtmlElement(this.overlayFeatureAddress, `${featureAddress.straat} ${featureAddress.huisNr},
+          ${featureAddress.postcode} ${featureAddress.gemeente}`);
+          this.changeInnerTextHtmlElement(this.overlayFeatureLink, `Naar ${featureName}`);
 
-          this.overlayFeatureAddress.innerHTML = `${featureAddress.straat} ${featureAddress.huisNr},
-          ${featureAddress.postcode} ${featureAddress.gemeente}`;
-
-          this.overlayFeatureImg.setAttribute('src', `./assets/images/restaurants/${feaureImageUrl}`);
-          this.overlayFeatureLink.style.display = 'block';
-          this.overlayFeatureLink.innerText = `Naar ${featureName}`;
-          this.overlayFeatureLink.setAttribute('href', `zaken/${featureId}`);
+          this.changeAttributeHtmlElement(this.overlayFeatureImg, 'src', `./assets/images/restaurants/${featureImageUrl}`);
+          this.changeAttributeHtmlElement(this.overlayFeatureLink, 'href',  `zaken/${featureId}`);
         }
       })
     })
+  }
+
+  changeDisplayHtmlElements(value: string, ...elements: HTMLElement[]) {
+    elements.forEach(el => el.style.display = value);
+  }
+
+  changeInnerTextHtmlElement(el: HTMLElement, value: string) {
+    el.innerText = value;
+  }
+
+  changeAttributeHtmlElement(el: HTMLElement, attr: string, value: string) {
+    el.setAttribute(attr, value);
   }
 }

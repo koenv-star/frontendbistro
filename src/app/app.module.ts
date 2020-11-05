@@ -39,12 +39,9 @@ import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-k
     AddmenuComponent,
     ZaakComponent,
     MyAccountComponent,
-<<<<<<< HEAD
     AdsComponent,
     KredietComponent,
     AllZakenComponent,
-=======
->>>>>>> 65b1182ce8914165fdd8f2d21702a2a62427357e
     ZakenKlantLijstComponent,
   ],
   imports: [
