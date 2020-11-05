@@ -106,14 +106,17 @@
                 </div>
             </div>
             <div class="col-lg d-flex justify-content-center">
-                <div class="border border-secondary d-flex justify-content-center align-items-center" style="height: 325px; width: 200px;border-radius: 2rem;">
+                <div class="border border-secondary d-flex justify-content-center" style="height: 325px; width: 200px;border-radius: 2rem; border-color: whitesmoke;">
                   <div>
-                    <img src="{{this.adImg}}" class="img-fluid rounded" alt="Ads image">
-                  <div class="container" *ngIf="adsNo">
-                    <ul style="list-style: none">
-                    <li>{{this.ads[adsNo].zaakNaam}}</li>
-                    <li>{{this.ads[adsNo].zaakDesc}}</li>
-                    </ul>
+                    <img src="{{this.adImg}}" class="img-fluid ad-style mt-0"  alt="Ads image">
+                  <div class="container mt-2 justify-content-start text-left" *ngIf="adsNo">
+
+                    <h6>{{this.ads[adsNo].zaakNaam.toUpperCase()}}</h6>
+                    <ng-container>
+
+                    {{this.ads[adsNo].zaakDesc}}
+                    </ng-container>
+
                   </div>
                   </div>
                 </div>

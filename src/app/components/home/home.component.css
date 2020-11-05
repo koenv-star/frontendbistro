@@ -5,4 +5,7 @@
 p{
   font-size: 9px;
 }
-
+.ad-style{
+  border-radius: 2em 2em 0.5em 0.5em;
+  border-color: whitesmoke;
+}
