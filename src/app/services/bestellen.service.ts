@@ -4,6 +4,7 @@ import { Bestelling } from '../models/bestelling';
 import { BestellingVerzameling } from '../models/bestelling-verzameling';
 import { AccountService } from './account.service';
 import { AuthenticationService } from './authentication.service';
+import { CredentialServiceService } from './credential-service.service';
 import { TokenStorageService } from './token-storage.service';
 import { ZaakService } from './zaak.service';
 
@@ -16,7 +17,7 @@ export class BestellenService {
   private ZKEY:string = "Z_KEY";
   private url:string = "http://localhost:8080/bestellingVerzameling";
 
-  constructor(private http: HttpClient, private tokenService:TokenStorageService,
+  constructor(private http: HttpClient, private tokenService:TokenStorageService,private credentialService:CredentialServiceService,
               private service: AuthenticationService, private serviceAccount: AccountService) { }
 
   public getBestellingen():BestellingVerzameling {
@@ -61,24 +62,31 @@ export class BestellenService {
   }
 
   public postBestelling(total:number){
+    console.log("start");
     let user = this.tokenService.getUser();
     if (user !== null) {
       this.service.userChange$.next({email: user.email,role: user.role});
       this.serviceAccount.updateUser();
       let besVer:BestellingVerzameling = this.getBestellingen();
       besVer.klant = user.email;
+      console.log(besVer);
       window.sessionStorage.removeItem(this.BVKEY);
       window.sessionStorage.removeItem(this.ZKEY);
-      this.http.post<BestellingVerzameling>(this.url, besVer).subscribe().unsubscribe();
       if (user.role == "ROLE_UITBATER") {
         this.serviceAccount.uitbater$.asObservable().subscribe(res => {
           res.krediet -= total;
-        }).unsubscribe();
+          console.log(res)
+          this.credentialService.updateKlant(res.email ,res).subscribe();
+        });
       } else {
         this.serviceAccount.klant$.asObservable().subscribe(res => {
           res.krediet -= total;
-        }).unsubscribe();
+          console.log(res);
+          this.credentialService.updateKlant(res.email ,res).subscribe();
+        });
       }
+      this.http.post<BestellingVerzameling>(this.url, besVer).subscribe();
     }
+    this.serviceAccount.updateUser();
   }
 }
