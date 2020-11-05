@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(private placesService: PlacesService) {  }
 
   ngOnInit(): void {
-    this.loadAllPlaces();
+    // this.loadAllPlaces();
   }
 
   loadAllPlaces(): void {
