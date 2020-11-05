@@ -39,7 +39,6 @@ export class MyAccountComponent implements OnInit {
         this.uitbater = data;
       });
     }
+
   }
-
-
 }
