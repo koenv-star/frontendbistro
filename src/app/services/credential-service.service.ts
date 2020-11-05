@@ -37,5 +37,10 @@ export class CredentialServiceService {
       UITBATER_URL + email, uitbater);
 
   }
+  updateKlant(email, klant: Klant) {
+    return this.http.put<Uitbater>(
+      KLANT_URL + email, klant);
+
+  }
 
 }
