@@ -7,5 +7,12 @@ p{
 }
 .ad-style{
   border-radius: 2em 2em 0.5em 0.5em;
-  border-color: whitesmoke;
+  border-color: whitesmoke !important;
+}
+.ad-container{
+  height: 325px;
+  width: 200px;
+  background: #C4C0C0;
+  border-radius: 2rem;
+  border-color: whitesmoke !important;
 }

@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
 
 
     if (this.ads.length > 0) {
-      console.log('id of the advertesi: ' + this.ads[this.adsNo].id);
-      this.getZaak(this.ads[this.adsNo].id);
+      console.log('id of the advertesi: ' + this.ads[this.adsNo].zaakId);
+      this.getZaak(this.ads[this.adsNo].zaakId);
 
 
       //beacuse it will shown, we need to update the number of showing
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       } else {
         // need to delete this add because the showing number is 0
         // Delete method call and push the id to delete from database
-        this.serviceAdvertentie.deleteAdvertentei(this.ads[this.adsNo].id).subscribe(data => {
+        this.serviceAdvertentie.deleteAdvertentei(this.ads[this.adsNo].zaakId).subscribe(data => {
           console.log(data);
         });
       }
