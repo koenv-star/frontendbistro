@@ -36,9 +36,18 @@ export class BestellenService {
     if (namen == null) {
       namen = new Array();
     }
-    besVer.bestellingen[besVer.bestellingen.length] = bestelling;
-    namen[namen.length] = zaakNaam;
-    console.log(besVer)
+    let contains:boolean = false;
+    for(let i = 0; i < besVer.bestellingen.length && !contains; i++) {
+      let bestellingen:Bestelling[] = besVer.bestellingen;
+      if(bestellingen[i].menuItem.id == bestelling.menuItem.id && bestellingen[i].zaakId == bestelling.zaakId){
+        bestellingen[i].aantal++
+        contains = true;
+      }
+    }
+    if (!contains) {
+      besVer.bestellingen[besVer.bestellingen.length] = bestelling;
+      namen[namen.length] = zaakNaam;
+    }
     this.saveBestellingen(besVer);
     this.saveZaakNamen(namen);
   }
@@ -51,23 +60,25 @@ export class BestellenService {
     window.sessionStorage.setItem(this.ZKEY,JSON.stringify(zaakNamen));
   }
 
-  public postBestelling(){
+  public postBestelling(total:number){
     let user = this.tokenService.getUser();
     if (user !== null) {
       this.service.userChange$.next({email: user.email,role: user.role});
       this.serviceAccount.updateUser();
       let besVer:BestellingVerzameling = this.getBestellingen();
       besVer.klant = user.email;
-    if (user.role == "ROLE_UITBATER") {
-      this.serviceAccount.uitbater$.asObservable().subscribe().unsubscribe();
-    } else {
-      this.serviceAccount.klant$.asObservable().subscribe().unsubscribe();
-    }
-    console.log(besVer);
-    //window.sessionStorage.removeItem(this.BVKEY);
-    //window.sessionStorage.removeItem(this.ZKEY);
-    this.http.post<BestellingVerzameling>(this.url, besVer).subscribe().unsubscribe();
-    alert("Succes");
+      window.sessionStorage.removeItem(this.BVKEY);
+      window.sessionStorage.removeItem(this.ZKEY);
+      this.http.post<BestellingVerzameling>(this.url, besVer).subscribe().unsubscribe();
+      if (user.role == "ROLE_UITBATER") {
+        this.serviceAccount.uitbater$.asObservable().subscribe(res => {
+          res.krediet -= total;
+        }).unsubscribe();
+      } else {
+        this.serviceAccount.klant$.asObservable().subscribe(res => {
+          res.krediet -= total;
+        }).unsubscribe();
+      }
     }
   }
 }

@@ -32,12 +32,12 @@ export class MenuComponent implements OnInit {
     private serviceToken: TokenStorageService,
     private route: ActivatedRoute,
     private bestellenService:BestellenService,
-    private zakenService: ZaakService
   ) {}
 
   ngOnInit(): void {
     this.zaaknaam = this.route.snapshot.paramMap.get('zaakNaam');
-    this.zakenService.getzaakByNaam(this.zaaknaam).subscribe(  res => { this.zaakId = res.id; });  
+    this.service.getzaakByNaam(this.zaaknaam).subscribe(  res => { this.zaakId = res.id; }); 
+ 
     if (
       (this.serviceToken.getMenu() === null &&
         this.serviceToken.getZaakNaam == null) ||
@@ -101,6 +101,10 @@ export class MenuComponent implements OnInit {
   addToBestellingen(menuItem:MenuItem) {
     if(this.zaaknaam != null || this.zaakId != null)
     this.bestellenService.add( new Bestelling(0, 1, menuItem, this.zaakId, 0), this.zaaknaam);
+    let mandje:HTMLElement = document.querySelector(".fa-shopping-bag") as HTMLElement;
+    mandje.style.animation = "shake 1s ease ";
+    setTimeout(() => {mandje.style.animation = "";}, 1000);
+    
   }
 }
 

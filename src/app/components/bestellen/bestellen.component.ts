@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BestellingVerzameling } from 'src/app/models/bestelling-verzameling';
 import { Categorie } from 'src/app/models/categorie.enum';
-import { Klant } from 'src/app/models/klant';
 import { BestellenService } from 'src/app/services/bestellen.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
@@ -13,10 +12,17 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class BestellenComponent implements OnInit {
   besVer:BestellingVerzameling;
   zaken: string[];
+  total: number = 0;
 
   constructor(private bestellenService:BestellenService, private tokenStorage:TokenStorageService) {
     this.update();
+    this.besVer.bestellingen.forEach(x => {
+      console.log(x);
+      this.total += (x.aantal * x.menuItem.prijs);
+    })
+    console.log(this.total)
   }
+
 
   update() {
     if (this.bestellenService.getBestellingen() == null) {
@@ -37,6 +43,12 @@ export class BestellenComponent implements OnInit {
 
   updateItem(event) {
     let id = event.target.id;
+    if(this.besVer.bestellingen[id].aantal < event.target.value) {
+      this.total += this.besVer.bestellingen[id].menuItem.prijs;
+    }
+    else {
+      this. total -= this.besVer.bestellingen[id].menuItem.prijs;
+    }
     this.besVer.bestellingen[id].aantal = event.target.value;
     this.bestellenService.saveBestellingen(this.besVer);
     if(event.target.value <= 0) {
@@ -49,7 +61,7 @@ export class BestellenComponent implements OnInit {
   }
 
   process(){
-    this.bestellenService.postBestelling();
+    this.bestellenService.postBestelling(this.total);
     document.getElementById("bag").innerHTML = "";
   }
 
