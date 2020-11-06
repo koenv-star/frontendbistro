@@ -112,7 +112,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.addEstablishmentFormGroup = this.formBuilder.group({
 
       establishment: this.formBuilder.group({
-        establishmentName: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        establishmentName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), JammikValidators.notOnlyWhitespace]),
         parking: new FormControl()
       }),
 
@@ -124,7 +124,7 @@ export class AddEditEstablishmentComponent implements OnInit {
         province: new FormControl('Antwerpen', [Validators.required]),
         community: new FormControl('Aartselaar', [Validators.required]),
         zipcode: new FormControl(2630, [Validators.required]),
-        street: new FormControl('Acacialaan', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        street: new FormControl('Acacialaan', [Validators.required, JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('1', [Validators.required, JammikValidators.notOnlyWhitespace,
           JammikValidators.cannotBeGeen])
       }),
@@ -185,9 +185,6 @@ export class AddEditEstablishmentComponent implements OnInit {
   checkForDuplicateName(event) {
     if(this.zakenNamen.includes(event.target.value))
       this.establishmentName.setErrors({ 'noDuplicateName': true })
-
-    // else
-    //   this.establishmentName.setErrors(null);
   }
 
   // address
@@ -518,7 +515,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     this.zaakService.postZaak(formData)
       .subscribe(data => {
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/zaken');
         window.sessionStorage.removeItem('zaak');
       });
   }

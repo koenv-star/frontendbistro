@@ -33,11 +33,11 @@
               "
               >De naam van de zaak moet ingevuld zijn</span
             >
-            <span class="float-left" *ngIf="establishmentName.errors.pattern"
-              >De naam mag geen _ bevatten</span
-            >
             <span class="float-left" *ngIf="establishmentName.errors.minlength"
               >De naam moet minstens 2 karakters bevatten</span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.pattern"
+              >De naam mag geen _ bevatten</span
             >
             <span class="float-left" *ngIf="establishmentName.errors.noDuplicateName"
               >U heeft reeds een restaurant met deze naam</span
