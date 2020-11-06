@@ -13,11 +13,12 @@ import {isNull} from 'util';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  ads: Advertenties[];
   range: number;
   adsNo: number;
   adZaak: Zaak;
   adImg: string;
+  ad: Advertenties;
+  isAd: boolean = false;
 
   constructor(private serviceAdvertentie: AdvertentiesService,
               private serviceZaak: ZaakService,
@@ -25,20 +26,24 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //getting list of ads
-    this.getAdvertenties();
-    //randomly selecting one and showing in the landing page
-
-
+    //getting length of ads
+    this.getAdvertentiesLength();
   }
 
-  private getAdvertenties() {
-    this.serviceAdvertentie.getAllAdvertenties().subscribe(data => {
+  private getAdvertentiesLength() {
+
+    this.serviceAdvertentie.getAdvertentiesLength().subscribe(data => {
       if (!isNull(data)) {
-        this.ads = data;
-        this.range = this.ads.length;
-        console.log(data);
+        this.range = data;
+
+        console.log("callback: ", data);
+        console.log('ads length: ', this.range);
+
+        this.isAd = true;
         this.showAdvertentie();
+      }else{
+        this.adImg ='ads.svg';
+        this.isAd = false
       }
     });
   }
@@ -51,44 +56,26 @@ export class HomeComponent implements OnInit {
     //getting the zaak Informations from Data base
 
 
-    if (this.ads.length > 0) {
-      console.log('id of the advertesi: ' + this.ads[this.adsNo].zaakId);
-      this.getZaak(this.ads[this.adsNo].zaakId);
-
-
-      //beacuse it will shown, we need to update the number of showing
-      if (this.ads[this.adsNo].numberOfShow != 0 || this.ads[this.adsNo].numberOfShow ! < 0) {
-        console.log(this.ads[this.adsNo].numberOfShow);
-        console.log(this.ads[this.adsNo].numberOfShow = this.ads[this.adsNo].numberOfShow - 1);
-
-        //help with the service of Advertisement we also updating our database
-        this.serviceAdvertentie.updateAdvertentie(
-          this.ads[this.adsNo].id,
-          this.ads[this.adsNo]).subscribe(data => {
-          console.log(data);
-        });
-      } else {
-        // need to delete this add because the showing number is 0
-        // Delete method call and push the id to delete from database
-        this.serviceAdvertentie.deleteAdvertentei(this.ads[this.adsNo].zaakId).subscribe(data => {
-          console.log(data);
-        });
-      }
+    if (this.range != 0) {
+      this.isAd =true;
+      this.getZaakEnAdvertentie(this.adsNo);
 
     } else {
       this.adImg = 'ads.svg';
+      this.isAd = false;
     }
   }
 
-  private getZaak(adsNo: number) {
-    this.serviceZaak.getZaak(adsNo).subscribe(data => {
+  private getZaakEnAdvertentie(adNo: number) {
+    this.serviceAdvertentie.getZaakByAdvertentieId(adNo).subscribe(data => {
       this.adZaak = data;
       console.log(this.adZaak);
       let str = this.adZaak.imageURL;
       //getting url and replacing backslashes to forward and checks if there is duplicate remove them
       this.adImg = str;
-        // .replace(/\\/g, '/')
-        // .replace(/([^:]\/)\/+/g, '$1');
+    });
+    this.serviceAdvertentie.getAdvertentieById(adNo).subscribe(data => {
+      this.ad = data;
     });
   }
 }

@@ -5,7 +5,7 @@ import { BestellingVerzameling } from '../models/bestelling-verzameling';
 import { AccountService } from './account.service';
 import { AuthenticationService } from './authentication.service';
 import { TokenStorageService } from './token-storage.service';
-import { ZaakService } from './zaak.service';
+
 
 
 @Injectable({
