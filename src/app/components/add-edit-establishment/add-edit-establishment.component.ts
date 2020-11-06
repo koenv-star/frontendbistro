@@ -104,7 +104,6 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.zaakService.getZakenBijUitbaterEmail(this.uitbaterEmail)
       .subscribe(data => {
         data.forEach(d => this.zakenNamen.push(d.naam));
-        console.log(this.zakenNamen);
       });
   }
 
@@ -184,7 +183,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   // check for duplicate zaak name
   checkForDuplicateName(event) {
-    if(this.zakenNamen.includes(event.target.value))
+    if(this.zakenNamen.includes(event.target.value.trim()))
       this.establishmentName.setErrors({ 'noDuplicateName': true })
   }
 
@@ -365,8 +364,8 @@ export class AddEditEstablishmentComponent implements OnInit {
       if(input.value.length < 1) {
         this.tafelStoelFeedback = 'Er zijn lege velden';
         return false;
-      } else if (input.value === '0') {
-        this.tafelStoelFeedback = 'De waarde kan niet 0 zijn';
+      } else if (Number.parseInt(input.value) <= 0) {
+        this.tafelStoelFeedback = 'De waarde kan niet 0 of kleiner zijn';
         return false;
       }
     }

@@ -80,8 +80,7 @@
               "
               >De omschrijving moet ingevuld zijn</span
             >
-            <br>
-            <span class="float-left" *ngIf="description.errors.minlength"
+            <span class="float-left" *ngIf="description.errors.minlength && !description.errors.required && !description.errors.notOnlyWhitespace"
               >De omschrijving moet minstens 20 karakters bevatten</span
             >
           </div>
