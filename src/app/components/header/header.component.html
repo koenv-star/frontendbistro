@@ -14,8 +14,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
 
     <ul class="navbar-nav ml-auto text-center" *ngIf="isUitbater">
+
       <li class="nav-item active">
         <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/bestellen"><span class="fas fa-shopping-bag"></span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" routerLink="/ads">Ads</a>
@@ -59,16 +63,22 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a>
       </li>
-
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/bestellen"><span class="fas fa-shopping-bag"></span></a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" routerLink="">Beoordelingen</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" routerLink="">Bestellingen</a>
       </li>
 
       <li class="nav-item active">
         <a class="nav-link" routerLink="allZaken">Reservatie</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/zaken-dichtbij">Kaart</a>
       </li>
 
       <li class="nav-item active">

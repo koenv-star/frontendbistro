@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ZaakService {
-  
+
   private zaakBaseUrl = 'http://localhost:8080/zaken';
 
   constructor(private http: HttpClient) { }
@@ -16,14 +16,17 @@ export class ZaakService {
     return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/id=" + id);
   }
 
+  getAllZaken(): Observable<Zaak[]> {
+    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+  }
+
   getZakenBijUitbaterEmail(email: String) {
     let url = `${this.zaakBaseUrl}/${email}`;
-
     return this.http.get<Zaak[]>(url);
-  } 
+  }
 
-  public getAllZaken() :Observable<Zaak[]>{
-    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+  getzaakByNaam(naam:string): Observable<Zaak> {
+    return this.http.get<Zaak>(this.zaakBaseUrl + "/zaak/" + naam);
   }
 
   postZaak(formData: FormData): Observable<Zaak> {

@@ -1,8 +1,7 @@
-
 <div class="d-flex justify-content-center">
     <div class="w-75" >
         <div class="row d-flex justify-content-center align-content-center overflow-hidden custom-banner-image" style="background: black;" >
-            <img src="assets/images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto" style="min-width: 75%">
+            <img src="assets\images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto" style="min-width: 75%">
         </div>
         <div class="row">
             <div class="col-lg d-flex d-lg-block justify-content-center">
@@ -18,7 +17,7 @@
                 <div>
                     <div class="row border border-dark rounded m-auto" style="max-width: 30em;" *ngFor="let dag of zaak.openingsUren.dagen ; last as isLast">
                         <div class="col " >{{dag.naam}}</div>
-                        <div class="col " *ngIf="!isGesloten(dag)">{{dag.openingsUur.toString().substring(0,5)}} - {{dag.sluitingsUur.toString().substring(0,5)}}</div>
+                        <div class="col " *ngIf="!isGesloten(dag)">{{dag.openingsUur}} - {{dag.sluitingsUur}}</div>
                         <div class="col " *ngIf="isGesloten(dag)">Gesloten</div>
                     </div>
                 </div>

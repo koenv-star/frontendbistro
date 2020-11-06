@@ -1,11 +1,18 @@
-
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-10 mx-auto col-12 text-center mb-3">
       <h1 class="mt-0 text-primary">Mijn zaken</h1>
+      <a class="btn btn-primary" routerLink="/addestablishment">
+        Nieuw
+        <svg width="32" height="32" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </a>
     </div>
     <div class="col-12 mt-4">
+      <a routerLink="/addestablishment" class="btn btn-primary mr-2"> New Zaak</a>
       <hr class="accent my-5" />
+
     </div>
     <div class=" d-lg-inline-flex flex-wrap justify-content-center">
       <div
@@ -13,7 +20,7 @@
       *ngFor="let zaak of zaken"
       routerLink="/zaken/{{ zaak.id }}">
           <div class="container">
-            <img src="{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top">
+            <img src="assets/images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top">
             <h5 class="font-weight-bold">{{ zaak.naam }}</h5>
             <span class="text-truncate">Rating: </span>
             <span

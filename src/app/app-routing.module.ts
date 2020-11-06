@@ -1,24 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ErrorComponent} from './components/error/error.component';
-import {HomeComponent} from './components/home/home.component';
-import {HeaderComponent} from './components/header/header.component';
-import {FooterComponent} from './components/footer/footer.component';
+import { ErrorComponent } from './components/error/error.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ZakenComponent } from './components/zaken/zaken.component';
 import { AddmenuComponent } from './components/addmenu/addmenu.component';
 import { ZaakComponent } from './components/zaak/zaak.component';
-import {MyAccountComponent} from './components/my-account/my-account.component';
-import {AdsComponent} from './components/ads/ads.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
+import { AdsComponent } from './components/ads/ads.component';
 import { AddEditEstablishmentComponent } from './components/add-edit-establishment/add-edit-establishment.component';
-import {AllZakenComponent} from './components/all-zaken/all-zaken.component';
+import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { ReservatiesComponent } from './components/reservaties/reservaties.component';
-
-
-
-
+import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
+import { BestellenComponent } from './components/bestellen/bestellen.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -27,17 +23,16 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'MyAccount', component: MyAccountComponent },
-  { path: 'header', component: HeaderComponent },
-  { path: 'footer', component: FooterComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'menu/:zaakNaam', component: MenuComponent },
   { path: 'zaken', component: ZakenComponent },
-  { path: 'menu/:zaakNaam/addmenu', component:AddmenuComponent },
+  { path: 'menu/:zaakNaam/addmenu', component: AddmenuComponent },
   { path: 'zaken/:id', component: ZaakComponent },
-  { path: 'ads', component:AdsComponent},
-  { path: 'allZaken', component: AllZakenComponent},
-  { path: 'zaken/:id/reservaties', component: ReservatiesComponent}
-
+  { path: 'ads', component: AdsComponent },
+  { path: 'allZaken', component: AllZakenComponent },
+  { path: 'zaken/:id/reservaties', component: ReservatiesComponent },
+  { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent },
+  { path: 'bestellen', component: BestellenComponent },
 ];
 
 @NgModule({
