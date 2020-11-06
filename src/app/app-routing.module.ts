@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'zaken/:id', component: ZaakComponent },
   { path: 'ads', component:AdsComponent},
   { path: 'allZaken', component: AllZakenComponent},
-  { path: 'zaken/:id/reservaties', component: ReservatiesComponent}
+  { path: 'zaken/:id/reservaties', component: ReservatiesComponent},
 
 ];
 
