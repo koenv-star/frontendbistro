@@ -104,6 +104,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.zaakService.getZakenBijUitbaterEmail(this.uitbaterEmail)
       .subscribe(data => {
         data.forEach(d => this.zakenNamen.push(d.naam));
+        console.log(this.zakenNamen);
       });
   }
 
