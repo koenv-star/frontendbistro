@@ -17,7 +17,6 @@ import { ZaakService } from 'src/app/services/zaak.service';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
-import { Categorie } from 'src/app/models/categorie.enum';
 import { isNull } from 'util';
 
 /**
@@ -58,6 +57,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   // zaak
   zaak: Zaak;
+  zakenNamen: string[] = new Array();
 
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService,
@@ -68,6 +68,12 @@ export class AddEditEstablishmentComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+
+    // get uitbater
+    this.getUitbaterEmail();
+
+    // get zaken namem
+    this.getZakenNamen();
 
     // build the form
     this.buildForm();
@@ -88,6 +94,17 @@ export class AddEditEstablishmentComponent implements OnInit {
     // image
     this.imageUrl = '';
     this.inputFileLabel = document.querySelector('.custom-file-label') as HTMLElement;
+  }
+
+  getUitbaterEmail(): void {
+    this.uitbaterEmail = this.tokenService.getUser().email;
+  }
+
+  getZakenNamen(): void {
+    this.zaakService.getZakenBijUitbaterEmail(this.uitbaterEmail)
+      .subscribe(data => {
+        data.forEach(d => this.zakenNamen.push(d.naam));
+      });
   }
 
   // build the form for adding an establishment
@@ -163,6 +180,15 @@ export class AddEditEstablishmentComponent implements OnInit {
   get sluitingsuurZo() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurZo'); }
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
+
+  // check for duplicate zaak name
+  checkForDuplicateName(event) {
+    if(this.zakenNamen.includes(event.target.value))
+      this.establishmentName.setErrors({ 'noDuplicateName': true })
+
+    // else
+    //   this.establishmentName.setErrors(null);
+  }
 
   // address
   onChangeProvince(event): void {
@@ -291,14 +317,10 @@ export class AddEditEstablishmentComponent implements OnInit {
     let btn = event.target;
     if(btn.innerText === 'Gesloten') {
       this.openingHours[begin].setErrors(null);
-      // this.openingHours[begin].setValue('00:00');
-      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'hidden';
       this.timeInputs[end].style.visibility = 'hidden';
       btn.innerText = 'Open';
     } else {
-      // this.openingHours[begin].setValue('00:00');
-      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'visible';
       this.timeInputs[end].style.visibility = 'visible';
       btn.innerText = 'Gesloten';
@@ -459,21 +481,6 @@ export class AddEditEstablishmentComponent implements OnInit {
     return tafels;
   }
 
-  getUitbaterEmail(): void {
-
-    let user = this.tokenService.getUser();
-    if (!isNull(user)) {
-      this.authService.userChange$.next({email: user.email, role: user.role});
-      this.accountService.updateUser();
-      this.accountService.uitbater$.asObservable()
-        .subscribe(data => {
-          this.uitbaterEmail = data.email;
-          this.makeZaak();
-          this.postZaak();
-      });
-    }
-  }
-
   getMenu(): Menu {
     let menuItems: MenuItem[] = [];
     return new Menu(0, menuItems);
@@ -499,7 +506,8 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkAmountOfTableInputs()) return;
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
-    this.getUitbaterEmail();
+    this.makeZaak();
+    this.postZaak();
   }
 
   postZaak(): void {

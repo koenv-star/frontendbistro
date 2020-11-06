@@ -60,8 +60,6 @@ export class TokenStorageService {
     sessionStorage.removeItem(MENU_KEY);
   }
 
-
-
   public saveZaakNaam(zaaknaam: String) {
     window.sessionStorage.removeItem(ZAAK_KEY);
     window.sessionStorage.setItem(ZAAK_KEY, JSON.stringify(zaaknaam));

@@ -16,6 +16,7 @@
             class="form-control"
             formControlName="establishmentName"
             type="text"
+            (input)="checkForDuplicateName($event)"
           />
           <div
             *ngIf="
@@ -37,6 +38,9 @@
             >
             <span class="float-left" *ngIf="establishmentName.errors.minlength"
               >De naam moet minstens 2 karakters bevatten</span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.noDuplicateName"
+              >U heeft reeds een restaurant met deze naam</span
             >
           </div>
         </div>
