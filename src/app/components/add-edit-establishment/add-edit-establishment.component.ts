@@ -10,7 +10,6 @@ import { OpeningsUren } from 'src/app/models/openings-uren';
 import { Dag } from 'src/app/models/dag';
 import { Tafel } from 'src/app/models/tafel';
 import { Zaak } from 'src/app/models/zaak';
-import { Uitbater } from 'src/app/models/uitbater';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AccountService } from 'src/app/services/account.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
