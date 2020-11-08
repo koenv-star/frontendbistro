@@ -1,79 +1,125 @@
-<div class="container">
-  <img
-    src="./assets/images/reserveren.PNG"
-    alt="afbeelding van de zaak"
-    class="img-fluid m-auto"
-    style="min-width: 60%; height: 30%"
-  />
+<ng-container *ngIf="zaakObject">
+  <div class="container">
+    <img
+      src="./assets/images/reserveren.PNG"
+      alt="afbeelding van de zaak"
+      class="img-fluid m-auto"
+      style="min-width: 60%; height: 30%"
+    />
 
-  <h5 class="lead mt-4">
-    Welkom bij {{ zaak.naam }}. Wij heten u van harte welkom en kunnen u het
-    volgende aanbieden:
-  </h5>
-  <ul>
-    <li clas *ngFor="let tafel of tafels.keys()">
-      {{ tafel }} tafel(s) van stoelen
-    </li>
-  </ul>
-
-  <div class="card card-body m-2" *ngFor="let reservatie of reservaties">
-    <div class="container">
-      <h5 class="font-weight-bold">{{ reservatie.tijdstip }}</h5>
-      <p class="my-0">{{ reservatie.uurMarge }}</p>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8 text-center">
+        <h5 class="lead mt-5">
+          Welkom bij {{ zaaknaam }}. Wij heten u allereerst van harte welkom op
+          onze reservatiepagina en kunnen u de volgende tafels aanbieden:
+          <ng-container class="lead" *ngFor="let tafel of tafels | keyvalue">
+            {{ tafel.value }} tafel(s) van {{ tafel.key }} personen,
+          </ng-container>
+          gelieve een keuze te maken.
+        </h5>
+      </div>
+      <div class="col-2"></div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <form [formGroup]="reservatieForm">
-      <label class="mt-3" for="datum">Datum :</label>
-      <input
-        type="date"
-        id="datum"
-        class="form-control form-control-sm"
-        formControlName="datum"
-      />
-      <div
-        *ngIf="datum.invalid && (datum.dirty || datum.touched)"
-        class="col-sm-12 alert alert-danger mt-0"
-      >
-        <span
-          *ngIf="datum.errors.required"
-          style="font-size: 15px; position: absolute; top: 0px"
-          >Naam is verreist.</span
-        >
+    <!-- <div class="card card-body mt-5" *ngFor="let reservatie of reservaties">
+      <div class="container">
+        <h5 class="font-weight-bold">{{ reservatie.tijdstip }}</h5>
+        <p class="my-0">{{ reservatie.uurMarge }}</p>
       </div>
-      <label class="mt-3" for="personen">Personen:</label>
-      <input
-        type="number"
-        id="personen"
-        class="form-control form-control-sm"
-        placeholder="beschrijving"
-        formControlName="personen"
-      />
-      <div
-        *ngIf="personen.invalid && (personen.dirty || personen.touched)"
-        class="alert alert-danger"
-      >
+    </div> -->
+
+    <!-- <div class="form-group">
+      <form [formGroup]="reservatieForm">
+        <label class="mt-3" for="datum">Datum :</label>
+        <input
+          type="date"
+          id="datum"
+          class="form-control form-control-sm"
+          formControlName="datum"
+        />
         <div
-          *ngIf="personen.errors.required"
-          style="font-size: 15px; position: absolute; top: 0px"
+          *ngIf="datum.invalid && (datum.dirty || datum.touched)"
+          class="col-sm-12 alert alert-danger mt-0"
         >
-          Beschrijving is verreist.
+          <span
+            *ngIf="datum.errors.required"
+            style="font-size: 15px; position: absolute; top: 0px"
+            >Datum is verreist.</span
+          >
         </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-sm-3">
-          <div class="container-fluid">
-            <button
-              type="submit"
-              class="btn btn-primary mt-4"
-              style="width: 80%"
-            >
-              Voeg Toe!
-            </button>
+        <label class="mt-3" for="personen">Personen:</label>
+        <input
+          type="number"
+          id="personen"
+          class="form-control form-control-sm"
+          placeholder="aantal personen"
+          formControlName="personen"
+        />
+        <div
+          *ngIf="personen.invalid && (personen.dirty || personen.touched)"
+          class="alert alert-danger"
+        >
+          <div
+            *ngIf="personen.errors.required"
+            style="font-size: 15px; position: absolute; top: 0px"
+          >
+            Aantal personen is verreist.
           </div>
         </div>
+        <div class="row mt-4">
+          <div class="col-sm-3">
+            <div class="container-fluid">
+              <button
+                type="submit"
+                class="btn btn-primary mt-4"
+                style="width: 80%"
+              >
+                Voeg Toe!
+              </button>
+            </div>
+          </div>
+        </div>
+      </form> -->
+    <!-- </div> -->
+
+    <div class='demo-app'>
+
+      <div class='demo-app-sidebar'>
+        <div class='demo-app-sidebar-section'>
+          <h2>Instructions</h2>
+          <ul>
+            <li>Select dates and you will be prompted to create a new event</li>
+            <li>Drag, drop, and resize events</li>
+            <li>Click an event to delete it</li>
+          </ul>
+        </div>
+        <div class='demo-app-sidebar-section'>
+          <label>
+            <input
+              type='checkbox'
+              [checked]='calendarVisible'
+              (change)='handleCalendarToggle()'
+            />
+            toggle whole calendar
+          </label>
+        </div>
+        <div class='demo-app-sidebar-section'>
+          <label>
+            <input
+              type='checkbox'
+              [checked]='calendarOptions.weekends'
+              (change)='handleWeekendsToggle()'
+            />
+            toggle weekends
+          </label>
+        </div>
       </div>
-    </form>
+    <div class="container mt-5 mb-5">
+      <full-calendar
+        *ngIf="calendarOptions && calendarVisible"
+        [options]="calendarOptions"
+        style="color:rgb(53, 51, 51) ; font-size: 70%;font-weight: 1000;"
+      ></full-calendar>
+    </div>
   </div>
-</div>

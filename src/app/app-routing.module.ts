@@ -15,6 +15,7 @@ import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { ReservatiesComponent } from './components/reservaties/reservaties.component';
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
+import { CalendarsComponent } from './components/calendars/calendars.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'zaken/:id/reservaties', component: ReservatiesComponent },
   { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent },
   { path: 'bestellen', component: BestellenComponent },
+  { path: 'kalender', component: CalendarsComponent }
 ];
 
 @NgModule({

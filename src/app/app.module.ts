@@ -22,9 +22,19 @@ import { AdsComponent } from './components/ads/ads.component';
 import { KredietComponent } from './components/krediet/krediet.component';
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { ReservatiesComponent } from './components/reservaties/reservaties.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
+import { CalendarsComponent } from './components/calendars/calendars.component';
+import { CommonModule } from '@angular/common';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -49,12 +59,15 @@ import { BestellenComponent } from './components/bestellen/bestellen.component';
 
     ZakenKlantLijstComponent,
     BestellenComponent,
+    CalendarsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FullCalendarModule,
+    CommonModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
