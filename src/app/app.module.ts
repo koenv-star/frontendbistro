@@ -23,6 +23,7 @@ import { KredietComponent } from './components/krediet/krediet.component';
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
+import { InkomsComponent } from './components/inkoms/inkoms.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BestellenComponent } from './components/bestellen/bestellen.component';
     AllZakenComponent,
     ZakenKlantLijstComponent,
     BestellenComponent,
+    InkomsComponent,
   ],
   imports: [
     BrowserModule,

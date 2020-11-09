@@ -1,0 +1,22 @@
+.firstView{
+  display: block;
+}
+.secondView{
+  display:none;
+}
+@keyframes leftSlider {
+  from{
+    left: 100%;
+  }
+  to{
+    left: 0%;
+  }
+}
+@keyframes rightSlider{
+  form{
+    right: 100%;
+  }
+  to{
+    right: 0%;
+  }
+}
