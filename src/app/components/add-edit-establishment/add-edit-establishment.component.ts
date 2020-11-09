@@ -516,7 +516,8 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.zaakService.postZaak(formData)
       .subscribe(data => {
         window.sessionStorage.removeItem('zaak');
-        this.router.navigate(['/zaken']);
-      });
+      })
+
+      this.router.navigate(['/zaken']);
   }
 }
