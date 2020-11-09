@@ -20,6 +20,8 @@ export class MenuComponent implements OnInit {
   items: MenuItem[];
   zaaknaam: string;
   zaakId: number;
+  uitbater: string
+  user
 
   hoofdgerechten: MenuItem[] = new Array();
   desserten: MenuItem[] = new Array();
@@ -36,7 +38,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.zaaknaam = this.route.snapshot.paramMap.get('zaakNaam');
-    this.service.getzaakByNaam(this.zaaknaam).subscribe(  res => { this.zaakId = res.id; }); 
+    this.service.getzaakByNaam(this.zaaknaam).subscribe(  res => { this.zaakId = res.id; this.uitbater = res.email}); 
+    this.user = this.serviceToken.getUser();
  
     if (
       (this.serviceToken.getMenu() === null &&
