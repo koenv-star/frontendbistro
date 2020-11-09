@@ -17,7 +17,7 @@ export class InkomsComponent implements OnInit {
   uitbater: Uitbater;
   inkomList: Inkom[];
   inkom: Inkom;
-  totalInkom:number;
+  totalInkom:number=0;
   constructor(private router: Router,
               private serviceInkom: InkomService,
               private serviceToken : TokenStorageService,
@@ -31,6 +31,12 @@ export class InkomsComponent implements OnInit {
       this.serviceInkom.getInkomsAll(user.email).subscribe(data => {
 
         this.inkomList = data;
+
+        for (let value of data) {
+          if(!isNaN(value.totalEarning)){
+            this.totalInkom += value.totalEarning;
+          }
+        }
 
       })
     }
