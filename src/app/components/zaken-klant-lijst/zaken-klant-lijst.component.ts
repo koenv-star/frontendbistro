@@ -46,8 +46,7 @@ export class ZakenKlantLijstComponent implements OnInit {
   overlayFeatureLink: HTMLElement;
 
   constructor(private zaakService: ZaakService,
-              private placesService: PlacesService,
-              private coordinateTool: coordinateTool) { }
+              private placesService: PlacesService) { }
 
   ngOnInit(): void {
     this.vectorSource = new VectorSource({ features: [] });

@@ -518,6 +518,6 @@ export class AddEditEstablishmentComponent implements OnInit {
         window.sessionStorage.removeItem('zaak');
       })
 
-      this.router.navigate(['/zaken']);
+    this.router.navigate(['/zaken']);
   }
 }
