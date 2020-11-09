@@ -1,4 +1,5 @@
 import { Adres } from './adres';
+import { Bestelling } from './bestelling';
 import { Menu } from './menu';
 import { OpeningsUren } from './openings-uren';
 import { Reservatie } from './reservatie';
@@ -18,10 +19,11 @@ export class Zaak {
   menu: Menu;
   email: string;
   tafels: Tafel[];
+  bestellingen: Bestelling[];
   reservaties: Reservatie[];
 
   constructor(id: number, naam: string, description: string, imageUrl: string, parking: boolean, rating: number, openingsUren: OpeningsUren,
-    adres: Adres, menu: Menu, email: string, tafels: Tafel[], reservaties: Reservatie[]) {
+    adres: Adres, menu: Menu, email: string, tafels: Tafel[], bestellingen:Bestelling[], reservaties: Reservatie[]) {
 
       this.id = id;
       this.naam = naam;
@@ -34,6 +36,7 @@ export class Zaak {
       this.menu = menu;
       this.email = email;
       this.tafels = tafels;
+      this.bestellingen = bestellingen;
       this.reservaties = reservaties;
   }
 }
