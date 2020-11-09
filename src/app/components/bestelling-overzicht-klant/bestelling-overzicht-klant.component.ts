@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BestellingVerzameling } from 'src/app/models/bestelling-verzameling';
-import { User } from 'src/app/models/user';
 import { BestellingVerzamelingService } from 'src/app/services/bestelling-verzameling-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { ZaakService } from 'src/app/services/zaak.service';

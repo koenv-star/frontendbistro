@@ -17,7 +17,12 @@ export class ZaakService {
   }
 
   getAllZaken(): Observable<Zaak[]> {
-    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+    return this.http.get<Zaak[]>(this.zaakBaseUrl + '/display');
+  }
+
+  getZakenBijUitbaterEmailVoorDisplay(email: String) {
+    let url = `${this.zaakBaseUrl}/display/${email}`;
+    return this.http.get<Zaak[]>(url);
   }
 
   getZakenBijUitbaterEmail(email: String) {
