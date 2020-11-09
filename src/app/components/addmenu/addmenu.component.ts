@@ -5,6 +5,7 @@ import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-addmenu',
@@ -28,15 +29,15 @@ export class AddmenuComponent implements OnInit {
         naam: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(5)]),
         categorie: new FormControl('COCKTAILS'),
         beschrijving: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(20)]),
-        prijs: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,}.[0-9]{2}$/)])
+        prijs: new FormControl('', [Validators.required, JammikValidators.cannotBeNegative, Validators.pattern(/^[0-9]{1,}.[0-9]{2}$/)])
       })
     });
   }
 
   get naam() { return this.menuForm.get('menuItem.naam'); }
-  get prijs() { return this.menuForm.get('menuItem.prijs'); }
   get categorie() { return this.menuForm.get('menuItem.categorie'); }
   get beschrijving() { return this.menuForm.get('menuItem.beschrijving'); }
+  get prijs() { return this.menuForm.get('menuItem.prijs'); }
 
   addToMenuItemsList() {
 
@@ -47,6 +48,7 @@ export class AddmenuComponent implements OnInit {
 
     let item: MenuItem = new MenuItem(0, this.naam.value, this.prijs.value, this.beschrijving.value, this.categorie.value);
     this.menuItems.push(item);
+    this.buildForm();
   }
 
   saveMenu() {
@@ -55,6 +57,5 @@ export class AddmenuComponent implements OnInit {
       this.menu.menuItems.push(item);
     }
     this.tokenservice.saveMenu(this.menu);
-    console.log(this.tokenservice.getMenu());
   }
 }

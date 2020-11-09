@@ -41,6 +41,14 @@ export class JammikValidators {
     return null;
   }
 
+  static cannotBeNegative(control: FormControl): ValidationErrors {
+
+    let value: number = Number.parseFloat(control.value);
+    console.log(value <= 0);
+    if(value <= 0) return { 'valueCannotBeNegative': true };
+    else return null;
+  }
+
   // file extension validation
   static mustBePngJpgOrJpeg(control: FormControl): ValidationErrors {
 

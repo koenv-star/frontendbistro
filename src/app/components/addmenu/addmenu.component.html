@@ -41,8 +41,8 @@
           formControlName="beschrijving"
         />
         <div *ngIf="beschrijving.invalid && (beschrijving.dirty || beschrijving.touched)" class="col-sm-12 alert alert-danger mt-2 mb-0">
-          <span *ngIf="beschrijving.errors.required || beschrijving.errors.notOnlyWhitespace">Beschrijving is vereist.</span>
-          <span *ngIf="beschrijving.errors.minlength && !(beschrijving.errors.required || beschrijving.errors.notOnlyWhitespace)">Beschrijving te kort.</span>
+          <span *ngIf="beschrijving.errors.required || beschrijving.errors.notOnlyWhitespace">Beschrijving is vereist</span>
+          <span *ngIf="beschrijving.errors.minlength && !(beschrijving.errors.required || beschrijving.errors.notOnlyWhitespace)">Beschrijving te kort</span>
         </div>
         <label class="mt-3" for="prijs">Prijs :</label>
         <input
@@ -57,7 +57,8 @@
           class="col-sm-12 alert alert-danger mt-2 mb-0"
         >
           <span *ngIf="prijs.errors.required">Prijs is vereist</span>
-          <span *ngIf="prijs.errors.pattern">Moet 2 cijfers na de komma hebben</span>
+          <span *ngIf="prijs.errors.valueCannotBeNegative">Kan niet 0 of kleiner zijn</span>
+          <span *ngIf="prijs.errors.pattern && !prijs.errors.valueCannotBeNegative">Moet 2 cijfers na de komma hebben</span>
         </div>
         <div class="row mt-4">
           <div class="col-sm-3">
