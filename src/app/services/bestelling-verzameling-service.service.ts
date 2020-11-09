@@ -15,4 +15,8 @@ export class BestellingVerzamelingService {
   public getBestellingVerzamelingById(id:number): Observable<BestellingVerzameling>{
     return this.http.get<BestellingVerzameling>(this.url + '/' + id);
   }
+
+  public getBestellingVerzamelingenByEmail(email:string): Observable<BestellingVerzameling[]> {
+    return this.http.get<BestellingVerzameling[]>(this.url + '/email='+ email);
+  }
 }

@@ -1,20 +1,20 @@
 <div class="d-flex justify-content-center">
-    <div class="w-75 mx-auto">
+    <div class="w-auto">
         <div class="row border-bottom d-block">
-            <div class="row d-flex justify-content-center align-content-center overflow-hidden custom-banner-image " style="background: black;" >
+            <div class="row d-flex justify-content-center align-content-center overflow-hidden custom-banner-image mx-auto" style="background: black;" >
                 <img src="assets\images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto" style="min-width: 75%">
             </div>
             <div class="row d-flex justify-content-center">
                 <div>
-                    <h1>{{zaak.naam}}</h1>
+                    <h1 class="">{{zaak.naam}}</h1>
                     <h5>{{zaak.description}}</h5>
                 </div>
             </div>
         </div>
-        <div>
-        <div class="card row w-50 mx-auto my-3" *ngFor="let items of besGroup; let i = index">
-            <div class="card-header p-0">
-                <button class="w-100 h-100 btn-primary" data-toggle="collapse" [attr.data-target]="'#a'+i"><h3>Bestelling van {{items.length}} items</h3></button>
+        <div style="min-height: 100px">
+        <div class="card row mx-auto my-3" *ngFor="let items of besGroup; let i = index">
+            <div class="card-header p-0 container-fluid">
+                <button class="w-100 h-100 btn-primary mx-auto" data-toggle="collapse" [attr.data-target]="'#a'+i"><h3>Bestelling van {{items.length}} items</h3></button>
             </div>
             <div id="a{{i}}" class="collapse card-body" >
                 <div *ngFor="let item of items" class="border-bottom d-flex justify-content-between">
@@ -22,7 +22,7 @@
                     <h4>{{item.aantal}}</h4>
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-between">
+            <div class="card-footer d-sm-block d-md-flex justify-content-between">
                 <h4>{{besver[i].klant}}</h4>
                 <h3>allergie:{{besver[i].message}}</h3>
             </div>

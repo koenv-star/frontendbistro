@@ -15,6 +15,7 @@ import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-k
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
 import { BestellingOverzichtComponent } from './components/bestelling-overzicht/bestelling-overzicht.component';
+import { BestellingOverzichtKlantComponent } from './components/bestelling-overzicht-klant/bestelling-overzicht-klant.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent },
   { path: 'bestellen', component: BestellenComponent},
   { path: 'zaak/:zaakNaam/bestellingen', component: BestellingOverzichtComponent},
+  { path: 'klant/bestellingen', component: BestellingOverzichtKlantComponent},
 ];
 
 @NgModule({

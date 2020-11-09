@@ -24,6 +24,7 @@ import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
 import { BestellingOverzichtComponent } from './components/bestelling-overzicht/bestelling-overzicht.component';
+import { BestellingOverzichtKlantComponent } from './components/bestelling-overzicht-klant/bestelling-overzicht-klant.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BestellingOverzichtComponent } from './components/bestelling-overzicht/
     ZakenKlantLijstComponent,
     BestellenComponent,
     BestellingOverzichtComponent,
+    BestellingOverzichtKlantComponent,
   ],
   imports: [
     BrowserModule,
