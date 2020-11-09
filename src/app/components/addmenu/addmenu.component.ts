@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { JammikValidators } from 'src/app/validators/jammik-validators';
 
 @Component({
   selector: 'app-addmenu',
@@ -24,13 +25,10 @@ export class AddmenuComponent implements OnInit {
   buildForm(): void {
     this.menuForm =this.formBuilder.group({
       menuItem: this.formBuilder.group({
-        naam: new FormControl('', Validators.required),
-        prijs: new FormControl('', [
-          Validators.pattern('[0-9]{1,3}'),
-          Validators.required,
-        ]),
-        categorie: new FormControl('COCKTAILS', Validators.required),
-        beschrijving: new FormControl('', Validators.required)
+        naam: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(5)]),
+        categorie: new FormControl('COCKTAILS'),
+        beschrijving: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(20)]),
+        prijs: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,}.[0-9]{2}$/)])
       })
     });
   }
