@@ -487,7 +487,7 @@ export class AddEditEstablishmentComponent implements OnInit {
     let menu: Menu = this.getMenu();
 
     this.zaak = new Zaak(0, this.establishmentName.value, this.description.value, this.imageUrl, this.parking.value, 0, openingsUren, adres,
-                        menu, this.uitbaterEmail, tafels, new Array());
+                        menu, this.uitbaterEmail, tafels, new Array(), new Array());
 
     // put zaak object in session storage
     window.sessionStorage.setItem('zaak', JSON.stringify(this.zaak));

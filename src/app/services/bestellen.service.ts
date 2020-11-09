@@ -15,6 +15,7 @@ import { ZaakService } from './zaak.service';
 export class BestellenService {
   private BVKEY:string = "BV_KEY";
   private ZKEY:string = "Z_KEY";
+  private MKEY = "M_KEY";
   private url:string = "http://localhost:8080/bestellingVerzameling";
 
   constructor(private http: HttpClient, private tokenService:TokenStorageService,private credentialService:CredentialServiceService,
@@ -32,7 +33,7 @@ export class BestellenService {
     let besVer:BestellingVerzameling = this.getBestellingen();
     let namen:string[] = this.getZaakNamen();
     if(besVer == null) {
-      besVer = new BestellingVerzameling(0, new Array(), null);
+      besVer = new BestellingVerzameling(0, new Array(), null, null);
     }
     if (namen == null) {
       namen = new Array();
@@ -61,7 +62,7 @@ export class BestellenService {
     window.sessionStorage.setItem(this.ZKEY,JSON.stringify(zaakNamen));
   }
 
-  public postBestelling(total:number){
+  public postBestelling(total:number, message:string){
     console.log("start");
     let user = this.tokenService.getUser();
     if (user !== null) {
@@ -85,8 +86,17 @@ export class BestellenService {
           this.credentialService.updateKlant(res.email ,res).subscribe();
         });
       }
+      besVer.message = message;
       this.http.post<BestellingVerzameling>(this.url, besVer).subscribe();
     }
     this.serviceAccount.updateUser();
+  }
+
+  public saveMessage(message:string){
+    window.sessionStorage.setItem(this.MKEY, message);
+  }
+
+  public getMessage():string {
+    return window.sessionStorage.getItem(this.MKEY);
   }
 }

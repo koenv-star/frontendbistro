@@ -14,6 +14,7 @@ import { AddEditEstablishmentComponent } from './components/add-edit-establishme
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { AllZakenComponent } from './components/all-zaken/all-zaken.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
+import { BestellingOverzichtComponent } from './components/bestelling-overzicht/bestelling-overzicht.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'allZaken', component: AllZakenComponent},
   { path: 'zaken-dichtbij', component: ZakenKlantLijstComponent },
   { path: 'bestellen', component: BestellenComponent},
+  { path: 'zaak/:zaakNaam/bestellingen', component: BestellingOverzichtComponent},
 ];
 
 @NgModule({
