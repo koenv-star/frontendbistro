@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Categorie } from 'src/app/models/categorie.enum';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -13,31 +13,42 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class AddmenuComponent implements OnInit {
   menuForm: FormGroup;
   menuItems: MenuItem[] = new Array();
-  item: MenuItem;
   menu: Menu;
-  constructor(private tokenservice: TokenStorageService) {}
+  constructor(private tokenservice: TokenStorageService,
+              private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.menuForm = new FormGroup({
-      naam: new FormControl('', Validators.required),
-      prijs: new FormControl('', [
-        Validators.pattern('[0-9]{1,3}'),
-        Validators.required,
-      ]),
-      categorie: new FormControl('', Validators.required),
-      beschrijving: new FormControl('', Validators.required),
+    this.buildForm();
+  }
+
+  buildForm(): void {
+    this.menuForm =this.formBuilder.group({
+      menuItem: this.formBuilder.group({
+        naam: new FormControl('', Validators.required),
+        prijs: new FormControl('', [
+          Validators.pattern('[0-9]{1,3}'),
+          Validators.required,
+        ]),
+        categorie: new FormControl('COCKTAILS', Validators.required),
+        beschrijving: new FormControl('', Validators.required)
+      })
     });
   }
 
+  get naam() { return this.menuForm.get('menuItem.naam'); }
+  get prijs() { return this.menuForm.get('menuItem.prijs'); }
+  get categorie() { return this.menuForm.get('menuItem.categorie'); }
+  get beschrijving() { return this.menuForm.get('menuItem.beschrijving'); }
+
   addToMenuItemsList() {
-    let naam = this.menuForm.value.naam;
-    let prijs = this.menuForm.value.prijs;
-    let categorie = this.menuForm.value.categorie;
-    console.log(categorie);
-    let beschrijving = this.menuForm.value.beschrijving;
-    this.item = new MenuItem(null, naam, prijs, beschrijving, categorie);
-    this.menuItems.push(this.item);
-    this.item = null;
+
+    if(this.menuForm.invalid) {
+      this.menuForm.markAllAsTouched();
+      return;
+    }
+
+    let item: MenuItem = new MenuItem(0, this.naam.value, this.prijs.value, this.beschrijving.value, this.categorie.value);
+    this.menuItems.push(item);
   }
 
   saveMenu() {
@@ -47,23 +58,5 @@ export class AddmenuComponent implements OnInit {
     }
     this.tokenservice.saveMenu(this.menu);
     console.log(this.tokenservice.getMenu());
-  }
-
- 
-
-  get categorie() {
-    return this.menuForm.get('categorie');
-  }
-
-  get naam() {
-    return this.menuForm.get('naam');
-  }
-
-  get prijs() {
-    return this.menuForm.get('prijs');
-  }
-
-  get beschrijving() {
-    return this.menuForm.get('beschrijving');
   }
 }

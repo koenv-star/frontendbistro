@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { isNull } from 'util';
+import { User } from 'src/app/models/user';
 
 /**
  * Gemaakt door Jan
