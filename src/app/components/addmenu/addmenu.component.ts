@@ -5,7 +5,6 @@ import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { JammikValidators } from 'src/app/validators/jammik-validators';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-addmenu',
