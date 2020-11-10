@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center">
+    <div class="w-auto">
+        <div class="row border-bottom d-block">
+            <div class="d-flex justify-content-center">
+                <h1>Gemaakte Bestellingen</h1>
+            </div>
+        </div>
+        <div style="min-height: 100px">
+            <div class="card row mx-auto my-3" *ngFor="let item of list; let i = index">
+                <div class="card-header p-0 container-fluid">
+                    <button class="w-100 h-100 btn-primary mx-auto" data-toggle="collapse" [attr.data-target]="'#a'+i"><h3>Bestelling van {{item.bestellingen.length}} items</h3></button>
+                </div>
+                <div id="a{{i}}" class="collapse card-body" >
+                    <div *ngFor="let bestelling of item.bestellingen; let j = index" class="border-bottom d-flex justify-content-center">
+                        <h4 class="col-lg-4">{{bestelling.menuItem.naam}}</h4>
+                        <h4 class="col-lg-4">{{bestelling.aantal}}</h4>
+                        <h4 class="col-lg-4">{{namen[i][j]}}</h4>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <h3>allergie: {{item.message}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

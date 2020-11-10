@@ -21,9 +21,11 @@ export class ZakenComponent implements OnInit {
 
   getZakenBijUitbater() {
     let user = this.tokens.getUser();
-
-    this.service.getZakenBijUitbaterEmail(user.email).subscribe((data) => {
-      this.zaken = data;
+    this.zaken = new Array();
+    this.service.getZakenBijUitbaterEmailVoorDisplay(user.email).subscribe(res => {res.forEach(x => {
+      this.zaken[this.zaken.length] = new Zaak(x.id, x.naam, x.text,x.imageURL,null,null,null,null,null,null,null,null,null);
     });
+    console.log(this.zaken)
+  });
   }
 }

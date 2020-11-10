@@ -16,6 +16,7 @@
             class="form-control"
             formControlName="establishmentName"
             type="text"
+            (input)="checkForDuplicateName($event)"
           />
           <div
             *ngIf="
@@ -32,11 +33,14 @@
               "
               >De naam van de zaak moet ingevuld zijn</span
             >
-            <span class="float-left" *ngIf="establishmentName.errors.pattern"
-              >De naam mag geen _ bevatten</span
-            >
-            <span class="float-left" *ngIf="establishmentName.errors.minlength"
+            <span class="float-left" *ngIf="establishmentName.errors.minlength && !establishmentName.errors.required && !establishmentName.errors.notOnlyWhitespace && !establishmentName.errors.pattern"
               >De naam moet minstens 2 karakters bevatten</span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.pattern"
+              >De naam mag geen _ bevatten. </span
+            >
+            <span class="float-left" *ngIf="establishmentName.errors.noDuplicateName"
+              >U heeft reeds een restaurant met deze naam</span
             >
           </div>
         </div>
@@ -76,7 +80,7 @@
               "
               >De omschrijving moet ingevuld zijn</span
             >
-            <span class="float-left" *ngIf="description.errors.minlength"
+            <span class="float-left" *ngIf="description.errors.minlength && !description.errors.required && !description.errors.notOnlyWhitespace"
               >De omschrijving moet minstens 20 karakters bevatten</span
             >
           </div>
