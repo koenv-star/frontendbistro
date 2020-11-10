@@ -24,7 +24,7 @@ import { Dag } from 'src/app/models/dag';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Reservatieresponse } from 'src/app/models/reservatieresponse';
 
-let eventGuid = 0;
+
 
 @Component({
   selector: 'app-reservaties',
@@ -57,9 +57,6 @@ export class ReservatiesComponent implements OnInit {
     this.getZaak();
   }
 
-  createEventId() {
-    return String(eventGuid++);
-  }
 
   getZaak() {
     this.zaakService
