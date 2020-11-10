@@ -5,7 +5,6 @@ import { Reservatie } from 'src/app/models/reservatie';
 import { Zaak } from 'src/app/models/zaak';
 import { ReservatieService } from 'src/app/services/reservatie.service';
 import { ZaakService } from 'src/app/services/zaak.service';
-import { Time } from '@angular/common';
 import {
   Calendar,
   CalendarApi,
@@ -23,9 +22,6 @@ import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { Dag } from 'src/app/models/dag';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { Stringtool } from 'src/app/tools/stringtool';
-import { time } from 'console';
-import { Tafel } from 'src/app/models/tafel';
 import { Reservatieresponse } from 'src/app/models/reservatieresponse';
 
 let eventGuid = 0;
@@ -38,12 +34,10 @@ let eventGuid = 0;
 export class ReservatiesComponent implements OnInit {
   reservaties: Reservatie[];
   zaak: Zaak;
-  reservatieForm: FormGroup;
   tafels: Map<number, number>;
   dagen: Dag[];
   calendarOptions: CalendarOptions;
   events = [];
-  calendarVisible: boolean = true;
   currentEvents: EventApi[] = [];
   nonworkingdays: any[];
   hiddendays: boolean = false;
@@ -61,13 +55,6 @@ export class ReservatiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getZaak();
-    this.reservatieForm = new FormGroup({
-      datum: new FormControl('', Validators.required),
-      personen: new FormControl('', [
-        Validators.pattern('[0-9]{1,3}'),
-        Validators.required,
-      ]),
-    });
   }
 
   createEventId() {
@@ -81,7 +68,7 @@ export class ReservatiesComponent implements OnInit {
         this.zaak = data;
         this.dagen = data.openingsUren.dagen;
         this.reservaties = data.reservaties;
-        this.aantaltafelsmetzelfdeaantalstoelen();
+        this.tafels = this.aantaltafelsmetzelfdeaantalstoelen();
         this.calendarOptions = {
           plugins: [
             dayGridPlugin,
@@ -139,7 +126,7 @@ export class ReservatiesComponent implements OnInit {
       tafels.set(tafel.stoelen, x);
     }
 
-    this.tafels = tafels;
+    return tafels;
   }
 
   ToggleOpeningDays() {
@@ -170,25 +157,6 @@ export class ReservatiesComponent implements OnInit {
 
   initializeEvents() {
     for (let reservatie of this.reservaties) {
-      const endDate = new Date(
-        reservatie.tijdstip.valueOf() +
-          reservatie.uurMarge.hours * 60 * 60 * 1000 +
-          reservatie.uurMarge.minutes * 60 * 1000
-      );
-      this.events.push({
-        id: reservatie.id,
-        title: 'Booked',
-        start: `${reservatie.tijdstip}`,
-        end: endDate,
-        resourceId: `${reservatie.tafel.id}`,
-      });
-    }
-
-    return this.events;
-  }
-
-  defineEvents() {
-    for (let reservatie of this.newreservaties) {
       const endDate = new Date(
         reservatie.tijdstip.valueOf() +
           reservatie.uurMarge.hours * 60 * 60 * 1000 +
@@ -252,7 +220,6 @@ export class ReservatiesComponent implements OnInit {
           `Are you sure you want to delete the event '${clickInfo.event.title}'`
         )
       ) {
-
         console.log(clickInfo.event.id);
         this.reservatiesservice.deleteById(clickInfo.event.id).subscribe();
         clickInfo.event.remove();
@@ -260,6 +227,9 @@ export class ReservatiesComponent implements OnInit {
     }
   }
   handleEvents(events: EventApi[]) {
+    console.log(events);
+
+    // events.forEach(event=>this.reservatiesservice.putReservatie())
     this.events.push(events);
   }
 
@@ -344,21 +314,10 @@ export class ReservatiesComponent implements OnInit {
     return days;
   }
 
-  // get personen() {
-  //   return this.reservatieForm.get('personen');
-  // }
-
-  // get datum() {
-  //   return this.reservatieForm.get('datum');
-  // }
 
   get zaaknaam() {
     return this.zaak && this.zaak.naam ? this.zaak.naam : null;
   }
-
-  // get zaakObject() {
-  //   return this.zaak ? this.zaak : null;
-  // }
 
   get tafelslijst() {
     return this.zaak && this.zaak.tafels ? this.zaak.tafels : null;

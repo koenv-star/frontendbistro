@@ -23,4 +23,9 @@ export class ReservatieService {
   postReservatie(reservatie: Reservatieresponse) {
     return this.http.post<Reservatieresponse>(RESERVATIE_URL, reservatie);
   }
+
+  putReservatie(reservatie: Reservatieresponse){
+
+    return this.http.put<Reservatieresponse>(RESERVATIE_URL, reservatie);
+  }
 }
