@@ -22,29 +22,40 @@
                   <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
                   : {{ uitbater.email }}
                 </ng-container>
-
               </div>
             </div>
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <ng-container><i class="fas fa-info-circle mr-2"></i>Rol: Uitbater</ng-container>
-
+                <ng-container
+                  ><i class="fas fa-info-circle mr-2"></i>Rol:
+                  Uitbater</ng-container
+                >
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fas fa-euro-sign mr-2"></i> Kredieten : {{ uitbater.krediet }}
+                  <i class="fas fa-euro-sign mr-2"></i> Kredieten :
+                  {{ uitbater.krediet }}
                 </ng-container>
-
               </div>
             </div>
             <div class="row">
-
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <ng-container><i class="fa fa-cutlery mr-2" aria-hidden="true"></i>Reservaties :
+                <ng-container
+                  ><i class="fa fa-cutlery mr-2" aria-hidden="true"></i
+                  >Reservaties :
                 </ng-container>
-                <ng-container *ngFor="let reservatie of this.uitbater.reservaties">
-                  <li class="ml-2" style="list-style: none;">{{reservatie.tijdstip.toString().substring(0,reservatie.tijdstip.toString().length-3).replace("T"," ")}},</li> </ng-container>
-
+                <ng-container
+                  *ngFor="let reservatie of this.uitbater.reservaties"
+                >
+                  <li class="ml-2" style="list-style: none">
+                    {{
+                      reservatie.tijdstip
+                        .toString()
+                        .substring(0, reservatie.tijdstip.toString().length - 3)
+                        .replace("T", " ")
+                    }},
+                  </li>
+                </ng-container>
               </div>
 
               <div class="row col-lg-12 d-flex justify-content-start mx-3 mb-5">
@@ -52,8 +63,8 @@
                   <i class="fa fa-briefcase mr-2" aria-hidden="true"></i>Mijn
                   Zaken:
                 </ng-container>
-                <ng-container *ngFor="let zaak of  uitbater.zaken ">
-                  <li class="ml-2" style="list-style: none;">{{zaak.naam}}</li>
+                <ng-container *ngFor="let zaak of uitbater.zaken">
+                  <li class="ml-2" style="list-style: none">{{ zaak.naam }}</li>
                 </ng-container>
               </div>
             </div>
@@ -71,7 +82,6 @@
                   <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
                   : {{ klant.email }}
                 </ng-container>
-
               </div>
             </div>
             <div class="row">
@@ -82,9 +92,19 @@
                 </ng-container>
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <ng-container>
-                  <i class="fa fa-cutlery mr-2" aria-hidden="true"></i
-                  >Reservaties : {{ klant.reservaties }}
+                <i class="fa fa-cutlery mr-2" aria-hidden="true"></i>Reservaties:
+                <ng-container
+                  *ngFor="let reservatie of this.klant.reservaties"
+                >
+                  
+                  <li class="ml-2" style="list-style: none">
+                    {{
+                      reservatie.tijdstip
+                        .toString()
+                        .substring(0, reservatie.tijdstip.toString().length - 3)
+                        .replace("T", " ")
+                    }},
+                  </li>
                 </ng-container>
               </div>
             </div>
