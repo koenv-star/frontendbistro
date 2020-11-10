@@ -68,7 +68,7 @@ export class KredietComponent implements OnInit {
         this.klant.reservaties,
         this.klant.bestellingVerzamelingen);
       this.serviceCredentials.updateKlant(user.email,tempKlant).subscribe();
-      this.router.navigateByUrl("").finally(()=> alert("Mooi, uw top-up is perfekt gedaan!"));
+      this.router.navigateByUrl("").finally(()=> alert("Mooi, uw top-up is perfect gedaan!"));
     }else{
       this.krediet += this.uitbater.krediet;
       let tempUitbater = new Uitbater(
@@ -82,7 +82,7 @@ export class KredietComponent implements OnInit {
         this.uitbater.zaken);
       this.serviceCredentials.updateUitbater(user.email, tempUitbater).subscribe();
       this.router.navigateByUrl("").finally(()=>{
-        alert("Mooi, uw top-up is perfekt gedaan!");
+        alert("Mooi, uw top-up is perfect gedaan!");
         location.reload();
       }
       );
