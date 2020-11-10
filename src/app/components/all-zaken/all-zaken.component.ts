@@ -13,7 +13,7 @@ export class AllZakenComponent implements OnInit {
 
   constructor(zaakservice:ZaakService) {
     this.zaken = new Array();
-    zaakservice.getAllZaken().subscribe(res => {res.forEach(x => {
+    zaakservice.getAllZakenForDisplay().subscribe(res => {res.forEach(x => {
       this.zaken[this.zaken.length] = new Zaak(x.id, x.naam, x.text,x.imageURL,null,null,null,null,null,null,null,null,null);
     })});
    }

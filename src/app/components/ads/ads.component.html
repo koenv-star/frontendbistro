@@ -8,6 +8,7 @@
     <ng-container><h6>Voor een aantal credits krijgt uw zaak een aantal
       vertoningen.</h6>
     </ng-container>
+    <hr class="accent my-4" />
 
   </div>
   <div class="container">
@@ -47,36 +48,45 @@
 </div>
 
 
-<div class="container secondView">
-  <form [formGroup]="bestelAd" (ngSubmit)="koopNu()">
-    <div class="container justify-content-lg-center">
-      <div>
-        <select class="rounded " name="formule" id="formule" formControlName="formule" required="">
-          <option value="" selected disabled>Selecteer uw formule</option>
-          <option value="20"> Budget</option>
-          <option value="50"> Standard</option>
-          <option value="100"> Premium</option>
-        </select>
-      </div>
-      <div>
-        <select name="zaak" class="rounded mt-3 " id="zaak" formControlName="zaak" required>
-          <option value="" selected disabled>Selecteer uw zaak</option>
-          <option *ngFor="let opt of this.zaken" [value]="opt.id">{{opt.naam}}</option>
-        </select>
-      </div>
-      <div>
-      <textarea class="rounded text-left" name="text" formControlName="text" style="width: 250px; height:150px; ">
+<div class="container justify-content-center text-center secondView align-content-center ">
+  <div class="container justify-content-center align-content-center">
+    <ng-container class="my-4">
+      <h4>Verbeter de inkomsten van uw restaurant met advertenties</h4>
+    </ng-container>
+    <hr class="accent my-4" />
+    <form [formGroup]="bestelAd" class="align-content-center" (ngSubmit)="koopNu()">
+      <div class="container justify-content-lg-center">
+        <div class="container justify-content-start align-content-center mt-3">
+          <select class="rounded " style="width:350px; height: auto;" name="formule" id="formule" formControlName="formule" required="">
+            <option value="" selected disabled>Selecteer uw formule</option>
+            <option value="20"> Budget</option>
+            <option value="50"> Standard</option>
+            <option value="100"> Premium</option>
+          </select>
+        </div>
+        <div class="container justify-content-start align-content-center mt-3">
+          <select name="zaak" class=" rounded  " id="zaak" formControlName="zaak" style="width:350px; height: auto;" required="">
+            <option value="" selected disabled>Selecteer uw zaak</option>
+            <option *ngFor="let opt of this.zaken" [value]="opt.id">{{opt.naam}}</option>
+          </select>
+        </div>
+        <div class="container justify-content-start align-content-center mt-3">
+          <textarea class="rounded text-left" id="text" name="text" formControlName="text" style="width: 350px; height:150px; font-size: 10px; " placeholder="Uw Advetentie Message gaat hier... ">
 
-      </textarea>
+          </textarea>
+        </div>
       </div>
-    </div>
-    <a class="btn btn-primary mb-5 mt-2 mr-2" id="Koop" (click)="koopNu()"><i class="fas fa-check-circle mr-2"></i> Koop
-      Nu
-    </a>
-    <a class="btn btn-danger mb-5 mt-2" id="Annuleer" (click)="cancel()"><i class="fas fa-window-close mr-2"></i>
-      Annuleer!
-    </a>
+      <div class="container justify-content-start align-content-center mt-3">
+      <a class="btn btn-primary mb-5 mt-2 mr-2" id="Koop" (click)="koopNu()"><i class="fas fa-check-circle mr-2"></i>
+        Koop
+        Nu
+      </a>
+      <a class="btn btn-danger mb-5 mt-2" id="Annuleer" (click)="cancel()"><i class="fas fa-window-close mr-2"></i>
+        Annuleer!
+      </a>
+      </div>
 
-  </form>
+    </form>
+  </div>
 </div>
 

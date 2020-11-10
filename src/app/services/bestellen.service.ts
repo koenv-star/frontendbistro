@@ -8,7 +8,7 @@ import { AccountService } from './account.service';
 import { AuthenticationService } from './authentication.service';
 import { CredentialServiceService } from './credential-service.service';
 import { TokenStorageService } from './token-storage.service';
-import { ZaakService } from './zaak.service';
+
 
 
 @Injectable({

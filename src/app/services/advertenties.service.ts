@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Advertenties} from '../models/advertenties';
+import {share} from 'rxjs/operators';
+import {Zaak} from '../models/zaak';
 
 
 
@@ -16,19 +18,20 @@ export class AdvertentiesService {
               private router: Router) {
   }
 
-  saveAdvertentie(advertentie: Advertenties){
-    return this.http.post<Advertenties>(ADVERTENTIE_URL, advertentie);
-  }
 
   getAllAdvertenties(){
     return this.http.get<Advertenties[]>(ADVERTENTIE_URL);
   }
-
-  updateAdvertentie(adId,advertentie: Advertenties) {
-    return this.http.put<Advertenties>(ADVERTENTIE_URL +"/"+ adId, advertentie);
+  getAdvertentieById(adNo: number) {
+    return this.http.get<Advertenties>(ADVERTENTIE_URL+"/"+adNo);
   }
-
-  deleteAdvertentei(id: number) {
-    return this.http.delete(ADVERTENTIE_URL +"/"+id);
+  getAdvertentiesLength(){
+    return this.http.get<number>(ADVERTENTIE_URL+"/"+"AdvertentiesLength");
+  }
+  getZaakByAdvertentieId(adNo: number) {
+    return this.http.get<Zaak>(ADVERTENTIE_URL+"/Zaak/"+adNo);
+  }
+  saveAdvertentie(advertentie: Advertenties){
+    return this.http.post<Advertenties>(ADVERTENTIE_URL, advertentie);
   }
 }

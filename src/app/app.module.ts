@@ -27,6 +27,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
 import { ZakenKlantLijstComponent } from './components/zaken-klant-lijst/zaken-klant-lijst.component';
 import { BestellenComponent } from './components/bestellen/bestellen.component';
+import { InkomsComponent } from './components/inkoms/inkoms.component';
 import { BestellingOverzichtComponent } from './components/bestelling-overzicht/bestelling-overzicht.component';
 import { BestellingOverzichtKlantComponent } from './components/bestelling-overzicht-klant/bestelling-overzicht-klant.component';
 import { CalendarsComponent } from './components/calendars/calendars.component';
@@ -36,6 +37,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
 ]);
+
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReservatiesComponent,
     ZakenKlantLijstComponent,
     BestellenComponent,
+    InkomsComponent,
     BestellingOverzichtComponent,
     BestellingOverzichtKlantComponent,
     CalendarsComponent,

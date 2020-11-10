@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Uitbater} from '../models/uitbater';
 import {Klant} from '../models/klant';
+import { share } from 'rxjs/operators';
 
 const KLANT_URL = 'http://localhost:8080/klanten/';
 const UITBATER_URL = 'http://localhost:8080/uitbaters/';
@@ -21,7 +22,7 @@ export class CredentialServiceService {
     // let httpHeaders = new HttpHeaders({
     //   'Content-Type': 'application/json',
     // });
-    return this.http.get<Klant>(KLANT_URL + email);
+    return this.http.get<Klant>(KLANT_URL + email).pipe(share());
   }
 
   getOwnerCredentials(email: string) {
@@ -40,5 +41,6 @@ export class CredentialServiceService {
   updateKlant(email, klant: Klant) {
     return this.http.put<Klant>(KLANT_URL + email, klant);
   }
+
 
 }

@@ -6,13 +6,14 @@ p{
   font-size: 9px;
 }
 .ad-style{
-  border-radius: 2em 2em 0.5em 0.5em;
+  background: transparent !important;
+  border-radius: 1em 1em 1em 1em;
   border-color: whitesmoke !important;
 }
 .ad-container{
   height: 325px;
   width: 200px;
-  background: #C4C0C0;
+  background: transparent;
   border-radius: 2rem;
   border-color: whitesmoke !important;
 }

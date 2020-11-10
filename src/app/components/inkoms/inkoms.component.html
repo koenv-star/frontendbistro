@@ -1,0 +1,55 @@
+<div class="container text-center">
+  <ng-container>
+    <h5>Overzicht Inkoms van Mijn Zaken</h5>
+  </ng-container>
+  <hr class="accent my-5"/>
+
+  <div class="container justify-content-start text-left ml-5  ">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 d-flex justify-content-center ">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col"><i class="fas fa-store-alt mr-2 text-primary"></i> Zaak Naam</th>
+              <th scope="col"><i class="fas fa-chart-line mr-2 text-primary"></i> Inkom</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr *ngFor="let s of inkomList" >
+              <th scope="row">{{s.zaakNaam}}</th>
+              <td>{{s.totalEarning}}</td>
+            </tr>
+            <tr>
+              <th scope="row"><i class="fas fa-cash-register text-primary mr-2"></i>Totaal </th>
+              <td>{{this.totalInkom}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<!--    <div class="container  ">-->
+<!--      <ul *ngFor="let s of inkomList" class="list-unstyled">-->
+
+<!--        <li>-->
+<!--          <i class="fas fa-store-alt mr-2 text-primary"></i>{{s.zaakNaam}}-->
+<!--        </li>-->
+
+<!--        <li>-->
+<!--          <i class="fas fa-chart-line mr-2 text-primary"></i> Inkom: {{s.totalEarning}}-->
+<!--        </li>-->
+
+<!--      </ul>-->
+<!--      <div class="mt-3 mb-3">-->
+<!--      <ng-container >-->
+<!--        <i class="fas fa-cash-register text-primary mr-2"></i> Total Inkom: {{this.totalInkom}}-->
+<!--      </ng-container>-->
+<!--      </div>-->
+<!--    </div>-->
+
+  </div>
+
+
+
+</div>

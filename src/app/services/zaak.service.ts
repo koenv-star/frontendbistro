@@ -17,6 +17,9 @@ export class ZaakService {
   }
 
   getAllZaken(): Observable<Zaak[]> {
+    return this.http.get<Zaak[]>(this.zaakBaseUrl);
+  }
+  getAllZakenForDisplay(): Observable<Zaak[]> {
     return this.http.get<Zaak[]>(this.zaakBaseUrl + '/display');
   }
 

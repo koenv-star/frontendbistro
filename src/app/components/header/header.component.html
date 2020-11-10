@@ -29,7 +29,7 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="">Inkoms</a>
+        <a class="nav-link" routerLink="/inkoms">Inkoms</a>
       </li>
 
       <li class="nav-item active">
@@ -40,12 +40,16 @@
         <a class="nav-link" routerLink="allZaken">Reserveer/Bestel</a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/zaken-dichtbij">Kaart</a>
+      </li>
+
       <li class="nav-item active">
-        <a class="nav-link" routerLink="" alt="krediet" title="Mijn Krediet">
+        <a class="nav-link" routerLink="/krediet" alt="krediet" title="Mijn Krediet">
           <i class="fas fa-euro-sign"></i>
 
         </a>
-        <p style="font-size: 6px;" *ngIf="uitbater.krediet">{{uitbater.krediet}} </p>
+        <p style="font-size: 8px;" *ngIf="uitbater.krediet">{{uitbater.krediet}} </p>
       </li>
 
       <li class="nav-item active">
@@ -86,16 +90,17 @@
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" routerLink="" alt="krediet" title="Mijn Krediet">
+        <a class="nav-link" routerLink="/krediet" alt="krediet" title="Mijn Krediet">
           <i class="fas fa-euro-sign"></i>
         </a>
+        <p style="font-size: 8px;">{{this.klant.krediet}}</p>
       </li>
 
       <li class="nav-item active">
         <a class="nav-link" routerLink="/MyAccount" alt="Mijn Account" title="Mijn Account">
           <i class="far fa-user-circle"></i>
         </a>
-          <p>Welkom {{this.klant.voornaam}}</p>
+          <p style="font-size: 6px;">Welkom {{this.klant.voornaam}}</p>
 
       </li>
 
