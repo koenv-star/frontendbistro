@@ -17,6 +17,7 @@ import { BestellenComponent } from './components/bestellen/bestellen.component';
 import {InkomsComponent} from './components/inkoms/inkoms.component';
 import { BestellingOverzichtComponent } from './components/bestelling-overzicht/bestelling-overzicht.component';
 import { BestellingOverzichtKlantComponent } from './components/bestelling-overzicht-klant/bestelling-overzicht-klant.component';
+import {KredietComponent} from './components/krediet/krediet.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'inkoms', component: InkomsComponent},
   { path: 'zaak/:zaakNaam/bestellingen', component: BestellingOverzichtComponent},
   { path: 'klant/bestellingen', component: BestellingOverzichtKlantComponent},
+  { path: 'krediet', component: KredietComponent}
 
 ];
 

@@ -53,6 +53,7 @@ import { BestellingOverzichtKlantComponent } from './components/bestelling-overz
     BestellingOverzichtComponent,
     BestellingOverzichtKlantComponent,
 
+
   ],
   imports: [
     BrowserModule,
