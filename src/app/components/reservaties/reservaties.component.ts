@@ -89,11 +89,12 @@ export class ReservatiesComponent implements OnInit {
           editable: this.isEditable(), ////Determines whether the events on the calendar can be modified.
           selectable: true, //Allows a user to highlight multiple days or timeslots by clicking and dragging
           selectMirror: true,
-          validRange: {
-            start: Date.now(),
-          },
+          // validRange: {
+          //   start: Date.now(),
+          // },
           dayMaxEvents: true,
           select: this.handleDateSelect.bind(this),
+          selectConstraint:"businessHours",
           eventClick: this.handleEventClick.bind(this),
           eventsSet: this.handleEvents.bind(this),
           headerToolbar: {
@@ -188,6 +189,8 @@ export class ReservatiesComponent implements OnInit {
         (1000 * 60 * 60)) %
         24
     );
+
+    if (hours<=3) {
     let minutes = Math.floor(
       ((selectInfo.end.getTime() - selectInfo.start.getTime()) / (1000 * 60)) %
         60
@@ -207,7 +210,9 @@ export class ReservatiesComponent implements OnInit {
           end: selectInfo.endStr,
           resourceId: selectInfo.resource.id,
         });
-      });
+      });}
+
+      else{ alert("Reservatie moet minder lang dan 4u zijn! ")}
   }
 
   handleEventClick(clickInfo: EventClickArg) {
