@@ -28,7 +28,7 @@ export class AddmenuComponent implements OnInit {
         naam: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(5)]),
         categorie: new FormControl('COCKTAILS'),
         beschrijving: new FormControl('', [Validators.required, JammikValidators.notOnlyWhitespace, Validators.minLength(20)]),
-        prijs: new FormControl('', [Validators.required, JammikValidators.cannotBeNegative, Validators.pattern(/^[0-9]{1,}.[0-9]{2}$/)])
+        prijs: new FormControl('', [Validators.required, JammikValidators.cannotBeNegative, Validators.pattern(/^\d{1,}(\.\d{0,2})?$/)])
       })
     });
   }
