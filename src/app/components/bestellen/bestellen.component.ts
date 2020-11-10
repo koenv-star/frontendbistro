@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BestellingVerzameling } from 'src/app/models/bestelling-verzameling';
 import { Categorie } from 'src/app/models/categorie.enum';
 import { BestellenService } from 'src/app/services/bestellen.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-bestellen',
@@ -13,8 +14,9 @@ export class BestellenComponent implements OnInit {
   zaken: string[];
   total: number = 0;
   message: string;
+  user = this.tokenService.getUser();
 
-  constructor(private bestellenService:BestellenService) {
+  constructor(private bestellenService:BestellenService, private tokenService:TokenStorageService) {
     this.update();
     this.besVer.bestellingen.forEach(x => {
       this.total += (x.aantal * x.menuItem.prijs);
@@ -70,7 +72,7 @@ export class BestellenComponent implements OnInit {
   }
 
   process(){
-    this.bestellenService.postBestelling(this.total, this.message);
+    this.bestellenService.postBestelling(this.total, this.message, this.user);
     document.getElementById("bag").innerHTML = "";
     this.message = "";
     this.bestellenService.saveMessage(this.message);
