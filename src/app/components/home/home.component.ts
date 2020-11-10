@@ -62,11 +62,11 @@ export class HomeComponent implements OnInit {
         console.log(this.ads[this.adsNo].numberOfShow = this.ads[this.adsNo].numberOfShow - 1);
 
         //help with the service of Advertisement we also updating our database
-        this.serviceAdvertentie.updateAdvertentie(
-          this.ads[this.adsNo].id,
-          this.ads[this.adsNo]).subscribe(data => {
-          console.log(data);
-        });
+        // // this.serviceAdvertentie.updateAdvertentie(
+        //   this.ads[this.adsNo].id,
+        //   this.ads[this.adsNo]).subscribe(data => {
+        //   console.log(data);
+        // });
       } else {
         // need to delete this add because the showing number is 0
         // Delete method call and push the id to delete from database

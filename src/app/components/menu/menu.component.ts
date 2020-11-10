@@ -6,6 +6,7 @@ import { TokenStorageService } from '../../services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { ZaakService } from 'src/app/services/zaak.service';
 import { MenuService } from 'src/app/services/menu.service';
+import { Location } from '@angular/common';
 import { BestellenService } from 'src/app/services/bestellen.service';
 import { Bestelling } from 'src/app/models/bestelling';
 import { Zaak } from 'src/app/models/zaak';
@@ -33,6 +34,7 @@ export class MenuComponent implements OnInit {
     private menuservice: MenuService,
     private serviceToken: TokenStorageService,
     private route: ActivatedRoute,
+    private _location: Location,
     private bestellenService:BestellenService,
   ) {}
 
@@ -108,6 +110,10 @@ export class MenuComponent implements OnInit {
     mandje.style.animation = "shake 1s ease ";
     setTimeout(() => {mandje.style.animation = "";}, 1000);
     
+  }
+  
+  goback() {
+    this._location.back();
   }
 }
 
