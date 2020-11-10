@@ -116,9 +116,9 @@ export class ZakenKlantLijstComponent implements OnInit {
     //     })
     // })
 
-    this.placesService.getCoordinatesFromAddress(this.zaken[4].adres)
+    this.placesService.getCoordinatesFromAddress(this.zaken[1].adres)
       .subscribe(data => {
-        this.addMarker(this.zaken[4], data.bbox[2], data.bbox[3], 'shop');
+        this.addMarker(this.zaken[1], data.bbox[2], data.bbox[3], 'shop');
       })
   }
 
