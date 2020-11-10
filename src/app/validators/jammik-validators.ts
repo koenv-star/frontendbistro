@@ -8,10 +8,8 @@ export class JammikValidators {
   static notOnlyWhitespace(control: FormControl): ValidationErrors {
 
     if (control.value != null && control.value.trim().length === 0) {
-
       return { 'notOnlyWhitespace': true };
     } else {
-
       return null;
     }
   }
@@ -41,6 +39,13 @@ export class JammikValidators {
 
   else
     return null;
+  }
+
+  static cannotBeNegative(control: FormControl): ValidationErrors {
+
+    let value: number = Number.parseFloat(control.value);
+    if(value <= 0) return { 'valueCannotBeNegative': true };
+    else return null;
   }
 
   // file extension validation

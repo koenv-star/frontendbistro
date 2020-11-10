@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Zaak } from './models/zaak';
 import { PlacesService } from './services/places.service';
+import { TokenStorageService } from './services/token-storage.service';
+import { ZaakService } from './services/zaak.service';
 
 /**
  * Gemaakt door Jan
@@ -11,10 +14,16 @@ import { PlacesService } from './services/places.service';
 })
 export class AppComponent implements OnInit {
   title = 'jammik';
+  user: any;
 
-  constructor(private placesService: PlacesService) {  }
+  static zakenBijUitbater: Zaak[];
+
+  constructor(private placesService: PlacesService,
+              private zaakService: ZaakService,
+              private tokenService: TokenStorageService) {  }
 
   ngOnInit(): void {
+    this.user = this.tokenService.getUser();
     this.loadAllPlaces();
   }
 

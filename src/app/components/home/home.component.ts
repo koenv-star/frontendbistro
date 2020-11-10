@@ -56,9 +56,11 @@ export class HomeComponent implements OnInit {
     //getting the zaak Informations from Data base
 
 
+
     if (this.range != 0) {
       this.isAd =true;
       this.getZaakEnAdvertentie(this.adsNo);
+
 
     } else {
       this.adImg = 'ads.svg';

@@ -14,11 +14,10 @@ export class AllZakenComponent implements OnInit {
   constructor(zaakservice:ZaakService) {
     this.zaken = new Array();
     zaakservice.getAllZaken().subscribe(res => {res.forEach(x => {
-      this.zaken[this.zaken.length] = new Zaak(x.id, x.naam, x.description,x.imageURL,null,null,null,null,null,null,null,null,null);
+      this.zaken[this.zaken.length] = new Zaak(x.id, x.naam, x.text,x.imageURL,null,null,null,null,null,null,null,null,null);
     })});
    }
 
   ngOnInit(): void {
   }
-
 }

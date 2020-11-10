@@ -17,8 +17,8 @@ import { ZaakService } from 'src/app/services/zaak.service';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/models/menu';
 import { MenuItem } from 'src/app/models/menu-item';
-import { Categorie } from 'src/app/models/categorie.enum';
 import { isNull } from 'util';
+import { User } from 'src/app/models/user';
 
 /**
  * Gemaakt door Jan
@@ -58,6 +58,7 @@ export class AddEditEstablishmentComponent implements OnInit {
 
   // zaak
   zaak: Zaak;
+  zakenNamen: string[] = new Array();
 
   constructor(private formBuilder: FormBuilder,
               private placesService: PlacesService,
@@ -68,6 +69,12 @@ export class AddEditEstablishmentComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+
+    // get uitbater
+    this.getUitbaterEmail();
+
+    // get zaken namem
+    this.getZakenNamen();
 
     // build the form
     this.buildForm();
@@ -90,12 +97,23 @@ export class AddEditEstablishmentComponent implements OnInit {
     this.inputFileLabel = document.querySelector('.custom-file-label') as HTMLElement;
   }
 
+  getUitbaterEmail(): void {
+    this.uitbaterEmail = this.tokenService.getUser().email;
+  }
+
+  getZakenNamen(): void {
+    this.zaakService.getZakenBijUitbaterEmail(this.uitbaterEmail)
+      .subscribe(data => {
+        data.forEach(d => this.zakenNamen.push(d.naam));
+      });
+  }
+
   // build the form for adding an establishment
   buildForm(): void {
     this.addEstablishmentFormGroup = this.formBuilder.group({
 
       establishment: this.formBuilder.group({
-        establishmentName: new FormControl('', [Validators.required, Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        establishmentName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), JammikValidators.notOnlyWhitespace]),
         parking: new FormControl()
       }),
 
@@ -107,7 +125,7 @@ export class AddEditEstablishmentComponent implements OnInit {
         province: new FormControl('Antwerpen', [Validators.required]),
         community: new FormControl('Aartselaar', [Validators.required]),
         zipcode: new FormControl(2630, [Validators.required]),
-        street: new FormControl('Acacialaan', [Validators.required, Validators.pattern(new RegExp(/^(?:(?!_).)*$/)), Validators.minLength(2), JammikValidators.notOnlyWhitespace]),
+        street: new FormControl('Acacialaan', [Validators.required, JammikValidators.notOnlyWhitespace]),
         bus: new FormControl('1', [Validators.required, JammikValidators.notOnlyWhitespace,
           JammikValidators.cannotBeGeen])
       }),
@@ -163,6 +181,12 @@ export class AddEditEstablishmentComponent implements OnInit {
   get sluitingsuurZo() { return this.addEstablishmentFormGroup.get('openingHours.sluitingsuurZo'); }
 
   get image() { return this.addEstablishmentFormGroup.get('image.image'); }
+
+  // check for duplicate zaak name
+  checkForDuplicateName(event) {
+    if(this.zakenNamen.includes(event.target.value.trim()))
+      this.establishmentName.setErrors({ 'noDuplicateName': true })
+  }
 
   // address
   onChangeProvince(event): void {
@@ -291,14 +315,10 @@ export class AddEditEstablishmentComponent implements OnInit {
     let btn = event.target;
     if(btn.innerText === 'Gesloten') {
       this.openingHours[begin].setErrors(null);
-      // this.openingHours[begin].setValue('00:00');
-      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'hidden';
       this.timeInputs[end].style.visibility = 'hidden';
       btn.innerText = 'Open';
     } else {
-      // this.openingHours[begin].setValue('00:00');
-      // this.openingHours[end].setValue('00:00');
       this.timeInputs[begin].style.visibility = 'visible';
       this.timeInputs[end].style.visibility = 'visible';
       btn.innerText = 'Gesloten';
@@ -345,8 +365,8 @@ export class AddEditEstablishmentComponent implements OnInit {
       if(input.value.length < 1) {
         this.tafelStoelFeedback = 'Er zijn lege velden';
         return false;
-      } else if (input.value === '0') {
-        this.tafelStoelFeedback = 'De waarde kan niet 0 zijn';
+      } else if (Number.parseInt(input.value) <= 0) {
+        this.tafelStoelFeedback = 'De waarde kan niet 0 of kleiner zijn';
         return false;
       }
     }
@@ -459,21 +479,6 @@ export class AddEditEstablishmentComponent implements OnInit {
     return tafels;
   }
 
-  getUitbaterEmail(): void {
-
-    let user = this.tokenService.getUser();
-    if (!isNull(user)) {
-      this.authService.userChange$.next({email: user.email, role: user.role});
-      this.accountService.updateUser();
-      this.accountService.uitbater$.asObservable()
-        .subscribe(data => {
-          this.uitbaterEmail = data.email;
-          this.makeZaak();
-          this.postZaak();
-      });
-    }
-  }
-
   getMenu(): Menu {
     let menuItems: MenuItem[] = [];
     return new Menu(0, menuItems);
@@ -499,7 +504,8 @@ export class AddEditEstablishmentComponent implements OnInit {
     if(!this.checkAmountOfTableInputs()) return;
     if(!this.checkForDuplicateTafelStoelValues()) return;
 
-    this.getUitbaterEmail();
+    this.makeZaak();
+    this.postZaak();
   }
 
   postZaak(): void {
@@ -510,8 +516,9 @@ export class AddEditEstablishmentComponent implements OnInit {
 
     this.zaakService.postZaak(formData)
       .subscribe(data => {
-        this.router.navigateByUrl('');
         window.sessionStorage.removeItem('zaak');
-      });
+      })
+
+    this.router.navigate(['/zaken']);
   }
 }
