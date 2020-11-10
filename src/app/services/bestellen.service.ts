@@ -64,16 +64,13 @@ export class BestellenService {
     window.sessionStorage.setItem(this.ZKEY,JSON.stringify(zaakNamen));
   }
 
-  public postBestelling(total:number, message:string){
-    let user = this.tokenService.getUser();
-    for(let i = 0; i < 10 && user == null; i++) {
-      setTimeout(() => {}, 500)
-    }
+  public postBestelling(total:number, message:string, user){
+    let email:string = user.email;
     if (user !== null) {
       this.service.userChange$.next({email: user.email,role: user.role});
       this.serviceAccount.updateUser();
       let besVer:BestellingVerzameling = this.getBestellingen();
-      besVer.klant = user.email;
+      besVer.klant = email;
       window.sessionStorage.removeItem(this.BVKEY);
       window.sessionStorage.removeItem(this.ZKEY);
       if (user.role == "ROLE_UITBATER") {
