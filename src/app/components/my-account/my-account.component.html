@@ -27,7 +27,7 @@
             </div>
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <ng-container><i class="fas fa-info-circle mr-2"></i>Rol: </ng-container>
+                <ng-container><i class="fas fa-info-circle mr-2"></i>Rol: Uitbater</ng-container>
 
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
@@ -43,7 +43,7 @@
                 <ng-container><i class="fa fa-cutlery mr-2" aria-hidden="true"></i>Reservaties :
                 </ng-container>
                 <ng-container *ngFor="let reservatie of this.uitbater.reservaties">
-                  <li class="ml-2" style="list-style: none;">{{reservatie}}</li> </ng-container>
+                  <li class="ml-2" style="list-style: none;">{{reservatie.tijdstip.toString().substring(0,reservatie.tijdstip.toString().length-3).replace("T"," ")}},</li> </ng-container>
 
               </div>
 
