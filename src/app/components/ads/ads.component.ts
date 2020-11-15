@@ -148,10 +148,10 @@ export class AdsComponent implements OnInit {
       this.saveAdvertentie();
       this.updateKrediet();
 
-      this.router.navigateByUrl("").finally(()=> alert("Mooi, uw aankoop is perfekt gedaan!"));
+      this.router.navigateByUrl("").finally(()=> alert("Mooi, uw aankoop is geslaagd"));
 
     } else {
-      alert('Uw krediet niet genoug, reload AUB! ');
+      alert('Uw krediet is niet voldoende! ');
     }
 
 

@@ -13,13 +13,13 @@
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i
+                  <i class="fa fa-user-circle-o mr-2 pt-1" aria-hidden="true"></i
                   >Naam : {{ uitbater.naam }} {{ uitbater.voornaam }}
                 </ng-container>
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
+                  <i class="fa fa-envelope mr-2 pt-1" aria-hidden="true"></i> E-mail
                   : {{ uitbater.email }}
                 </ng-container>
               </div>
@@ -27,13 +27,13 @@
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container
-                  ><i class="fas fa-info-circle mr-2"></i>Rol:
+                  ><i class="fas fa-info-circle mr-2 pt-1"></i>Rol:
                   Uitbater</ng-container
                 >
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fas fa-euro-sign mr-2"></i> Kredieten :
+                  <i class="fas fa-euro-sign mr-2 pt-1"></i> Kredieten :
                   {{ uitbater.krediet }}
                 </ng-container>
               </div>
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container
-                  ><i class="fa fa-cutlery mr-2" aria-hidden="true"></i
+                  ><i class="fa fa-cutlery mr-2 pt-1" aria-hidden="true" ></i
                   >Reservaties :
                 </ng-container>
                 <ng-container
@@ -60,7 +60,7 @@
 
               <div class="row col-lg-12 d-flex justify-content-start mx-3 mb-5">
                 <ng-container>
-                  <i class="fa fa-briefcase mr-2" aria-hidden="true"></i>Mijn
+                  <i class="fa fa-briefcase mr-2 pt-1" aria-hidden="true"></i>Mijn
                   Zaken:
                 </ng-container>
                 <ng-container *ngFor="let zaak of uitbater.zaken">
@@ -73,13 +73,13 @@
             <div class="row">
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i
+                  <i class="fa fa-user-circle-o mr-2 pt-1" aria-hidden="true"></i
                   >Naam : {{ klant.naam }} {{ klant.voornaam }}
                 </ng-container>
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
                 <ng-container>
-                  <i class="fa fa-envelope mr-2" aria-hidden="true"></i> E-mail
+                  <i class="fa fa-envelope mr-2 pt-1" aria-hidden="true"></i> E-mail
                   : {{ klant.email }}
                 </ng-container>
               </div>
@@ -92,7 +92,7 @@
                 </ng-container>
               </div>
               <div class="row col-lg-12 d-flex justify-content-start mx-3">
-                <i class="fa fa-cutlery mr-2" aria-hidden="true"></i>Reservaties:
+                <i class="fa fa-cutlery mr-2 pt-1" aria-hidden="true"></i>Reservaties:
                 <ng-container
                   *ngFor="let reservatie of this.klant.reservaties"
                 >

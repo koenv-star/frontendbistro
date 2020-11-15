@@ -51,8 +51,8 @@ export class HomeComponent implements OnInit {
   private showAdvertentie() {
 
     //Getting random ads number according the ads list
-    this.adsNo = Math.floor((Math.random() * this.range));
-    console.log(this.adsNo);
+    this.adsNo = Math.ceil((Math.random() * this.range));
+    console.log("random adsNR",this.adsNo);
     //getting the zaak Informations from Data base
 
 

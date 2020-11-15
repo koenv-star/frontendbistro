@@ -23,8 +23,8 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { Dag } from 'src/app/models/dag';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Reservatieresponse } from 'src/app/models/reservatieresponse';
-
-
+import { OpeningsUren } from 'src/app/models/openings-uren';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reservaties',
@@ -39,11 +39,12 @@ export class ReservatiesComponent implements OnInit {
   calendarOptions: CalendarOptions;
   events = [];
   currentEvents: EventApi[] = [];
-  nonworkingdays: any[];
+  nonworkingdays: Array<number>;
   hiddendays: boolean = false;
   newreservatie: Reservatie;
   newreservaties: Reservatie[] = new Array();
   newreservatierespons: Reservatieresponse;
+  tafelslijst: Array<any>;
   constructor(
     private route: ActivatedRoute,
     private reservatiesservice: ReservatieService,
@@ -57,14 +58,21 @@ export class ReservatiesComponent implements OnInit {
     this.getZaak();
   }
 
-
   getZaak() {
     this.zaakService
       .getZaak(Number(this.route.snapshot.paramMap.get('id')))
       .subscribe((data) => {
         this.zaak = data;
         this.dagen = data.openingsUren.dagen;
+        const openingsuren = data.openingsUren.dagen.map((x) =>
+          x.openingsUur.toString()
+        );
+
+        const sluitingsUren= data.openingsUren.dagen.map((x) =>
+          x.sluitingsUur.toString()
+        );
         this.reservaties = data.reservaties;
+        this.tafelslijst = data.tafels;
         this.tafels = this.aantaltafelsmetzelfdeaantalstoelen();
         this.calendarOptions = {
           plugins: [
@@ -80,37 +88,57 @@ export class ReservatiesComponent implements OnInit {
           timeZone: 'UTC',
           initialView: 'resourceTimeGridDay',
           schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-          slotMinTime: '10:00:00',
-          slotMaxTime: '23:00:00',
+          slotMinTime: this.defineminslot(openingsuren),
+          slotMaxTime: this.definemaxslot(sluitingsUren),
           resourceAreaHeaderContent: 'Tafels',
           resources: this.defineResource(),
           initialEvents: this.initializeEvents(),
           weekends: true,
+          showNonCurrentDates: true,
           editable: this.isEditable(), ////Determines whether the events on the calendar can be modified.
           selectable: true, //Allows a user to highlight multiple days or timeslots by clicking and dragging
           selectMirror: true,
-          // validRange: {
-          //   start: Date.now(),
-          // },
+          selectAllow: this.onlyfuturedates.bind(this),
           dayMaxEvents: true,
           select: this.handleDateSelect.bind(this),
-          selectConstraint:"businessHours",
+          selectConstraint: 'businessHours',
           eventClick: this.handleEventClick.bind(this),
           eventsSet: this.handleEvents.bind(this),
-          headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right:
-              'resourceTimeGridDay,resourceTimeGridWeek,resourceTimelineMonth',
-          },
+          headerToolbar: this.defineHeaders(),
         };
       });
   }
 
+  defineminslot(openingsUren: string[]) {
+    const min = openingsUren.sort()[0];
+    return min;
+  }
+
+  definemaxslot(sluitingsUren: string[]) {
+    const max = sluitingsUren.sort().reverse()[0];
+    return max;
+  }
+
+  defineHeaders() {
+    if (this.tafelslijst.length < 5) {
+      return {
+        left: 'prev,next',
+        center: 'title',
+        right: 'resourceTimeGridDay,resourceTimeGridWeek,resourceTimelineMonth',
+      };
+    } else {
+      return {
+        left: 'prev,next',
+        center: 'title',
+        right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
+      };
+    }
+  }
+
   isEditable() {
     let role = this.tokenstorageService.getUser().role;
-    console.log(role);
-    return role == 'ROLE_UITBATER';
+    let email = this.tokenstorageService.getUser().email;
+    return role == 'ROLE_UITBATER' && this.zaak.email === email;
   }
 
   aantaltafelsmetzelfdeaantalstoelen() {
@@ -128,9 +156,8 @@ export class ReservatiesComponent implements OnInit {
   }
 
   ToggleOpeningDays() {
-    const { calendarOptions } = this;
     this.hiddendays = !this.hiddendays;
-    if (this.hiddendays) calendarOptions.hiddenDays = this.nonworkingdays;
+    if (this.hiddendays) this.calendarOptions.hiddenDays = this.nonworkingdays;
     else {
       this.calendarOptions.hiddenDays = [];
     }
@@ -151,6 +178,14 @@ export class ReservatiesComponent implements OnInit {
     }
 
     return resources;
+  }
+
+  onlyfuturedates(selectInfo: DateSelectArg) {
+    if (selectInfo.start.getTime() >= Date.now()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   initializeEvents() {
@@ -178,6 +213,7 @@ export class ReservatiesComponent implements OnInit {
     const calendarApi = selectInfo.view.calendar;
     const { calendarOptions } = this;
     calendarApi.unselect(); // clear date selection
+
     let tafelid = Number(selectInfo.resource.id);
     this.newreservatie.tafel = this.zaak.tafels.find((x) => x.id == tafelid);
     this.newreservatie.id = 0;
@@ -190,29 +226,30 @@ export class ReservatiesComponent implements OnInit {
         24
     );
 
-    if (hours<=3) {
-    let minutes = Math.floor(
-      ((selectInfo.end.getTime() - selectInfo.start.getTime()) / (1000 * 60)) %
-        60
-    );
+    if (hours <= 3) {
+      let minutes = Math.floor(
+        ((selectInfo.end.getTime() - selectInfo.start.getTime()) /
+          (1000 * 60)) %
+          60
+      );
 
-    this.newreservatie.uurMarge = { hours: hours, minutes: minutes };
-    this.newreservatie.totaal = this.newreservatie.tafel.stoelen;
-    this.newreservatierespons = new Reservatieresponse(this.newreservatie);
-    console.log(this.newreservatierespons);
-    this.reservatiesservice
-      .postReservatie(this.newreservatierespons)
-      .subscribe((data) => {
-        calendarApi.addEvent({
-          id: data.id.toString(),
-          title: 'Booked',
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          resourceId: selectInfo.resource.id,
+      this.newreservatie.uurMarge = { hours: hours, minutes: minutes };
+      this.newreservatie.totaal = this.newreservatie.tafel.stoelen;
+      this.newreservatierespons = new Reservatieresponse(this.newreservatie);
+      this.reservatiesservice
+        .postReservatie(this.newreservatierespons)
+        .subscribe((data) => {
+          calendarApi.addEvent({
+            id: data.id.toString(),
+            title: 'Booked',
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
+            resourceId: selectInfo.resource.id,
+          });
         });
-      });}
-
-      else{ alert("Reservatie moet minder lang dan 4u zijn! ")}
+    } else {
+      alert('Reservatie moet minder lang dan 4u zijn! ');
+    }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
@@ -222,14 +259,12 @@ export class ReservatiesComponent implements OnInit {
           `Are you sure you want to delete the event '${clickInfo.event.title}'`
         )
       ) {
-        console.log(clickInfo.event.id);
         this.reservatiesservice.deleteById(clickInfo.event.id).subscribe();
         clickInfo.event.remove();
       }
     }
   }
   handleEvents(events: EventApi[]) {
-    console.log(events);
 
     // events.forEach(event=>this.reservatiesservice.putReservatie())
     this.events.push(events);
@@ -238,12 +273,14 @@ export class ReservatiesComponent implements OnInit {
   defineOpeningsTijd() {
     const days = [];
     this.nonworkingdays = [1, 2, 3, 4, 5, 6, 0];
-
     for (let dag of this.dagen) {
       switch (dag.naam) {
         case 'Maandag':
         case 'Ma': {
-          this.nonworkingdays.shift();
+          var index = this.nonworkingdays.indexOf(1);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [1],
             startTime: dag.openingsUur, // 8am
@@ -253,7 +290,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Dinsdag':
         case 'Di': {
-          this.nonworkingdays.splice(1, 1);
+          var index = this.nonworkingdays.indexOf(2);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [2],
             startTime: dag.openingsUur, // 8am
@@ -263,7 +303,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Woensdag':
         case 'Wo': {
-          this.nonworkingdays.splice(2, 1);
+          var index = this.nonworkingdays.indexOf(3);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [3],
             startTime: dag.openingsUur, // 8am
@@ -273,6 +316,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Donderdag':
         case 'Do': {
+          var index = this.nonworkingdays.indexOf(4);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           this.nonworkingdays.splice(3, 1);
           days.push({
             daysOfWeek: [4],
@@ -283,7 +330,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Vrijdag':
         case 'Vrij': {
-          this.nonworkingdays.splice(4, 1);
+          var index = this.nonworkingdays.indexOf(5);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [5],
             startTime: dag.openingsUur, // 8am
@@ -293,7 +343,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Zaterdag':
         case 'Zat': {
-          this.nonworkingdays.splice(5, 1);
+          var index = this.nonworkingdays.indexOf(6);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [6],
             startTime: dag.openingsUur, // 8am
@@ -303,7 +356,10 @@ export class ReservatiesComponent implements OnInit {
         }
         case 'Zondag':
         case 'Zo': {
-          this.nonworkingdays.pop();
+          var index = this.nonworkingdays.indexOf(0);
+          if (index !== -1 && dag.sluitingsUur != dag.openingsUur) {
+            this.nonworkingdays.splice(index, 1);
+          }
           days.push({
             daysOfWeek: [0],
             startTime: dag.openingsUur, // 8am
@@ -316,12 +372,7 @@ export class ReservatiesComponent implements OnInit {
     return days;
   }
 
-
   get zaaknaam() {
     return this.zaak && this.zaak.naam ? this.zaak.naam : null;
-  }
-
-  get tafelslijst() {
-    return this.zaak && this.zaak.tafels ? this.zaak.tafels : null;
   }
 }
