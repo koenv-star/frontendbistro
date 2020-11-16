@@ -68,7 +68,8 @@ export class MenuComponent implements OnInit {
 
   slaMenuOp() {
     this.menuservice.slaMenuOp(this.menu).subscribe((data) => {
-      this.serviceToken.saveMenu(this.menu);
+      console.log(data);
+      this.serviceToken.saveMenu(data);
       location.reload();
     });
   }

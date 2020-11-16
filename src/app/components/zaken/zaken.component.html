@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div class="container py-5" *ngIf="zaken">
   <div class="row">
     <div class="col-lg-10 mx-auto col-12 text-center mb-3">
       <h1 class="mt-0 text-primary">Mijn zaken</h1>
@@ -11,12 +11,12 @@
     </div>
     <div class=" d-lg-inline-flex flex-wrap justify-content-center">
       <div
-      class="card card-body m-2"
+      class="card card-body m-2 "
       *ngFor="let zaak of zaken"
       routerLink="/zaken/{{ zaak.id }}">
           <div class="container">
-            <img src="assets/images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top">
-            <h5 class="font-weight-bold">{{ zaak.naam }}</h5>
+            <img src="assets/images/restaurants/{{zaak.imageURL}}" alt="afbeelding van de zaak" class="img-fluid m-auto card-img-top" >
+            <h5 class="font-weight-bold mt-2">{{ zaak.naam }}</h5>
             <span class="text-truncate">Rating: </span>
             <span
             *ngFor="let i of [].constructor(zaak.rating)"

@@ -24,10 +24,10 @@
             </div>
         </div>
         <div class="row d-flex justify-content-lg-start justify-content-center">
-            <button class="btn btn-custom my-4" routerLink="/menu/{{zaak.naam}}" style="width: 30%;">Menu</button>
+            <button class="btn btn-primary my-4" routerLink="/menu/{{zaak.naam}}" style="width: 30%;">Menu</button>
         </div>
         <div class="row d-flex justify-content-lg-start justify-content-center">
-            <button class="btn btn-custom my-4" routerLink="./reservaties" style="width: 30%;" >Reserveer</button>
+            <button class="btn btn-primary my-4" routerLink="./reservaties" style="width: 30%;" >Reserveer</button>
         </div>
         <div *ngIf="user.email == zaak.email" class="row d-flex justify-content-lg-start justify-content-center">
             <button class="btn btn-custom my-4" style="width: 30%;" routerLink="/zaak/{{zaak.naam}}/bestellingen">Bestelling overzicht</button>
